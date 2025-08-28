@@ -5,8 +5,9 @@ mod svg;
 pub use generated::*;
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::Rect;
     use crate::color::Color;
+    use crate::svg::Svg;
 
     #[test]
     fn test_rect() {
@@ -18,5 +19,11 @@ mod tests {
         assert_eq!(rect.height, 50.0);
         assert_eq!(rect.fill, Some(Color::Aqua));
         println!("{}", rect);
+    }
+
+    #[test]
+    fn test_rect_in_svg() {
+        let svg = Svg::new(500.0, 500.0).add_element(Rect::new(20.0, 20.0));
+        println!("{}", svg);
     }
 }

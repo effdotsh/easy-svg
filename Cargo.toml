@@ -9,7 +9,7 @@ serde_yaml = "0.9"
 
 [lints.rust]
 unused_variables = "deny"
-dead_code = "deny"
+#dead_code = "deny"
 unused_imports = "deny"
 
 [build-dependencies]

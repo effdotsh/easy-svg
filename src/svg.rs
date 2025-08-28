@@ -1,6 +1,6 @@
 use crate::Shape;
 use serde::{Deserialize, Serialize};
-use std::fmt::Debug;
+use std::fmt::{Debug, Display};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(tag = "type")]
@@ -64,8 +64,8 @@ impl Svg {
     }
 }
 
-impl ToString for Svg {
-    fn to_string(&self) -> String {
+impl Display for Svg {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let children_svg = self
             .children
             .iter()
@@ -76,13 +76,16 @@ impl ToString for Svg {
             .collect::<Vec<String>>()
             .join("");
 
-        format!(
-            r#"<svg width="{}" height="{}" x="{}" y="{}" xmlns="http://www.w3.org/2000/svg">{}</svg>"#,
-            self.width,
-            self.height,
-            self.base.transform.x.unwrap_or(0.0),
-            self.base.transform.y.unwrap_or(0.0),
-            children_svg,
-        )
+        let mut str = format!(r#"<svg width="{}" height="{}""#, self.width, self.height,);
+        if let Some(x) = &self.x {
+            str.push_str(&format!(r#" x="{}""#, x));
+        }
+        if let Some(y) = &self.y {
+            str.push_str(&format!(r#" y="{}""#, y));
+        }
+        str.push_str(">");
+        str.push_str(&children_svg);
+        str.push_str("</svg>");
+        write!(f, "{}", str)
     }
 }

@@ -50,9 +50,23 @@ use std::fmt::Display;"#,
         generated_code.push_str(&generate_struct(element_name, element));
         generated_code.push_str(&generate_impl(element_name, element));
         generated_code.push_str(&generate_to_string(element_name, element));
+        generated_code.push_str(&generate_shape_from(element_name));
     }
 
     fs::write("src/generated.rs", format_rust_code(&generated_code)).unwrap();
+}
+
+fn generate_shape_from(element_name: &String) -> String {
+    let struct_name = capitalize(element_name);
+    format!(
+        "
+impl From<{}> for Shape {{
+    fn from({}: {}) -> Self {{
+        Self::{}({})
+    }}
+}}",
+        struct_name, element_name, struct_name, struct_name, element_name
+    )
 }
 
 fn generate_shape_enum(config: &Config) -> String {
@@ -159,7 +173,7 @@ fn generate_to_string(name: &str, element: &Element) -> String {
         ));
         generated_code.push_str("}")
     }
-    generated_code.push_str(r#"svg.push_str(" />");"#);
+    generated_code.push_str(r#"svg.push_str("/>");"#);
 
     generated_code.push_str(r#"write!(f, "{}", svg)"#);
     generated_code.push_str("}}");
