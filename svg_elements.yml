@@ -1,7 +1,22 @@
+derives:
+  FillAndStroke:
+    fields:
+      fill: { type: "Option<Color>" }
+      stroke: { type: "Option<Color>" }
+  xy:
+    fields:
+      x: { type: "Option<f64>" }
+      y: { type: "Option<f64>" }
+
 elements:
   rect:
+    derives: [ "FillAndStroke", "xy" ]
     fields:
       width: { type: "Option<f64>" }
       height: { type: "Option<f64>" }
-      fill: { type: "Option<Color>" }
-      stroke: { type: "Option<Color>" }
+  circle:
+    derives: [ "FillAndStroke" ]
+    fields:
+      cx: { type: "Option<f64>" }
+      cy: { type: "Option<f64>" }
+      r: { type: "Option<f64>" }

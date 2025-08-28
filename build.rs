@@ -5,22 +5,30 @@ use std::fs;
 #[derive(Deserialize)]
 struct Config {
     elements: HashMap<String, Element>,
+    derives: Option<HashMap<String, Derivable>>,
 }
 
-#[derive(Deserialize)]
-struct Element {
-    constructor_params: Vec<Param>,
+#[derive(Deserialize, Clone)]
+struct Derivable {
     fields: HashMap<String, Field>,
 }
 
 #[derive(Deserialize)]
+struct Element {
+    derives: Option<Vec<String>>,
+    fields: HashMap<String, Field>,
+    #[serde(default)]
+    constructor_params: Vec<Param>,
+}
+
+#[derive(Deserialize, Clone)]
 struct Param {
     name: String,
     #[serde(rename = "type")]
     param_type: String,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Clone)]
 struct Field {
     #[serde(rename = "type")]
     field_type: String,
@@ -28,11 +36,25 @@ struct Field {
 }
 
 fn main() {
-    println!("cargo:rerun-if-changed=svg_elements.yaml");
+    println!("cargo:rerun-if-changed=svg_elements.yml");
 
     let yaml_content =
-        fs::read_to_string("svg_elements.yml").expect("Failed to read svg_elements.yaml");
-    let config: Config = serde_yaml::from_str(&yaml_content).expect("Failed to parse YAML");
+        fs::read_to_string("svg_elements.yml").expect("Failed to read svg_elements.yml");
+    let mut config: Config = serde_yaml::from_str(&yaml_content).expect("Failed to parse YAML");
+
+    if let Some(derives) = &config.derives {
+        for element in config.elements.values_mut() {
+            if let Some(element_derives) = &element.derives {
+                for derive_name in element_derives {
+                    if let Some(derivable) = derives.get(derive_name) {
+                        for (field_name, field) in &derivable.fields {
+                            element.fields.insert(field_name.clone(), field.clone());
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     let mut generated_code = String::new();
     generated_code.push_str(
@@ -152,7 +174,7 @@ fn generate_to_string(name: &str, element: &Element) -> String {
         .collect::<String>();
 
     generated_code.push_str(&format!(
-        "let mut svg =format!(r#\"<{} {}\"#,\n{});",
+        "let mut svg =format!(r#\"<{}{}\"#,\n{});",
         name, required_parameters, required_arguments
     ));
 
