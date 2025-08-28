@@ -25,7 +25,6 @@ struct Field {
     #[serde(rename = "type")]
     field_type: String,
     from_constructor: Option<bool>,
-    builder: Option<bool>,
 }
 
 fn main() {
@@ -186,7 +185,7 @@ fn generate_impl(name: &str, element: &Element) -> String {
     code.push_str(&generate_constructor(element));
 
     for (field_name, field) in &element.fields {
-        if field.builder.unwrap_or(false) {
+        if !field.from_constructor.unwrap_or(false) {
             code.push_str(&generate_builder_method(field_name, field));
         }
     }

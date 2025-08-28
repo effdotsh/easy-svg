@@ -1,10 +1,7 @@
 elements:
   rect:
-    constructor_params:
-      - { name: "width", type: "f64" }
-      - { name: "height", type: "f64" }
     fields:
-      width: { type: "f64", from_constructor: true }
-      height: { type: "f64", from_constructor: true }
-      fill: { type: "Option<Color>", builder: true }
-      stroke: { type: "Option<Color>", builder: true }
+      width: { type: "Option<f64>" }
+      height: { type: "Option<f64>" }
+      fill: { type: "Option<Color>" }
+      stroke: { type: "Option<Color>" }
