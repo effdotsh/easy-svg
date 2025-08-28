@@ -6,5 +6,5 @@ elements:
     fields:
       width: { type: "f64", from_constructor: true }
       height: { type: "f64", from_constructor: true }
-      fill: { type: "Option<String>", builder: true }
-      stroke: { type: "Option<String>", builder: true }
+      fill: { type: "Option<Color>", builder: true }
+      stroke: { type: "Option<Color>", builder: true }

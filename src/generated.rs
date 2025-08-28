@@ -1,26 +1,41 @@
+use crate::color::Color;
+use serde::{Deserialize, Serialize};
 use std::fmt::Display;
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(tag = "type")]
+pub enum Shape {
+    Rect(Rect),
+}
+impl Display for Shape {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let str = match self {
+            Shape::Rect(rect) => rect.to_string(),
+        };
+        write!(f, "{}", str)
+    }
+}
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Rect {
+    pub stroke: Option<Color>,
     pub width: f64,
-    pub fill: Option<String>,
     pub height: f64,
-    pub stroke: Option<String>,
+    pub fill: Option<Color>,
 }
 impl Rect {
     pub fn new(width: f64, height: f64) -> Self {
         Self {
-            width,
-            fill: None,
-            height,
             stroke: None,
+            width,
+            height,
+            fill: None,
         }
     }
-    pub fn fill(mut self, value: String) -> Self {
-        self.fill = Some(value);
+    pub fn stroke(mut self, value: Color) -> Self {
+        self.stroke = Some(value);
         self
     }
-    pub fn stroke(mut self, value: String) -> Self {
-        self.stroke = Some(value);
+    pub fn fill(mut self, value: Color) -> Self {
+        self.fill = Some(value);
         self
     }
 }
@@ -29,11 +44,11 @@ impl Display for Rect {
         let mut svg = format!(
             r#"<rect width="{}" height="{}" "#, self.width, self.height,
         );
-        if let Some(fill) = &self.fill {
-            svg.push_str(&format!(r#" fill="{}""#, fill));
-        }
         if let Some(stroke) = &self.stroke {
             svg.push_str(&format!(r#" stroke="{}""#, stroke));
+        }
+        if let Some(fill) = &self.fill {
+            svg.push_str(&format!(r#" fill="{}""#, fill));
         }
         svg.push_str(" />");
         write!(f, "{}", svg)
