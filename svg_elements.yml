@@ -1,0 +1,47 @@
+# svg_elements.yaml
+elements:
+  rect:
+    description: "Rectangle element"
+    constructor:
+      params:
+        - { name: "width", type: "f64", description: "Rectangle width" }
+        - { name: "height", type: "f64", description: "Rectangle height" }
+    fields:
+      width: { type: "f64", constructor_param: true }
+      height: { type: "f64", constructor_param: true }
+      fill: { type: "Option<Paint>", builder_method: true }
+      stroke: { type: "Option<Paint>", builder_method: true }
+      stroke_width: { type: "Option<f64>", builder_method: true }
+      corner_radius: { type: "Option<f64>", builder_method: true, svg_attr: "rx" }
+    inherits: [ "base_properties" ]
+
+  circle:
+    description: "Circle element"
+    constructor:
+      params:
+        - { name: "radius", type: "f64", description: "Circle radius" }
+    fields:
+      radius: { type: "f64", constructor_param: true, svg_attr: "r" }
+      fill: { type: "Option<Paint>", builder_method: true }
+      stroke: { type: "Option<Paint>", builder_method: true }
+      stroke_width: { type: "Option<f64>", builder_method: true }
+    inherits: [ "base_properties" ]
+
+base_components:
+  base_properties:
+    fields:
+      base: { type: "BaseProperties", default: "BaseProperties::default()" }
+
+# Special builder methods that work on base properties
+special_methods:
+  position:
+    params:
+      - { name: "x", type: "f64" }
+      - { name: "y", type: "f64" }
+    body: |
+      self.base.transform.x = Some(x);
+      self.base.transform.y = Some(y);
+
+types:
+  Paint: "crate::Paint"
+  BaseProperties: "crate::BaseProperties"
