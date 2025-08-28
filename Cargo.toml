@@ -5,8 +5,15 @@ edition = "2024"
 
 [dependencies]
 serde = { version = "1.0.219", features = ["derive"] }
+serde_yaml = "0.9"
 
 [lints.rust]
 unused_variables = "deny"
 dead_code = "deny"
 unused_imports = "deny"
+
+[build-dependencies]
+serde = { version = "1.0.219", features = ["derive"] }
+serde_yaml = "0.9.34"
+syn = "2.0.106"
+prettyplease = "0.2.37"
