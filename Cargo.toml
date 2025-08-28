@@ -1,0 +1,12 @@
+[package]
+name = "easy-svg"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+serde = { version = "1.0.219", features = ["derive"] }
+
+[lints.rust]
+unused_variables = "deny"
+dead_code = "deny"
+unused_imports = "deny"
