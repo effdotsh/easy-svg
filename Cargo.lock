@@ -7,6 +7,7 @@ name = "easy-svg"
 version = "0.1.0"
 dependencies = [
  "prettyplease",
+ "proc-macro2",
  "serde",
  "serde_yaml",
  "syn",

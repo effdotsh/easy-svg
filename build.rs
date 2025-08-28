@@ -1,6 +1,8 @@
+use proc_macro2::TokenStream;
 use serde::Deserialize;
 use std::collections::HashMap;
 use std::fs;
+use syn::__private::quote::{format_ident, quote};
 
 #[derive(Deserialize)]
 struct Config {
@@ -79,79 +81,82 @@ use std::fmt::Display;"#,
 
 fn generate_shape_from(element_name: &String) -> String {
     let struct_name = capitalize(element_name);
-    format!(
-        "
-impl From<{}> for Shape {{
-    fn from({}: {}) -> Self {{
-        Self::{}({})
-    }}
-}}",
-        struct_name, element_name, struct_name, struct_name, element_name
-    )
+
+    let struct_name_ident = format_ident!("{}", &struct_name);
+    let element_name_ident = format_ident!("{}", &element_name);
+
+    let expanded = quote! {
+        impl From<#struct_name_ident> for Shape {
+            fn from(#element_name_ident: #struct_name_ident) -> Self {
+                Self::#struct_name_ident(#element_name_ident)
+            }
+        }
+    };
+    expanded.to_string()
 }
 
 fn generate_shape_enum(config: &Config) -> String {
-    let mut generated_code = String::new();
+    let enum_variants = config.elements.iter().map(|(element_name, _)| {
+        let struct_name_str = capitalize(element_name);
+        let struct_name_ident = format_ident!("{}", struct_name_str);
+        quote! {
+            #struct_name_ident(#struct_name_ident)
+        }
+    });
 
-    generated_code.push_str(&format!(
-        "
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(tag = \"type\")]
-pub enum Shape {{
-    {}
-}}",
-        &config
-            .elements
-            .iter()
-            .map(|(element_name, _)| {
-                let struct_name = capitalize(element_name);
-                format!("{}({})", struct_name, struct_name)
-            })
-            .collect::<Vec<_>>()
-            .join(", ")
-    ));
+    let display_match_arms = config.elements.iter().map(|(element_name, _)| {
+        let struct_name_str = capitalize(element_name);
+        let struct_name_ident = format_ident!("{}", struct_name_str);
+        let element_name_ident = format_ident!("{}", element_name);
 
-    generated_code.push_str(&format!(
-        "
-impl Display for Shape {{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {{
-        let str = match self {{
-            {}
-        }};
-        write!(f, \"{{}}\", str)
-    }}
-}}
-",
-        &config
-            .elements
-            .iter()
-            .map(|(element_name, _)| {
-                let struct_name = capitalize(element_name);
-                format!(
-                    "Shape::{}({}) => {}.to_string()",
-                    struct_name, element_name, element_name
-                )
-            })
-            .collect::<Vec<_>>()
-            .join(", ")
-    ));
+        quote! {
+            Shape::#struct_name_ident(#element_name_ident) => #element_name_ident.to_string()
+        }
+    });
 
-    generated_code
+    let expanded = quote! {
+        #[derive(Debug, Clone, Serialize, Deserialize)]
+        #[serde(tag = "type")]
+        pub enum Shape {
+            #( #enum_variants ),*
+        }
+
+        impl Display for Shape {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                let display_str = match self {
+                    #( #display_match_arms ),*
+                };
+                write!(f, "{}", display_str)
+            }
+        }
+    };
+    expanded.to_string()
 }
-
 fn generate_struct(name: &str, element: &Element) -> String {
     let struct_name = capitalize(name);
     let mut fields = Vec::new();
 
     for (field_name, field) in &element.fields {
-        fields.push(format!("    pub {}: {},", field_name, field.field_type));
+        let field_name_ident = format_ident!("{}", &field_name);
+        let field_type_tokens: TokenStream = field
+            .field_type
+            .parse()
+            .expect("Failed to parse field type");
+        fields.push(quote! {
+            pub #field_name_ident: #field_type_tokens
+        });
     }
 
-    format!(
-        "#[derive(Debug, Clone, Serialize, Deserialize)]\npub struct {} {{\n{}\n}}\n\n",
-        struct_name,
-        fields.join("\n")
-    )
+    let struct_name_ident = format_ident!("{}", struct_name);
+
+    let expanded = quote! {
+    #[derive(Debug, Clone, Serialize, Deserialize)]
+     pub struct #struct_name_ident {
+           #( #fields ),*
+         }
+     };
+
+    expanded.to_string()
 }
 
 fn generate_to_string(name: &str, element: &Element) -> String {

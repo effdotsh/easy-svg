@@ -13,7 +13,7 @@ mod tests {
     fn test_rect() {
         let rect = Rect::new()
             .width(100.0)
-            .height(100.0)
+            .height(50.0)
             .fill(Color::Aqua)
             .stroke(Color::Black);
 
