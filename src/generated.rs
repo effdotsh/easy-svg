@@ -1,13 +1,12 @@
 use crate::color::Color;
 use serde::{Deserialize, Serialize};
-use std::fmt::Display;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum Shape {
     Circle(Circle),
     Rect(Rect),
 }
-impl Display for Shape {
+impl std::fmt::Display for Shape {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let display_str = match self {
             Shape::Circle(circle) => circle.to_string(),
@@ -18,24 +17,24 @@ impl Display for Shape {
 }
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Circle {
-    pub stroke: Option<Color>,
+    pub r: Option<f64>,
     pub cy: Option<f64>,
     pub cx: Option<f64>,
-    pub r: Option<f64>,
     pub fill: Option<Color>,
+    pub stroke: Option<Color>,
 }
 impl Circle {
     pub fn new() -> Self {
         Self {
-            stroke: None,
+            r: None,
             cy: None,
             cx: None,
-            r: None,
             fill: None,
+            stroke: None,
         }
     }
-    pub fn stroke(mut self, value: Color) -> Self {
-        self.stroke = Some(value);
+    pub fn r(mut self, value: f64) -> Self {
+        self.r = Some(value);
         self
     }
     pub fn cy(mut self, value: f64) -> Self {
@@ -46,32 +45,32 @@ impl Circle {
         self.cx = Some(value);
         self
     }
-    pub fn r(mut self, value: f64) -> Self {
-        self.r = Some(value);
-        self
-    }
     pub fn fill(mut self, value: Color) -> Self {
         self.fill = Some(value);
         self
     }
+    pub fn stroke(mut self, value: Color) -> Self {
+        self.stroke = Some(value);
+        self
+    }
 }
-impl Display for Circle {
+impl std::fmt::Display for Circle {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        let mut svg = format!(r#"<circle"#,);
-        if let Some(stroke) = &self.stroke {
-            svg.push_str(&format!(r#" stroke="{}""#, stroke));
+        let mut svg = format!(r#"<{}{}"#, "circle", "",);
+        if let Some(r) = &self.r {
+            svg.push_str(&format!(" {}=\"{}\"", "r", r));
         }
         if let Some(cy) = &self.cy {
-            svg.push_str(&format!(r#" cy="{}""#, cy));
+            svg.push_str(&format!(" {}=\"{}\"", "cy", cy));
         }
         if let Some(cx) = &self.cx {
-            svg.push_str(&format!(r#" cx="{}""#, cx));
-        }
-        if let Some(r) = &self.r {
-            svg.push_str(&format!(r#" r="{}""#, r));
+            svg.push_str(&format!(" {}=\"{}\"", "cx", cx));
         }
         if let Some(fill) = &self.fill {
-            svg.push_str(&format!(r#" fill="{}""#, fill));
+            svg.push_str(&format!(" {}=\"{}\"", "fill", fill));
+        }
+        if let Some(stroke) = &self.stroke {
+            svg.push_str(&format!(" {}=\"{}\"", "stroke", stroke));
         }
         svg.push_str("/>");
         write!(f, "{}", svg)
@@ -84,69 +83,69 @@ impl From<Circle> for Shape {
 }
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Rect {
-    pub stroke: Option<Color>,
-    pub height: Option<f64>,
-    pub width: Option<f64>,
     pub x: Option<f64>,
-    pub fill: Option<Color>,
+    pub height: Option<f64>,
+    pub stroke: Option<Color>,
     pub y: Option<f64>,
+    pub width: Option<f64>,
+    pub fill: Option<Color>,
 }
 impl Rect {
     pub fn new() -> Self {
         Self {
-            stroke: None,
-            height: None,
-            width: None,
             x: None,
-            fill: None,
+            height: None,
+            stroke: None,
             y: None,
+            width: None,
+            fill: None,
         }
     }
-    pub fn stroke(mut self, value: Color) -> Self {
-        self.stroke = Some(value);
+    pub fn x(mut self, value: f64) -> Self {
+        self.x = Some(value);
         self
     }
     pub fn height(mut self, value: f64) -> Self {
         self.height = Some(value);
         self
     }
-    pub fn width(mut self, value: f64) -> Self {
-        self.width = Some(value);
-        self
-    }
-    pub fn x(mut self, value: f64) -> Self {
-        self.x = Some(value);
-        self
-    }
-    pub fn fill(mut self, value: Color) -> Self {
-        self.fill = Some(value);
+    pub fn stroke(mut self, value: Color) -> Self {
+        self.stroke = Some(value);
         self
     }
     pub fn y(mut self, value: f64) -> Self {
         self.y = Some(value);
         self
     }
+    pub fn width(mut self, value: f64) -> Self {
+        self.width = Some(value);
+        self
+    }
+    pub fn fill(mut self, value: Color) -> Self {
+        self.fill = Some(value);
+        self
+    }
 }
-impl Display for Rect {
+impl std::fmt::Display for Rect {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        let mut svg = format!(r#"<rect"#,);
-        if let Some(stroke) = &self.stroke {
-            svg.push_str(&format!(r#" stroke="{}""#, stroke));
+        let mut svg = format!(r#"<{}{}"#, "rect", "",);
+        if let Some(x) = &self.x {
+            svg.push_str(&format!(" {}=\"{}\"", "x", x));
         }
         if let Some(height) = &self.height {
-            svg.push_str(&format!(r#" height="{}""#, height));
+            svg.push_str(&format!(" {}=\"{}\"", "height", height));
         }
-        if let Some(width) = &self.width {
-            svg.push_str(&format!(r#" width="{}""#, width));
-        }
-        if let Some(x) = &self.x {
-            svg.push_str(&format!(r#" x="{}""#, x));
-        }
-        if let Some(fill) = &self.fill {
-            svg.push_str(&format!(r#" fill="{}""#, fill));
+        if let Some(stroke) = &self.stroke {
+            svg.push_str(&format!(" {}=\"{}\"", "stroke", stroke));
         }
         if let Some(y) = &self.y {
-            svg.push_str(&format!(r#" y="{}""#, y));
+            svg.push_str(&format!(" {}=\"{}\"", "y", y));
+        }
+        if let Some(width) = &self.width {
+            svg.push_str(&format!(" {}=\"{}\"", "width", width));
+        }
+        if let Some(fill) = &self.fill {
+            svg.push_str(&format!(" {}=\"{}\"", "fill", fill));
         }
         svg.push_str("/>");
         write!(f, "{}", svg)
