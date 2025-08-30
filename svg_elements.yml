@@ -8,15 +8,39 @@ derives:
       x: { type: "Option<f64>" }
       y: { type: "Option<f64>" }
 
+element_types:
+  AnimationElement: { }
+  BasicShape: { }
+  ContainerElement: { }
+  DescriptiveElement: { }
+  FilterPrimitiveElement: { }
+  GradientElement: { }
+  GraphicsElement: { }
+  GraphicsReferencingElement: { }
+  LightSourceElement: { }
+  NeverRenderedElement: { }
+  PaintServerElement: { }
+  RenderableElement: { }
+  ShapeElement: { }
+  StructuralElement: { }
+  TextContentElement: { }
+  TextContentChildElement: { }
+  UncategorizedElement: { }
+
+
 elements:
-  rect:
-    derives: [ "FillAndStroke", "xy" ]
-    fields:
-      width: { type: "Option<f64>" }
-      height: { type: "Option<f64>" }
   circle:
+    type: "BasicShape"
     derives: [ "FillAndStroke" ]
+    validChildren: [ "AnimationElements", "DescriptiveElement" ]
     fields:
       cx: { type: "Option<f64>" }
       cy: { type: "Option<f64>" }
       r: { type: "Option<f64>" }
+  rect:
+    type: "BasicShape"
+    derives: [ "FillAndStroke", "xy" ]
+    validChildren: [ "AnimationElements", "DescriptiveElement" ]
+    fields:
+      width: { type: "Option<f64>" }
+      height: { type: "Option<f64>" }
