@@ -3,7 +3,7 @@
 easy-svg is a crate for composing SVGs with rust code through a statically-typed system. The motivation behind this project is that [other rust svg libraries](https://crates.io/crates/svg) require you to set attributes by string, leading to invalid states and a worse dev experience. easy-svg is being implemented per the [Mozilla MDN SVG Reference](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference), allowing for no ambiguity in SVG composition. 
 
 ```rust
- Svg::new(500., 500.)
+Svg::new(500., 500.)
             .add_element(
                 Rect::new()
                     .width(200.)
@@ -15,11 +15,17 @@ easy-svg is a crate for composing SVGs with rust code through a statically-typed
                 Text::new()
                     .x(30.)
                     .y(70.)
-                    .fill(Color::Fuchsia)
+                    .fill(Color::DarkMagenta)
                     .add_child_string("Hello World".to_string())
                     .font_family("Arial".to_string()),
             )
-            .add_element(Circle::new().fill(Color::Aqua).r(20.).cx(80.).cy(70.))
+            .add_element(
+            	Circle::new()
+            	.fill(Color::DarkBlue)
+            	.r(20.)
+            	.cx(80.)
+            	.cy(85.)
+            )
 ```
 
 

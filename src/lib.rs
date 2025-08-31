@@ -61,17 +61,17 @@ mod tests {
                 Text::new()
                     .x(30.)
                     .y(70.)
-                    .fill(Color::Fuchsia)
+                    .fill(Color::DarkMagenta)
                     .add_child_string("Hello World".to_string())
                     .font_family("Arial".to_string()),
             )
-            .add_element(Circle::new().fill(Color::Aqua).r(20.).cx(80.).cy(70.));
+            .add_element(Circle::new().fill(Color::DarkBlue).r(20.).cx(80.).cy(85.));
 
         println!("{}", svg);
 
         assert_eq!(
             svg.to_string(),
-            r#"<svg width="500" height="500"><rect fill="darkolivegreen" height="400" width="200" x="20"/><text fill="fuchsia" font-family="Arial" x="30" y="70">Hello World</text><circle cx="80" cy="70" fill="aqua" r="20"/></svg>"#
+            r#"<svg width="500" height="500"><rect fill="darkolivegreen" height="400" width="200" x="20"/><text fill="darkmagenta" font-family="Arial" x="30" y="70">Hello World</text><circle cx="80" cy="85" fill="darkblue" r="20"/></svg>"#
         );
     }
     #[test]
