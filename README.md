@@ -21,10 +21,10 @@ Svg::new(500., 500.)
             )
             .add_element(
             	Circle::new()
-            	.fill(Color::DarkBlue)
-            	.r(20.)
-            	.cx(80.)
-            	.cy(85.)
+            		.fill(Color::DarkBlue)
+            		.r(20.)
+            		.cx(80.)
+            		.cy(85.)
             )
 ```
 
