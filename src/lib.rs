@@ -1,12 +1,12 @@
-mod color;
 mod generated;
 mod svg;
+pub mod types;
 
 pub use generated::*;
 #[cfg(test)]
 mod tests {
-    use crate::color::Color;
     use crate::svg::Svg;
+    use crate::types::color::Color;
     use crate::{A, Circle, Rect};
 
     #[test]
@@ -32,11 +32,18 @@ mod tests {
     #[test]
     fn test_a() {
         let svg = Svg::new(500., 500.).add_element(
-            A::new()
-                .download("https://google.com".into())
-                .add_child_rect(Rect::new()),
+            A::new().href("https://google.com".into()).add_child_rect(
+                Rect::new()
+                    .width(200.)
+                    .height(400.)
+                    .x(20.)
+                    .fill(Color::DarkOliveGreen),
+            ),
         );
         println!("{}", svg);
-        assert_eq!(svg.to_string(), "<svg width=\"500\" height=\"500\">");
+        assert_eq!(
+            svg.to_string(),
+            r#"<svg width="500" height="500"><a href="https://google.com"><rect fill="darkolivegreen" height="400" width="200" x="20"/></a></svg>"#
+        );
     }
 }
