@@ -137,12 +137,32 @@ fn main() {
         element.derives = all_derives;
     }
 
-    // writeln!(
-    //     log_file,
-    //     "desc final derives{}",
-    //     config.elements.get("Desc").unwrap().derives.join(", ")
-    // )
-    // .unwrap();
+    writeln!(
+        log_file,
+        "config.elements: {}",
+        config
+            .elements
+            .keys()
+            .into_iter()
+            .map(|x| x.to_string())
+            .collect::<Vec<_>>()
+            .join(", ")
+    )
+    .unwrap();
+    for (attribute_name, attribute) in config.attributes.iter() {
+        for element in &attribute.elements {
+            config.elements.get_mut(element).unwrap().fields.insert(
+                attribute_name.clone(),
+                Field {
+                    field_type: attribute.attribute_type.clone(),
+                    from_constructor: None,
+                    is_deprecated: None,
+                    is_experimental: None,
+                },
+            );
+        }
+    }
+
     let category_traits = generate_category_traits(&config);
 
     let shape_enum = generate_shape_enum(&config);

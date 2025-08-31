@@ -1,9 +1,9 @@
 attributes:
   fill:
-    elements: [ "Rect", "Circle" ]
+    elements: [ "rect", "circle" ]
     type: "Option<Color>"
   x:
-    elements: [ "Rect" ]
+    elements: [ "rect" ]
     type: "Option<f64>"
 
 

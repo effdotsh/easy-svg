@@ -224,6 +224,7 @@ pub struct Circle {
     pub cx: Option<f64>,
     pub cy: Option<f64>,
     pub elementTiming: Option<String>,
+    pub fill: Option<Color>,
     pub id: Option<String>,
     pub innerHtml: Option<String>,
     pub nonce: Option<String>,
@@ -246,6 +247,7 @@ impl Circle {
             cx: None,
             cy: None,
             elementTiming: None,
+            fill: None,
             id: None,
             innerHtml: None,
             nonce: None,
@@ -278,6 +280,10 @@ impl Circle {
     }
     pub fn elementTiming(mut self, value: String) -> Self {
         self.elementTiming = Some(value);
+        self
+    }
+    pub fn fill(mut self, value: Color) -> Self {
+        self.fill = Some(value);
         self
     }
     pub fn id(mut self, value: String) -> Self {
@@ -356,6 +362,9 @@ impl std::fmt::Display for Circle {
         }
         if let Some(elementTiming) = &self.elementTiming {
             svg.push_str(&format!(" {}=\"{}\"", "elementTiming", elementTiming));
+        }
+        if let Some(fill) = &self.fill {
+            svg.push_str(&format!(" {}=\"{}\"", "fill", fill));
         }
         if let Some(id) = &self.id {
             svg.push_str(&format!(" {}=\"{}\"", "id", id));
@@ -882,6 +891,7 @@ pub struct Rect {
     pub autofocus: Option<bool>,
     pub className: Option<String>,
     pub elementTiming: Option<String>,
+    pub fill: Option<Color>,
     pub height: Option<f64>,
     pub id: Option<String>,
     pub innerHtml: Option<String>,
@@ -894,6 +904,7 @@ pub struct Rect {
     pub tabIndex: Option<i32>,
     pub textContent: Option<String>,
     pub width: Option<f64>,
+    pub x: Option<f64>,
     children: Vec<Shape>,
 }
 impl BasicShape for Rect {}
@@ -903,6 +914,7 @@ impl Rect {
             autofocus: None,
             className: None,
             elementTiming: None,
+            fill: None,
             height: None,
             id: None,
             innerHtml: None,
@@ -915,6 +927,7 @@ impl Rect {
             tabIndex: None,
             textContent: None,
             width: None,
+            x: None,
             children: Vec::new(),
         }
     }
@@ -928,6 +941,10 @@ impl Rect {
     }
     pub fn elementTiming(mut self, value: String) -> Self {
         self.elementTiming = Some(value);
+        self
+    }
+    pub fn fill(mut self, value: Color) -> Self {
+        self.fill = Some(value);
         self
     }
     pub fn height(mut self, value: f64) -> Self {
@@ -978,6 +995,10 @@ impl Rect {
         self.width = Some(value);
         self
     }
+    pub fn x(mut self, value: f64) -> Self {
+        self.x = Some(value);
+        self
+    }
     pub fn add_child_animation_element<T>(mut self, child: T) -> Self
     where
         T: Into<Shape> + AnimationElement,
@@ -1004,6 +1025,9 @@ impl std::fmt::Display for Rect {
         }
         if let Some(elementTiming) = &self.elementTiming {
             svg.push_str(&format!(" {}=\"{}\"", "elementTiming", elementTiming));
+        }
+        if let Some(fill) = &self.fill {
+            svg.push_str(&format!(" {}=\"{}\"", "fill", fill));
         }
         if let Some(height) = &self.height {
             svg.push_str(&format!(" {}=\"{}\"", "height", height));
@@ -1040,6 +1064,9 @@ impl std::fmt::Display for Rect {
         }
         if let Some(width) = &self.width {
             svg.push_str(&format!(" {}=\"{}\"", "width", width));
+        }
+        if let Some(x) = &self.x {
+            svg.push_str(&format!(" {}=\"{}\"", "x", x));
         }
         if self.children.is_empty() {
             svg.push_str("/>");
