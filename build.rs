@@ -28,8 +28,6 @@ struct Derivable {
     derives: Vec<String>,
 }
 
-
-
 #[derive(Deserialize, Clone, Debug)]
 struct ElementType {}
 
@@ -344,7 +342,12 @@ fn generate_to_string(name: &str, element: &Element, log_file: &mut File) -> Tok
                 }
     }
 }
-fn generate_impl(name: &str, element: &Element, log_file: &mut File, config: &Config) -> TokenStream {
+fn generate_impl(
+    name: &str,
+    element: &Element,
+    log_file: &mut File,
+    config: &Config,
+) -> TokenStream {
     let struct_name = capitalize(name);
     let constructor_tokens = generate_constructor(element, log_file);
 
