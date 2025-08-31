@@ -23,10 +23,10 @@ struct ElementType {}
 struct Element {
     derives: Option<Vec<String>>,
     fields: HashMap<String, Field>,
-    #[serde(default)]
-    constructor_params: Vec<Param>,
     element_type: String,
     valid_child_types: Vec<String>,
+    #[serde(default)]
+    constructor_params: Vec<Param>,
 }
 
 #[derive(Deserialize, Clone, Debug)]
@@ -227,10 +227,19 @@ fn generate_to_string(name: &str, element: &Element) -> TokenStream {
 
                 #( #optional_field_handling )*
 
-                svg.push_str("/>");
+                 if (self.children.is_empty()) {
+                    svg.push_str("/>");
+                    return write!(f, "{}", svg);
+                }
+
+                svg.push_str(">");
+                for child in self.children.iter() {
+                    svg.push_str(&child.to_string());
+                }
+                svg.push_str(&format!("</{}>", #name));
                 write!(f, "{}", svg)
-            }
-        }
+                    }
+                }
     }
 }
 fn generate_impl(name: &str, element: &Element) -> TokenStream {
