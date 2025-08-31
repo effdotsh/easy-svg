@@ -2,19 +2,22 @@ use proc_macro2::TokenStream;
 use serde::Deserialize;
 use std::collections::BTreeMap;
 use std::fs;
+use std::fs::File;
+use std::io::Write;
+use std::ops::Deref;
 use syn::__private::quote::{format_ident, quote};
 
 #[derive(Deserialize, Debug)]
 struct Config {
     elements: BTreeMap<String, Element>,
-    derives: Option<BTreeMap<String, Derivable>>,
+    derives: BTreeMap<String, Derivable>,
     element_types: BTreeMap<String, ElementType>,
 }
 
 #[derive(Deserialize, Clone, Debug)]
 struct Derivable {
     fields: BTreeMap<String, Field>,
-    derives: Option<BTreeMap<String, Derivable>>,
+    derives: Vec<String>,
 }
 
 static ELEMENT_TYPES: &[&str] = &[
@@ -42,7 +45,7 @@ struct ElementType {}
 
 #[derive(Deserialize, Debug)]
 struct Element {
-    derives: Option<Vec<String>>,
+    derives: Vec<String>,
     fields: BTreeMap<String, Field>,
     element_types: Vec<String>,
     valid_child_types: Vec<String>,
@@ -67,24 +70,71 @@ struct Field {
 }
 
 fn main() {
+    let mut log_file = File::create("build_debug.log").expect("Could not create build_debug.log");
+    writeln!(log_file, "Starting build.rs debugging output.").unwrap();
     println!("cargo:rerun-if-chancategory_traitsged=svg_elements.yml");
     let yaml_content =
         fs::read_to_string("svg_elements.yml").expect("Failed to read svg_elements.yml");
     let mut config: Config = serde_yaml::from_str(&yaml_content).expect("Failed to parse YAML");
-    if let Some(derives) = &config.derives {
-        for element in config.elements.values_mut() {
-            if let Some(element_derives) = &element.derives {
-                for derive_name in element_derives {
-                    if let Some(derivable) = derives.get(derive_name) {
-                        for (field_name, field) in &derivable.fields {
-                            element.fields.insert(field_name.clone(), field.clone());
-                        }
-                    }
-                }
+    let mut a = 0;
+    let keys = config.elements.keys().cloned().collect::<Vec<_>>().clone();
+    for element in config.elements.values_mut() {
+        writeln!(log_file, "Starting on {}", keys[a]).unwrap();
+        a += 1;
+
+        let mut derives_queue: Vec<&String> = Vec::new();
+        derives_queue.extend(element.derives.iter());
+        writeln!(
+            log_file,
+            "    Derives Queue: {}",
+            derives_queue
+                .iter()
+                .map(|x| x.deref().deref())
+                .collect::<Vec<_>>()
+                .join(", ")
+        )
+        .unwrap();
+
+        let mut processed_derives: std::collections::HashSet<&String> =
+            std::collections::HashSet::new();
+        let mut all_derives: Vec<String> = Vec::new();
+
+        while let Some(derive_name) = derives_queue.pop() {
+            if !processed_derives.insert(derive_name) {
+                continue;
             }
+
+            all_derives.push(derive_name.clone());
+
+            if let Some(derivable) = &config.derives.get(derive_name) {
+                for (field_name, field) in &derivable.fields {
+                    element.fields.insert(field_name.clone(), field.clone());
+                }
+                derives_queue.extend(derivable.derives.iter());
+            } else {
+                panic!("Derivable {} not found", derive_name);
+            }
+            writeln!(
+                log_file,
+                "    Derives Queue: {}",
+                derives_queue
+                    .iter()
+                    .map(|x| x.deref().deref())
+                    .collect::<Vec<_>>()
+                    .join(", ")
+            )
+            .unwrap();
         }
+
+        element.derives = all_derives; // Add this
     }
 
+    // writeln!(
+    //     log_file,
+    //     "desc final derives{}",
+    //     config.elements.get("Desc").unwrap().derives.join(", ")
+    // )
+    // .unwrap();
     let category_traits = generate_category_traits(&config);
 
     let shape_enum = generate_shape_enum(&config);
@@ -251,7 +301,7 @@ fn generate_to_string(name: &str, element: &Element) -> TokenStream {
 
                 #( #optional_field_handling )*
 
-                 if (self.children.is_empty()) {
+                 if self.children.is_empty() {
                     svg.push_str("/>");
                     return write!(f, "{}", svg);
                 }

@@ -1,12 +1,58 @@
+attributes:
+  fill:
+    elements: [ "Rect", "Circle" ]
+    type: "Option<Color>"
+  x:
+    elements: [ "Rect" ]
+    type: "Option<f64>"
+
+
 derives:
-  FillAndStroke:
+  Element:
+    derives: [ "Node", "EventTarget" ]
     fields:
-      fill: { type: "Option<Color>" }
-      stroke: { type: "Option<Color>" }
-  xy:
+      className: { type: "Option<String>" }
+      elementTiming:
+        type: "Option<String>"
+        is_experimental: true
+      id: { type: "Option<String>" }
+      innerHtml: { type: "Option<String>" }
+      outerHtml: { type: "Option<String>" }
+      #      part: {type: ""}
+      scrollLeft: { type: "Option<f64>" }
+      scrollTop: { type: "Option<f64>" }
+      slot: { type: "Option<String>" }
+  EventTarget:
+    derives: [ ]
+    fields: { }
+  Node:
+    derives: [ ]
     fields:
-      x: { type: "Option<f64>" }
-      y: { type: "Option<f64>" }
+      #      node: {}
+      textContent: { type: "Option<String>" }
+  SVGDefsElement:
+    derives: [ "SVGGraphicsElement" ]
+    fields: { }
+  SVGDescElement:
+    derives: [ "SVGElement" ]
+    fields: { }
+  SVGGeometryElement:
+    derives: [ "SVGGraphicsElement" ]
+    fields: { }
+  SVGGraphicsElement:
+    derives: [ "SVGElement" ]
+    fields: { }
+  SVGElement:
+    derives: [ "Element" ]
+    fields:
+      autofocus: { type: "Option<bool>" }
+      nonce: { type: "Option<String>" }
+      style: { type: "Option<String>" } #typed css?
+      tabIndex: { type: "Option<i32>" }
+
+
+
+
 
 element_types:
   AnimationElement: { }
@@ -56,36 +102,84 @@ elements:
   animateMotion:
     element_types: [ "AnimationElement" ]
     derives: [ ]
-    valid_child_types: [ "DescriptiveElement", "Mpath" ]
-    fields:
+    valid_child_types: [ "DescriptiveElement",
+      #                         "Mpath",
+    ]
+    fields: {
       keyPoints: { type: "Option<f64>" },
       path: { type: "Option<String>" },
       #      rotate: {type: "Option<Rotate>"}
-
+    }
   #  animateTransform:
   #    element_types: [ "AnimationElement" ]
   #    derives: [ ]
   #    valid_child_types: [ "DescriptiveElement", ]
   #    fields: { }
-  animateTransform:
-    element_types: [ "AnimationElement" ]
-    derives: [ ]
-    valid_child_types: [ "AnimationElement", "DescriptiveElement", "ShapeElement", "StructuralElement", "GradientElement", "Rect" ]
-    fields: { }
-
-
 
   circle:
     element_types: [ "BasicShape" ]
-    derives: [ "FillAndStroke" ]
+    derives: [ "SVGGeometryElement" ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement" ]
     fields:
       cx: { type: "Option<f64>" }
       cy: { type: "Option<f64>" }
       r: { type: "Option<f64>" }
+
+  #  clipPath:
+  #    elementType: [ "NeverRenderedElement", "UncategorizedElement" ]
+  #    derived: [ ]
+  #    valid_child_types: [ "AnimationElement", "DescriptiveElement", "ShapeElement",
+  #      #                         "Text", "Use",
+  #    ]
+  #    fields:
+  ##      clipPathUnits: {}
+
+  defs:
+    element_types: [ "BasicShape" ]
+    derives: [ "SVGDefsElement" ]
+    valid_child_types: [ "AnimationElement", "DescriptiveElement", "ShapeElement", "StructuralElement",        "A",
+      #                         "ClipPath",
+      #                         "Filter",
+      #                         "ForeignObject",
+      #                         "Image",
+      #                         "Marker",
+      #                         "Mask",
+      #                         "Pattern",
+      #                         "Script",
+      #                         "Style",
+      #                         "Switch",
+      #                         "Text",
+      #                         "View",
+    ]
+    fields:
+      width: { type: "Option<f64>" }
+      height: { type: "Option<f64>" }
+
+  desc:
+    element_types: [ "DescriptiveElement" ]
+    derives: [ "SVGDescElement" ]
+    valid_child_types: [ "AnimationElement",
+                         "BasicShape",
+                         "ContainerElement",
+                         "DescriptiveElement",
+                         "FilterPrimitiveElement",
+                         "GradientElement",
+                         "GraphicsElement",
+                         "GraphicsReferencingElement",
+                         "LightSourceElement",
+                         "NeverRenderedElement",
+                         "PaintServerElement",
+                         "RenderableElement",
+                         "ShapeElement",
+                         "StructuralElement",
+                         "TextContentElement",
+                         "TextContentChildElement",
+                         "UncategorizedElement", ]
+    fields: { }
+
   rect:
     element_types: [ "BasicShape" ]
-    derives: [ "FillAndStroke", "xy" ]
+    derives: [ "SVGGeometryElement" ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement" ]
     fields:
       width: { type: "Option<f64>" }
