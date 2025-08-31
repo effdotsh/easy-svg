@@ -46,22 +46,35 @@ elements:
       #      type: { type: "Option<String>" }
       #      "xlink:href": { type: "Option<String>", is_deprecated: "true" }
     }
-  animate:
-    element_types: [ "ContainerElement" ]
+  #  animate:
+  #    element_types: [ "AnimationElement" ]
+  #    derives: [ ]
+  #    valid_child_types: [ "AnimationElement", "DescriptiveElement", "ShapeElement", "StructuralElement", "GradientElement", "Rect" ]
+  #    fields: {
+  #
+  #    }
+  animateMotion:
+    element_types: [ "AnimationElement" ]
+    derives: [ ]
+    valid_child_types: [ "DescriptiveElement", "Mpath" ]
+    fields:
+      keyPoints: { type: "Option<f64>" },
+      path: { type: "Option<String>" },
+      #      rotate: {type: "Option<Rotate>"}
+
+  #  animateTransform:
+  #    element_types: [ "AnimationElement" ]
+  #    derives: [ ]
+  #    valid_child_types: [ "DescriptiveElement", ]
+  #    fields: { }
+  animateTransform:
+    element_types: [ "AnimationElement" ]
     derives: [ ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement", "ShapeElement", "StructuralElement", "GradientElement", "Rect" ]
-    fields: {
-      download: { type: "Option<String>" },
-      href: { type: "Option<String>" },
-      hreflang: { type: "Option<String>" },
-      #      ping: { type: "Option<Vec<String>>", is_experimental: true },
-      referrerpolicy: { type: "Option<String>" },
-      # rel: { type: "Option<Vec<String>>" },
-      target: { type: "Option<Target>" },
-      #      todo(effdotsh): "type" is conflicting with the type keyword
-      #      type: { type: "Option<String>" }
-      #      "xlink:href": { type: "Option<String>", is_deprecated: "true" }
-    }
+    fields: { }
+
+
+
   circle:
     element_types: [ "BasicShape" ]
     derives: [ "FillAndStroke" ]

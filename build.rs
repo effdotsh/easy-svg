@@ -14,6 +14,7 @@ struct Config {
 #[derive(Deserialize, Clone, Debug)]
 struct Derivable {
     fields: BTreeMap<String, Field>,
+    derives: Option<BTreeMap<String, Derivable>>,
 }
 
 static ELEMENT_TYPES: &[&str] = &[
