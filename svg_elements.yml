@@ -67,111 +67,134 @@ attributes:
     type: "Option<String>"
     elements:
       - text
+    #        - textPath
+    #        - tSpan
+  font-size:
+    type: "Option<String>"
+    elements:
+      - text
   #        - textPath
   #        - tSpan
-  #  font-size: { }
-  #  font-size-adjust: { }
-  #  font-stretch: { }
-  #  font-style: { }
-  #  font-variant: { }
-  #  font-weight: { }
-  #  fr: { }
-  #  from: { }
-  #  fx: { }
-  #  fy: { }
-  #  glyph-orientation-horizontal: { }
-  #  glyph-orientation-vertical: { }
-  #  gradientTransform: { }
-  #  gradientUnits: { }
-  #  height: { }
-  #  href: { }
-  #  hreflang: { }
-  #  id: { }
-  #  image-rendering: { }
-  #  in: { }
-  #  in2: { }
-  #  intercept: { }
-  #  k1: { }
-  #  k2: { }
-  #  k3: { }
-  #  k4: { }
-  #  kernelMatrix: { }
-  #  kernelUnitLength: { }
-  #  keyPoints: { }
-  #  keySplines: { }
-  #  keyTimes: { }
-  #  lang: { }
-  #  lengthAdjust: { }
-  #  letter-spacing: { }
-  #  lighting-color: { }
-  #  limitingConeAngle: { }
-  #  marker-end: { }
-  #  marker-mid: { }
-  #  marker-start: { }
-  #  markerHeight: { }
-  #  markerUnits: { }
-  #  markerWidth: { }
-  #  mask: { }
-  #  maskContentUnits: { }
-  #  maskUnits: { }
-  #  max: { }
-  #  media: { }
-  #  method: { }
-  #  min: { }
-  #  mode: { }
-  #  numOctaves: { }
-  #  offset: { }
-  #  opacity: { }
-  #  operator: { }
-  #  order: { }
-  #  orient: { }
-  #  origin: { }
-  #  overflow: { }
-  #  paint-order: { }
-  #  path: { }
-  #  pathLength: { }
-  #  patternContentUnits: { }
-  #  patternTransform: { }
-  #  patternUnits: { }
-  #  ping: { }
-  #  pointer-events: { }
-  #  points: { }
-  #  pointsAtX: { }
-  #  pointsAtY: { }
-  #  pointsAtZ: { }
-  #  preserveAlpha: { }
-  #  preserveAspectRatio: { }
-  #  primitiveUnits: { }
-  #  r: { }
-  #  radius: { }
-  #  referrerPolicy: { }
-  #  refX: { }
-  #  refY: { }
-  #  rel: { }
-  #  repeatCount: { }
-  #  repeatDur: { }
-  #  requiredExtensions: { }
-  #  requiredFeatures: { }
-  #  restart: { }
-  #  result: { }
-  #  rotate: { }
-  #  rx: { }
-  #  ry: { }
-  #  scale: { }
-  #  seed: { }
-  #  shape-rendering: { }
-  #  side: { }
-  #  slope: { }
-  #  spacing: { }
-  #  specularConstant: { }
-  #  specularExponent: { }
-  #  spreadMethod: { }
-  #  startOffset: { }
-  #  stdDeviation: { }
-  #  stitchTiles: { }
-  #  stop-color: { }
-  #  stop-opacity: { }
-  #  stroke: { }
+  font-size-adjust:
+    type: "Option<f64>"
+    elements:
+      - text
+    #        - textPath
+    #        - tSpan
+    #  font-stretch: { }
+    #  font-style: { }
+    #  font-variant: { }
+    #  font-weight: { }
+    #  fr: { }
+    #  from: { }
+    #  fx: { }
+    #  fy: { }
+    #  glyph-orientation-horizontal: { }
+    #  glyph-orientation-vertical: { }
+    #  gradientTransform: { }
+    #  gradientUnits: { }
+    #  height: { }
+    #  href: { }
+    #  hreflang: { }
+    #  id: { }
+    #  image-rendering: { }
+    #  in: { }
+    #  in2: { }
+    #  intercept: { }
+    #  k1: { }
+    #  k2: { }
+    #  k3: { }
+    #  k4: { }
+    #  kernelMatrix: { }
+    #  kernelUnitLength: { }
+    #  keyPoints: { }
+    #  keySplines: { }
+    #  keyTimes: { }
+    #  lang: { }
+    #  lengthAdjust: { }
+    #  letter-spacing: { }
+    #  lighting-color: { }
+    #  limitingConeAngle: { }
+    #  marker-end: { }
+    #  marker-mid: { }
+    #  marker-start: { }
+    #  markerHeight: { }
+    #  markerUnits: { }
+    #  markerWidth: { }
+    #  mask: { }
+    #  maskContentUnits: { }
+    #  maskUnits: { }
+    #  max: { }
+    #  media: { }
+    #  method: { }
+    #  min: { }
+    #  mode: { }
+    #  numOctaves: { }
+    #  offset: { }
+    #  opacity: { }
+    #  operator: { }
+    #  order: { }
+    #  orient: { }
+    #  origin: { }
+    #  overflow: { }
+    #  paint-order: { }
+    #  path: { }
+    #  pathLength: { }
+    #  patternContentUnits: { }
+    #  patternTransform: { }
+    #  patternUnits: { }
+    #  ping: { }
+    #  pointer-events: { }
+    #  points: { }
+    #  pointsAtX: { }
+    #  pointsAtY: { }
+    #  pointsAtZ: { }
+    #  preserveAlpha: { }
+    #  preserveAspectRatio: { }
+    #  primitiveUnits: { }
+    #  r: { }
+    #  radius: { }
+    #  referrerPolicy: { }
+    #  refX: { }
+    #  refY: { }
+    #  rel: { }
+    #  repeatCount: { }
+    #  repeatDur: { }
+    #  requiredExtensions: { }
+    #  requiredFeatures: { }
+    #  restart: { }
+    #  result: { }
+    #  rotate: { }
+    #  rx: { }
+    #  ry: { }
+    #  scale: { }
+    #  seed: { }
+    #  shape-rendering: { }
+    #  side: { }
+    #  slope: { }
+    #  spacing: { }
+    #  specularConstant: { }
+    #  specularExponent: { }
+    #  spreadMethod: { }
+    #  startOffset: { }
+    #  stdDeviation: { }
+    #  stitchTiles: { }
+    #  stop-color: { }
+    #  stop-opacity: { }
+  stroke:
+    type: "Option<Color>"
+    elements:
+      - circle
+      - ellipse
+      - line
+      #        - path
+      #        - polygon
+      #        - polyline
+      - rect
+      - text
+  #        - textPath
+  #        - tspan
+
   #  stroke-dasharray: { }
   #  stroke-dashoffset: { }
   #  stroke-linecap: { }
@@ -269,6 +292,9 @@ derives:
     fields: { }
   SVGGraphicsElement:
     derives: [ "SVGElement" ]
+    fields: { }
+  SVGLineElement:
+    derives: [ "SVGGeometryElement" ]
     fields: { }
   SVGTextContentElement:
     derives: [ "SVGGraphicsElement" ]
@@ -442,8 +468,17 @@ elements:
   #  filter: { }
   #  foreignObject: { }
   #  image: { }
-  #  line: { }
-  #  linearGradient: { }
+  line:
+    element_types: [ "BasicShape", "GraphicsElement", "RenderableElement", "ShapeElement" ]
+    derives: [ "SVGLineElement" ]
+    valid_child_types: [ "AnimationElement", "DescriptiveElement", "TextContentChildElement", "A", "String" ]
+    fields:
+      x1: { type: "Option<f64>" }
+      y1: { type: "Option<f64>" }
+      x2: { type: "Option<f64>" }
+      y2: { type: "Option<f64>" }
+      pathLength: { type: "Option<f64>" }
+
   #  marker: { }
   #  mask: { }
   #  metadata: { }

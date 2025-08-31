@@ -27,6 +27,7 @@ pub enum Shape {
     Defs(Defs),
     Desc(Desc),
     Ellipse(Ellipse),
+    Line(Line),
     Rect(Rect),
     Text(Text),
     String(String),
@@ -45,6 +46,7 @@ impl std::fmt::Display for Shape {
             Shape::Defs(defs) => defs.to_string(),
             Shape::Desc(desc) => desc.to_string(),
             Shape::Ellipse(ellipse) => ellipse.to_string(),
+            Shape::Line(line) => line.to_string(),
             Shape::Rect(rect) => rect.to_string(),
             Shape::Text(text) => text.to_string(),
             Shape::String(string) => string.to_string(),
@@ -253,6 +255,7 @@ pub struct Circle {
     pub scrollLeft: Option<f64>,
     pub scrollTop: Option<f64>,
     pub slot: Option<String>,
+    pub stroke: Option<Color>,
     pub style: Option<String>,
     pub tabIndex: Option<i32>,
     children: Vec<Shape>,
@@ -275,6 +278,7 @@ impl Circle {
             scrollLeft: None,
             scrollTop: None,
             slot: None,
+            stroke: None,
             style: None,
             tabIndex: None,
             children: Vec::new(),
@@ -334,6 +338,10 @@ impl Circle {
     }
     pub fn slot(mut self, value: String) -> Self {
         self.slot = Some(value);
+        self
+    }
+    pub fn stroke(mut self, value: Color) -> Self {
+        self.stroke = Some(value);
         self
     }
     pub fn style(mut self, value: String) -> Self {
@@ -403,6 +411,9 @@ impl std::fmt::Display for Circle {
         }
         if let Some(slot) = &self.slot {
             svg.push_str(&format!(" {}=\"{}\"", "slot", slot));
+        }
+        if let Some(stroke) = &self.stroke {
+            svg.push_str(&format!(" {}=\"{}\"", "stroke", stroke));
         }
         if let Some(style) = &self.style {
             svg.push_str(&format!(" {}=\"{}\"", "style", style));
@@ -897,6 +908,7 @@ pub struct Ellipse {
     pub scrollLeft: Option<f64>,
     pub scrollTop: Option<f64>,
     pub slot: Option<String>,
+    pub stroke: Option<Color>,
     pub style: Option<String>,
     pub tabIndex: Option<i32>,
     children: Vec<Shape>,
@@ -921,6 +933,7 @@ impl Ellipse {
             scrollLeft: None,
             scrollTop: None,
             slot: None,
+            stroke: None,
             style: None,
             tabIndex: None,
             children: Vec::new(),
@@ -988,6 +1001,10 @@ impl Ellipse {
     }
     pub fn slot(mut self, value: String) -> Self {
         self.slot = Some(value);
+        self
+    }
+    pub fn stroke(mut self, value: Color) -> Self {
+        self.stroke = Some(value);
         self
     }
     pub fn style(mut self, value: String) -> Self {
@@ -1064,6 +1081,9 @@ impl std::fmt::Display for Ellipse {
         if let Some(slot) = &self.slot {
             svg.push_str(&format!(" {}=\"{}\"", "slot", slot));
         }
+        if let Some(stroke) = &self.stroke {
+            svg.push_str(&format!(" {}=\"{}\"", "stroke", stroke));
+        }
         if let Some(style) = &self.style {
             svg.push_str(&format!(" {}=\"{}\"", "style", style));
         }
@@ -1088,6 +1108,238 @@ impl From<Ellipse> for Shape {
     }
 }
 #[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Line {
+    pub autofocus: Option<bool>,
+    pub className: Option<String>,
+    pub elementTiming: Option<String>,
+    pub id: Option<String>,
+    pub innerHtml: Option<String>,
+    pub nonce: Option<String>,
+    pub outerHtml: Option<String>,
+    pub pathLength: Option<f64>,
+    pub scrollLeft: Option<f64>,
+    pub scrollTop: Option<f64>,
+    pub slot: Option<String>,
+    pub stroke: Option<Color>,
+    pub style: Option<String>,
+    pub tabIndex: Option<i32>,
+    pub x1: Option<f64>,
+    pub x2: Option<f64>,
+    pub y1: Option<f64>,
+    pub y2: Option<f64>,
+    children: Vec<Shape>,
+}
+impl BasicShape for Line {}
+impl GraphicsElement for Line {}
+impl RenderableElement for Line {}
+impl ShapeElement for Line {}
+impl Line {
+    pub fn new() -> Self {
+        Self {
+            autofocus: None,
+            className: None,
+            elementTiming: None,
+            id: None,
+            innerHtml: None,
+            nonce: None,
+            outerHtml: None,
+            pathLength: None,
+            scrollLeft: None,
+            scrollTop: None,
+            slot: None,
+            stroke: None,
+            style: None,
+            tabIndex: None,
+            x1: None,
+            x2: None,
+            y1: None,
+            y2: None,
+            children: Vec::new(),
+        }
+    }
+    pub fn autofocus(mut self, value: bool) -> Self {
+        self.autofocus = Some(value);
+        self
+    }
+    pub fn className(mut self, value: String) -> Self {
+        self.className = Some(value);
+        self
+    }
+    pub fn elementTiming(mut self, value: String) -> Self {
+        self.elementTiming = Some(value);
+        self
+    }
+    pub fn id(mut self, value: String) -> Self {
+        self.id = Some(value);
+        self
+    }
+    pub fn innerHtml(mut self, value: String) -> Self {
+        self.innerHtml = Some(value);
+        self
+    }
+    pub fn nonce(mut self, value: String) -> Self {
+        self.nonce = Some(value);
+        self
+    }
+    pub fn outerHtml(mut self, value: String) -> Self {
+        self.outerHtml = Some(value);
+        self
+    }
+    pub fn pathLength(mut self, value: f64) -> Self {
+        self.pathLength = Some(value);
+        self
+    }
+    pub fn scrollLeft(mut self, value: f64) -> Self {
+        self.scrollLeft = Some(value);
+        self
+    }
+    pub fn scrollTop(mut self, value: f64) -> Self {
+        self.scrollTop = Some(value);
+        self
+    }
+    pub fn slot(mut self, value: String) -> Self {
+        self.slot = Some(value);
+        self
+    }
+    pub fn stroke(mut self, value: Color) -> Self {
+        self.stroke = Some(value);
+        self
+    }
+    pub fn style(mut self, value: String) -> Self {
+        self.style = Some(value);
+        self
+    }
+    pub fn tabIndex(mut self, value: i32) -> Self {
+        self.tabIndex = Some(value);
+        self
+    }
+    pub fn x1(mut self, value: f64) -> Self {
+        self.x1 = Some(value);
+        self
+    }
+    pub fn x2(mut self, value: f64) -> Self {
+        self.x2 = Some(value);
+        self
+    }
+    pub fn y1(mut self, value: f64) -> Self {
+        self.y1 = Some(value);
+        self
+    }
+    pub fn y2(mut self, value: f64) -> Self {
+        self.y2 = Some(value);
+        self
+    }
+    pub fn add_child_animation_element<T>(mut self, child: T) -> Self
+    where
+        T: Into<Shape> + AnimationElement,
+    {
+        self.children.push(child.into());
+        self
+    }
+    pub fn add_child_descriptive_element<T>(mut self, child: T) -> Self
+    where
+        T: Into<Shape> + DescriptiveElement,
+    {
+        self.children.push(child.into());
+        self
+    }
+    pub fn add_child_text_content_child_element<T>(mut self, child: T) -> Self
+    where
+        T: Into<Shape> + TextContentChildElement,
+    {
+        self.children.push(child.into());
+        self
+    }
+    pub fn add_child_a<T>(mut self, child: T) -> Self
+    where
+        T: Into<Shape> + Into<A>,
+    {
+        self.children.push(child.into());
+        self
+    }
+    pub fn add_child_string<T>(mut self, child: T) -> Self
+    where
+        T: Into<Shape> + Into<String>,
+    {
+        self.children.push(child.into());
+        self
+    }
+}
+impl std::fmt::Display for Line {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        let mut svg = format!(r#"<{}{}"#, "line", "",);
+        if let Some(autofocus) = &self.autofocus {
+            svg.push_str(&format!(" {}=\"{}\"", "autofocus", autofocus));
+        }
+        if let Some(className) = &self.className {
+            svg.push_str(&format!(" {}=\"{}\"", "className", className));
+        }
+        if let Some(elementTiming) = &self.elementTiming {
+            svg.push_str(&format!(" {}=\"{}\"", "elementTiming", elementTiming));
+        }
+        if let Some(id) = &self.id {
+            svg.push_str(&format!(" {}=\"{}\"", "id", id));
+        }
+        if let Some(innerHtml) = &self.innerHtml {
+            svg.push_str(&format!(" {}=\"{}\"", "innerHtml", innerHtml));
+        }
+        if let Some(nonce) = &self.nonce {
+            svg.push_str(&format!(" {}=\"{}\"", "nonce", nonce));
+        }
+        if let Some(outerHtml) = &self.outerHtml {
+            svg.push_str(&format!(" {}=\"{}\"", "outerHtml", outerHtml));
+        }
+        if let Some(pathLength) = &self.pathLength {
+            svg.push_str(&format!(" {}=\"{}\"", "pathLength", pathLength));
+        }
+        if let Some(scrollLeft) = &self.scrollLeft {
+            svg.push_str(&format!(" {}=\"{}\"", "scrollLeft", scrollLeft));
+        }
+        if let Some(scrollTop) = &self.scrollTop {
+            svg.push_str(&format!(" {}=\"{}\"", "scrollTop", scrollTop));
+        }
+        if let Some(slot) = &self.slot {
+            svg.push_str(&format!(" {}=\"{}\"", "slot", slot));
+        }
+        if let Some(stroke) = &self.stroke {
+            svg.push_str(&format!(" {}=\"{}\"", "stroke", stroke));
+        }
+        if let Some(style) = &self.style {
+            svg.push_str(&format!(" {}=\"{}\"", "style", style));
+        }
+        if let Some(tabIndex) = &self.tabIndex {
+            svg.push_str(&format!(" {}=\"{}\"", "tabIndex", tabIndex));
+        }
+        if let Some(x1) = &self.x1 {
+            svg.push_str(&format!(" {}=\"{}\"", "x1", x1));
+        }
+        if let Some(x2) = &self.x2 {
+            svg.push_str(&format!(" {}=\"{}\"", "x2", x2));
+        }
+        if let Some(y1) = &self.y1 {
+            svg.push_str(&format!(" {}=\"{}\"", "y1", y1));
+        }
+        if let Some(y2) = &self.y2 {
+            svg.push_str(&format!(" {}=\"{}\"", "y2", y2));
+        }
+        if self.children.is_empty() {
+            svg.push_str("/>");
+            return write!(f, "{}", svg);
+        }
+        svg.push_str(">");
+        for child in self.children.iter() {
+            svg.push_str(&child.to_string());
+        }
+        svg.push_str(&format!("</{}>", "line"));
+        write!(f, "{}", svg)
+    }
+}
+impl From<Line> for Shape {
+    fn from(line: Line) -> Self {
+        Self::Line(line)
+    }
+}
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Rect {
     pub autofocus: Option<bool>,
     pub className: Option<String>,
@@ -1104,6 +1356,7 @@ pub struct Rect {
     pub scrollLeft: Option<f64>,
     pub scrollTop: Option<f64>,
     pub slot: Option<String>,
+    pub stroke: Option<Color>,
     pub style: Option<String>,
     pub tabIndex: Option<i32>,
     pub width: Option<f64>,
@@ -1130,6 +1383,7 @@ impl Rect {
             scrollLeft: None,
             scrollTop: None,
             slot: None,
+            stroke: None,
             style: None,
             tabIndex: None,
             width: None,
@@ -1196,6 +1450,10 @@ impl Rect {
     }
     pub fn slot(mut self, value: String) -> Self {
         self.slot = Some(value);
+        self
+    }
+    pub fn stroke(mut self, value: Color) -> Self {
+        self.stroke = Some(value);
         self
     }
     pub fn style(mut self, value: String) -> Self {
@@ -1281,6 +1539,9 @@ impl std::fmt::Display for Rect {
         if let Some(slot) = &self.slot {
             svg.push_str(&format!(" {}=\"{}\"", "slot", slot));
         }
+        if let Some(stroke) = &self.stroke {
+            svg.push_str(&format!(" {}=\"{}\"", "stroke", stroke));
+        }
         if let Some(style) = &self.style {
             svg.push_str(&format!(" {}=\"{}\"", "style", style));
         }
@@ -1322,6 +1583,8 @@ pub struct Text {
     pub elementTiming: Option<String>,
     pub fill: Option<Color>,
     pub font_family: Option<String>,
+    pub font_size: Option<String>,
+    pub font_size_adjust: Option<f64>,
     pub id: Option<String>,
     pub innerHtml: Option<String>,
     pub lengthAdjust: Option<String>,
@@ -1331,6 +1594,7 @@ pub struct Text {
     pub scrollLeft: Option<f64>,
     pub scrollTop: Option<f64>,
     pub slot: Option<String>,
+    pub stroke: Option<Color>,
     pub style: Option<String>,
     pub tabIndex: Option<i32>,
     pub textLength: Option<f64>,
@@ -1349,6 +1613,8 @@ impl Text {
             elementTiming: None,
             fill: None,
             font_family: None,
+            font_size: None,
+            font_size_adjust: None,
             id: None,
             innerHtml: None,
             lengthAdjust: None,
@@ -1358,6 +1624,7 @@ impl Text {
             scrollLeft: None,
             scrollTop: None,
             slot: None,
+            stroke: None,
             style: None,
             tabIndex: None,
             textLength: None,
@@ -1394,6 +1661,14 @@ impl Text {
         self.font_family = Some(value);
         self
     }
+    pub fn font_size(mut self, value: String) -> Self {
+        self.font_size = Some(value);
+        self
+    }
+    pub fn font_size_adjust(mut self, value: f64) -> Self {
+        self.font_size_adjust = Some(value);
+        self
+    }
     pub fn id(mut self, value: String) -> Self {
         self.id = Some(value);
         self
@@ -1428,6 +1703,10 @@ impl Text {
     }
     pub fn slot(mut self, value: String) -> Self {
         self.slot = Some(value);
+        self
+    }
+    pub fn stroke(mut self, value: Color) -> Self {
+        self.stroke = Some(value);
         self
     }
     pub fn style(mut self, value: String) -> Self {
@@ -1510,6 +1789,12 @@ impl std::fmt::Display for Text {
         if let Some(font_family) = &self.font_family {
             svg.push_str(&format!(" {}=\"{}\"", "font-family", font_family));
         }
+        if let Some(font_size) = &self.font_size {
+            svg.push_str(&format!(" {}=\"{}\"", "font-size", font_size));
+        }
+        if let Some(font_size_adjust) = &self.font_size_adjust {
+            svg.push_str(&format!(" {}=\"{}\"", "font-size-adjust", font_size_adjust));
+        }
         if let Some(id) = &self.id {
             svg.push_str(&format!(" {}=\"{}\"", "id", id));
         }
@@ -1536,6 +1821,9 @@ impl std::fmt::Display for Text {
         }
         if let Some(slot) = &self.slot {
             svg.push_str(&format!(" {}=\"{}\"", "slot", slot));
+        }
+        if let Some(stroke) = &self.stroke {
+            svg.push_str(&format!(" {}=\"{}\"", "stroke", stroke));
         }
         if let Some(style) = &self.style {
             svg.push_str(&format!(" {}=\"{}\"", "style", style));
