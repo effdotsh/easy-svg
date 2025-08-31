@@ -164,6 +164,7 @@ impl From<A> for Shape {
 }
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AnimateMotion {
+    pub fill: Option<Color>,
     pub keyPoints: Option<f64>,
     pub path: Option<String>,
     children: Vec<Shape>,
@@ -172,10 +173,15 @@ impl AnimationElement for AnimateMotion {}
 impl AnimateMotion {
     pub fn new() -> Self {
         Self {
+            fill: None,
             keyPoints: None,
             path: None,
             children: Vec::new(),
         }
+    }
+    pub fn fill(mut self, value: Color) -> Self {
+        self.fill = Some(value);
+        self
     }
     pub fn keyPoints(mut self, value: f64) -> Self {
         self.keyPoints = Some(value);
@@ -196,6 +202,9 @@ impl AnimateMotion {
 impl std::fmt::Display for AnimateMotion {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         let mut svg = format!(r#"<{}{}"#, "animateMotion", "",);
+        if let Some(fill) = &self.fill {
+            svg.push_str(&format!(" {}=\"{}\"", "fill", fill));
+        }
         if let Some(keyPoints) = &self.keyPoints {
             svg.push_str(&format!(" {}=\"{}\"", "keyPoints", keyPoints));
         }
@@ -895,6 +904,7 @@ pub struct Ellipse {
     pub cx: Option<f64>,
     pub cy: Option<f64>,
     pub elementTiming: Option<String>,
+    pub fill: Option<Color>,
     pub id: Option<String>,
     pub innerHtml: Option<String>,
     pub nonce: Option<String>,
@@ -919,6 +929,7 @@ impl Ellipse {
             cx: None,
             cy: None,
             elementTiming: None,
+            fill: None,
             id: None,
             innerHtml: None,
             nonce: None,
@@ -953,6 +964,10 @@ impl Ellipse {
     }
     pub fn elementTiming(mut self, value: String) -> Self {
         self.elementTiming = Some(value);
+        self
+    }
+    pub fn fill(mut self, value: Color) -> Self {
+        self.fill = Some(value);
         self
     }
     pub fn id(mut self, value: String) -> Self {
@@ -1039,6 +1054,9 @@ impl std::fmt::Display for Ellipse {
         }
         if let Some(elementTiming) = &self.elementTiming {
             svg.push_str(&format!(" {}=\"{}\"", "elementTiming", elementTiming));
+        }
+        if let Some(fill) = &self.fill {
+            svg.push_str(&format!(" {}=\"{}\"", "fill", fill));
         }
         if let Some(id) = &self.id {
             svg.push_str(&format!(" {}=\"{}\"", "id", id));

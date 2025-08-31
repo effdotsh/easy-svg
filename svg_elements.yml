@@ -1,10 +1,226 @@
 attributes:
+  #  accumulate: { }
+  #  additive: { }
+  #  alignment-baseline: { }
+  #  amplitude: { }
+  #  attributeName: { }
+  #  attributeType: { }
+  #  azimuth: { }
+  #  baseFrequency: { }
+  #  baseline-shift: { }
+  #  baseProfile: { }
+  #  begin: { }
+  #  bias: { }
+  #  by: { }
+  #  calcMode: { }
+  #  class: { }
+  #  clip: { }
+  #  clipPathUnits: { }
+  #  clip-path: { }
+  #  clip-rule: { }
+  #  color: { }
+  #  color-interpolation: { }
+  #  color-interpolation-filters: { }
+  #  crossorigin: { }
+  #  cursor: { }
+  #  cx: { }
+  #  cy: { }
+  #  d: { }
+  #  data-*: { }
+  #  decoding: { }
+  #  diffuseConstant: { }
+  #  direction: { }
+  #  display: { }
+  #  divisor: { }
+  #  dominant-baseline: { }
+  #  dur: { }
+  #  dx: { }
+  #  dy: { }
+  #  edgeMode: { }
+  #  elevation: { }
+  #  end: { }
+  #  exponent: { }
+  #  fetchpriority: { }
   fill:
-    elements: [ "rect", "circle" ]
+    elements:
+      - circle
+      - ellipse
+      #      - path
+      #      - polygon
+      #      - polyline
+      - rect
+      #      - text
+      #      - textPath
+      #      - tspan
+      #      - animate
+      - animateMotion
+    #      - animateTransform
+    #      - set
     type: "Option<Color>"
+  #  fill-opacity: { }
+  #  fill-rule: { }
+  #  filter: { }
+  #  filterUnits: { }
+  #  flood-color: { }
+  #  flood-opacity: { }
+  #  font-family: { }
+  #  font-size: { }
+  #  font-size-adjust: { }
+  #  font-stretch: { }
+  #  font-style: { }
+  #  font-variant: { }
+  #  font-weight: { }
+  #  fr: { }
+  #  from: { }
+  #  fx: { }
+  #  fy: { }
+  #  glyph-orientation-horizontal: { }
+  #  glyph-orientation-vertical: { }
+  #  gradientTransform: { }
+  #  gradientUnits: { }
+  #  height: { }
+  #  href: { }
+  #  hreflang: { }
+  #  id: { }
+  #  image-rendering: { }
+  #  in: { }
+  #  in2: { }
+  #  intercept: { }
+  #  k1: { }
+  #  k2: { }
+  #  k3: { }
+  #  k4: { }
+  #  kernelMatrix: { }
+  #  kernelUnitLength: { }
+  #  keyPoints: { }
+  #  keySplines: { }
+  #  keyTimes: { }
+  #  lang: { }
+  #  lengthAdjust: { }
+  #  letter-spacing: { }
+  #  lighting-color: { }
+  #  limitingConeAngle: { }
+  #  marker-end: { }
+  #  marker-mid: { }
+  #  marker-start: { }
+  #  markerHeight: { }
+  #  markerUnits: { }
+  #  markerWidth: { }
+  #  mask: { }
+  #  maskContentUnits: { }
+  #  maskUnits: { }
+  #  max: { }
+  #  media: { }
+  #  method: { }
+  #  min: { }
+  #  mode: { }
+  #  numOctaves: { }
+  #  offset: { }
+  #  opacity: { }
+  #  operator: { }
+  #  order: { }
+  #  orient: { }
+  #  origin: { }
+  #  overflow: { }
+  #  paint-order: { }
+  #  path: { }
+  #  pathLength: { }
+  #  patternContentUnits: { }
+  #  patternTransform: { }
+  #  patternUnits: { }
+  #  ping: { }
+  #  pointer-events: { }
+  #  points: { }
+  #  pointsAtX: { }
+  #  pointsAtY: { }
+  #  pointsAtZ: { }
+  #  preserveAlpha: { }
+  #  preserveAspectRatio: { }
+  #  primitiveUnits: { }
+  #  r: { }
+  #  radius: { }
+  #  referrerPolicy: { }
+  #  refX: { }
+  #  refY: { }
+  #  rel: { }
+  #  repeatCount: { }
+  #  repeatDur: { }
+  #  requiredExtensions: { }
+  #  requiredFeatures: { }
+  #  restart: { }
+  #  result: { }
+  #  rotate: { }
+  #  rx: { }
+  #  ry: { }
+  #  scale: { }
+  #  seed: { }
+  #  shape-rendering: { }
+  #  side: { }
+  #  slope: { }
+  #  spacing: { }
+  #  specularConstant: { }
+  #  specularExponent: { }
+  #  spreadMethod: { }
+  #  startOffset: { }
+  #  stdDeviation: { }
+  #  stitchTiles: { }
+  #  stop-color: { }
+  #  stop-opacity: { }
+  #  stroke: { }
+  #  stroke-dasharray: { }
+  #  stroke-dashoffset: { }
+  #  stroke-linecap: { }
+  #  stroke-linejoin: { }
+  #  stroke-miterlimit: { }
+  #  stroke-opacity: { }
+  #  stroke-width: { }
+  #  style: { }
+  #  surfaceScale: { }
+  #  systemLanguage: { }
+  #  tabindex: { }
+  #  tableValues: { }
+  #  target: { }
+  #  targetX: { }
+  #  targetY: { }
+  #  text-anchor: { }
+  #  text-decoration: { }
+  #  text-rendering: { }
+  #  textLength: { }
+  #  to: { }
+  #  transform: { }
+  #  transform-origin: { }
+  #  type: { }
+  #  unicode-bidi: { }
+  #  values: { }
+  #  vector-effect: { }
+  #  version: { }
+  #  viewBox: { }
+  #  visibility: { }
+  #  width: { }
+  #  word-spacing: { }
+  #  writing-mode: { }
   x:
     elements: [ "rect" ]
     type: "Option<f64>"
+#  x1: { }
+#  x2: { }
+#  xChannelSelector: { }
+#  xlink:actuate: { }
+#  xlink:arcrole: { }
+#  xlink:href: { }
+#  xlink:role: { }
+#  xlink:show: { }
+#  xlink:title: { }
+#  xlink:type: { }
+#  xml:lang: { }
+#  xml:space: { }
+#  y: { }
+#  y1: { }
+#  y2: { }
+#  yChannelSelector: { }
+#  z: { }
+#  zoomAndPan: { }
+
 
 
 derives:

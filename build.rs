@@ -151,6 +151,12 @@ fn main() {
     .unwrap();
     for (attribute_name, attribute) in config.attributes.iter() {
         for element in &attribute.elements {
+            writeln!(
+                log_file,
+                "   adding attribute {} to element {}",
+                attribute_name, element
+            )
+            .unwrap();
             config.elements.get_mut(element).unwrap().fields.insert(
                 attribute_name.clone(),
                 Field {
