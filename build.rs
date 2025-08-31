@@ -12,6 +12,14 @@ struct Config {
     elements: BTreeMap<String, Element>,
     derives: BTreeMap<String, Derivable>,
     element_types: BTreeMap<String, ElementType>,
+    attributes: BTreeMap<String, Attribute>,
+}
+
+#[derive(Deserialize, Debug)]
+struct Attribute {
+    elements: Vec<String>,
+    #[serde(rename = "type")]
+    attribute_type: String,
 }
 
 #[derive(Deserialize, Clone, Debug)]
@@ -126,7 +134,7 @@ fn main() {
             .unwrap();
         }
 
-        element.derives = all_derives; // Add this
+        element.derives = all_derives;
     }
 
     // writeln!(
