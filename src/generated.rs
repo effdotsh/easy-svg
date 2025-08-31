@@ -41,7 +41,7 @@ impl std::fmt::Display for Shape {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let display_str = match self {
             Shape::A(a) => a.to_string(),
-            Shape::AnimateMotion(animateMotion) => animateMotion.to_string(),
+            Shape::AnimateMotion(animate_motion) => animate_motion.to_string(),
             Shape::Circle(circle) => circle.to_string(),
             Shape::Defs(defs) => defs.to_string(),
             Shape::Desc(desc) => desc.to_string(),
@@ -64,6 +64,11 @@ pub struct A {
     children: Vec<Shape>,
 }
 impl ContainerElement for A {}
+impl Default for A {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 impl A {
     pub fn new() -> Self {
         Self {
@@ -130,10 +135,7 @@ impl A {
         self.children.push(child.into());
         self
     }
-    pub fn add_child_rect<T>(mut self, child: T) -> Self
-    where
-        T: Into<Shape> + Rect,
-    {
+    pub fn add_child_rect(mut self, child: Rect) -> Self {
         self.children.push(child.into());
         self
     }
@@ -181,6 +183,11 @@ pub struct AnimateMotion {
     children: Vec<Shape>,
 }
 impl AnimationElement for AnimateMotion {}
+impl Default for AnimateMotion {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 impl AnimateMotion {
     pub fn new() -> Self {
         Self {
@@ -235,8 +242,8 @@ impl std::fmt::Display for AnimateMotion {
     }
 }
 impl From<AnimateMotion> for Shape {
-    fn from(animateMotion: AnimateMotion) -> Self {
-        Self::AnimateMotion(animateMotion)
+    fn from(animate_motion: AnimateMotion) -> Self {
+        Self::AnimateMotion(animate_motion)
     }
 }
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -261,6 +268,11 @@ pub struct Circle {
     children: Vec<Shape>,
 }
 impl BasicShape for Circle {}
+impl Default for Circle {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 impl Circle {
     pub fn new() -> Self {
         Self {
@@ -457,6 +469,11 @@ pub struct Defs {
     children: Vec<Shape>,
 }
 impl BasicShape for Defs {}
+impl Default for Defs {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 impl Defs {
     pub fn new() -> Self {
         Self {
@@ -561,10 +578,7 @@ impl Defs {
         self.children.push(child.into());
         self
     }
-    pub fn add_child_a<T>(mut self, child: T) -> Self
-    where
-        T: Into<Shape> + A,
-    {
+    pub fn add_child_a(mut self, child: A) -> Self {
         self.children.push(child.into());
         self
     }
@@ -648,6 +662,11 @@ pub struct Desc {
     children: Vec<Shape>,
 }
 impl DescriptiveElement for Desc {}
+impl Default for Desc {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 impl Desc {
     pub fn new() -> Self {
         Self {
@@ -914,6 +933,11 @@ pub struct Ellipse {
     children: Vec<Shape>,
 }
 impl BasicShape for Ellipse {}
+impl Default for Ellipse {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 impl Ellipse {
     pub fn new() -> Self {
         Self {
@@ -1133,6 +1157,11 @@ impl BasicShape for Line {}
 impl GraphicsElement for Line {}
 impl RenderableElement for Line {}
 impl ShapeElement for Line {}
+impl Default for Line {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 impl Line {
     pub fn new() -> Self {
         Self {
@@ -1250,17 +1279,11 @@ impl Line {
         self.children.push(child.into());
         self
     }
-    pub fn add_child_a<T>(mut self, child: T) -> Self
-    where
-        T: Into<Shape> + A,
-    {
+    pub fn add_child_a(mut self, child: A) -> Self {
         self.children.push(child.into());
         self
     }
-    pub fn add_child_string<T>(mut self, child: T) -> Self
-    where
-        T: Into<Shape> + String,
-    {
+    pub fn add_child_string(mut self, child: String) -> Self {
         self.children.push(child.into());
         self
     }
@@ -1365,6 +1388,11 @@ pub struct Rect {
     children: Vec<Shape>,
 }
 impl BasicShape for Rect {}
+impl Default for Rect {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 impl Rect {
     pub fn new() -> Self {
         Self {
@@ -1603,6 +1631,11 @@ pub struct Text {
     children: Vec<Shape>,
 }
 impl TextContentElement for Text {}
+impl Default for Text {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 impl Text {
     pub fn new() -> Self {
         Self {
@@ -1750,17 +1783,11 @@ impl Text {
         self.children.push(child.into());
         self
     }
-    pub fn add_child_a<T>(mut self, child: T) -> Self
-    where
-        T: Into<Shape> + A,
-    {
+    pub fn add_child_a(mut self, child: A) -> Self {
         self.children.push(child.into());
         self
     }
-    pub fn add_child_string<T>(mut self, child: T) -> Self
-    where
-        T: Into<Shape> + String,
-    {
+    pub fn add_child_string(mut self, child: String) -> Self {
         self.children.push(child.into());
         self
     }
