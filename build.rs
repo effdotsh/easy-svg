@@ -84,11 +84,9 @@ fn main() {
     let yaml_content =
         fs::read_to_string("svg_elements.yml").expect("Failed to read svg_elements.yml");
     let mut config: Config = serde_yaml::from_str(&yaml_content).expect("Failed to parse YAML");
-    let mut a = 0;
     let keys = config.elements.keys().cloned().collect::<Vec<_>>().clone();
-    for element in config.elements.values_mut() {
-        writeln!(log_file, "Starting on {}", keys[a]).unwrap();
-        a += 1;
+    for (i, element) in config.elements.values_mut().enumerate() {
+        writeln!(log_file, "Starting on {}", keys[i]).unwrap();
 
         let mut derives_queue: Vec<&String> = Vec::new();
         derives_queue.extend(element.derives.iter());
@@ -143,7 +141,6 @@ fn main() {
         config
             .elements
             .keys()
-            .into_iter()
             .map(|x| x.to_string())
             .collect::<Vec<_>>()
             .join(", ")
@@ -234,7 +231,7 @@ fn generate_shape_from(element_name: &String, log_file: &mut File) -> TokenStrea
 }
 
 fn generate_shape_enum(config: &Config) -> TokenStream {
-    let enum_variants = config.elements.iter().map(|(element_name, _)| {
+    let enum_variants = config.elements.keys().map(|element_name| {
         let struct_name_str = capitalize(element_name);
         let struct_name_ident = format_ident!("{}", struct_name_str);
         quote! {
@@ -242,7 +239,7 @@ fn generate_shape_enum(config: &Config) -> TokenStream {
         }
     });
 
-    let display_match_arms = config.elements.iter().map(|(element_name, _)| {
+    let display_match_arms = config.elements.keys().map(|element_name| {
         let struct_name_str = capitalize(element_name);
         let struct_name_ident = format_ident!("{}", struct_name_str);
         let element_name_ident = format_ident!("{}", element_name);
@@ -286,7 +283,7 @@ fn generate_struct(name: &str, element: &Element, log_file: &mut File) -> TokenS
     for (field_name, field) in &element.fields {
         writeln!(log_file, "    field name {}", field_name).unwrap();
 
-        let field_name_ident = format_ident!("{}", &field_name.replace("-", "_"));
+        let field_name_ident = format_ident!("{}", camel_to_snake(field_name));
         let field_type_tokens: TokenStream = field
             .field_type
             .parse()
@@ -316,12 +313,12 @@ fn generate_to_string(name: &str, element: &Element, log_file: &mut File) -> Tok
     let required_parameters = element
         .constructor_params
         .iter()
-        .map(|param| format!(" {}=\"{{}}\"", param.name.replace("-", "_")))
+        .map(|param| format!(" {}=\"{{}}\"", camel_to_snake(&param.name)))
         .collect::<Vec<_>>()
         .join("");
 
     let required_arguments = element.constructor_params.iter().map(|param| {
-        let param_name_ident = format_ident!("{}", &param.name.replace("-", "_"));
+        let param_name_ident = format_ident!("{}", camel_to_snake(&param.name));
         quote! {
             self.#param_name_ident
         }
@@ -332,7 +329,7 @@ fn generate_to_string(name: &str, element: &Element, log_file: &mut File) -> Tok
             return None;
         }
 
-        let field_name_ident = format_ident!("{}", field_name.replace("-", "_"));
+        let field_name_ident = format_ident!("{}", camel_to_snake(field_name));
         Some(quote! {
             if let Some(#field_name_ident) = &self.#field_name_ident {
                 svg.push_str(&format!(" {}=\"{}\"", #field_name, #field_name_ident));
@@ -357,7 +354,7 @@ fn generate_to_string(name: &str, element: &Element, log_file: &mut File) -> Tok
                     return write!(f, "{}", svg);
                 }
 
-                svg.push_str(">");
+                svg.push('>');
                 for child in self.children.iter() {
                     svg.push_str(&child.to_string());
                 }
@@ -380,7 +377,7 @@ fn generate_impl(name: &str, element: &Element, log_file: &mut File) -> TokenStr
             if !field.from_constructor.unwrap_or(false) {
                 return Some(generate_builder_method(field_name, field, log_file));
             }
-            return None;
+            None
         })
         .collect::<Vec<_>>();
     let struct_name_ident = format_ident!("{}", struct_name);
@@ -407,12 +404,11 @@ fn generate_impl(name: &str, element: &Element, log_file: &mut File) -> TokenStr
 fn generate_children_methods(element: &Element) -> Vec<TokenStream> {
     let mut methods = Vec::new();
     for child_type in element.valid_child_types.iter() {
-        let child_type_tokens: TokenStream;
-        if ELEMENT_TYPES.contains(&&**child_type) {
-            child_type_tokens = format!("{}", child_type).parse().unwrap();
+        let child_type_tokens: TokenStream = if ELEMENT_TYPES.contains(&&**child_type) {
+            child_type.to_string().parse().unwrap()
         } else {
-            child_type_tokens = format!("Into<{}>", child_type).parse().unwrap();
-        }
+            child_type.to_string().parse().unwrap()
+        };
 
         let method_name_ident = format_ident!("add_child_{}", camel_to_snake(child_type));
         methods.push(quote! {
@@ -432,7 +428,7 @@ fn generate_constructor(element: &Element, log_file: &mut File) -> TokenStream {
     let constructor_params = element.constructor_params.iter().map(|p| {
         writeln!(log_file, "    making constructor for {}", p.name).unwrap();
 
-        let param_name_ident = format_ident!("{}", &p.name.replace("-", "_"));
+        let param_name_ident = format_ident!("{}", camel_to_snake(&p.name));
         let param_type_tokens: TokenStream = p
             .param_type
             .parse()
@@ -446,7 +442,7 @@ fn generate_constructor(element: &Element, log_file: &mut File) -> TokenStream {
     // writeln!(log_file, "making builders for {}", name).unwrap();
 
     let field_assignments = element.fields.iter().map(|(field_name, field)| {
-        let field_name_ident = format_ident!("{}", field_name.replace("-", "_"));
+        let field_name_ident = format_ident!("{}", camel_to_snake(field_name));
 
         if field.from_constructor.unwrap_or(false) {
             quote! {
@@ -476,7 +472,7 @@ fn generate_builder_method(field_name: &str, field: &Field, log_file: &mut File)
         &field.field_type
     };
 
-    let field_name_ident = format_ident!("{}", field_name.replace("-", "_"));
+    let field_name_ident = format_ident!("{}", camel_to_snake(field_name));
     let param_type_tokens: TokenStream = param_type.parse().expect("Failed to parse field type");
     quote! {
         pub fn #field_name_ident(mut self, value: #param_type_tokens) -> Self {
@@ -508,7 +504,7 @@ fn camel_to_snake(s: &str) -> String {
     let mut result = String::new();
     let mut prev_was_lower = false;
 
-    for ch in s.chars() {
+    for ch in s.replace("-", "_").chars() {
         if ch.is_uppercase() {
             if prev_was_lower {
                 result.push('_');
