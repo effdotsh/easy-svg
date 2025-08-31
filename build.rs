@@ -4,37 +4,39 @@ use std::collections::HashMap;
 use std::fs;
 use syn::__private::quote::{format_ident, quote};
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug)]
 struct Config {
     elements: HashMap<String, Element>,
     derives: Option<HashMap<String, Derivable>>,
     element_types: HashMap<String, ElementType>,
 }
 
-#[derive(Deserialize, Clone)]
+#[derive(Deserialize, Clone, Debug)]
 struct Derivable {
     fields: HashMap<String, Field>,
 }
 
-#[derive(Deserialize, Clone)]
+#[derive(Deserialize, Clone, Debug)]
 struct ElementType {}
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug)]
 struct Element {
     derives: Option<Vec<String>>,
     fields: HashMap<String, Field>,
     #[serde(default)]
     constructor_params: Vec<Param>,
+    element_type: String,
+    valid_child_types: Vec<String>,
 }
 
-#[derive(Deserialize, Clone)]
+#[derive(Deserialize, Clone, Debug)]
 struct Param {
     name: String,
     #[serde(rename = "type")]
     param_type: String,
 }
 
-#[derive(Deserialize, Clone)]
+#[derive(Deserialize, Clone, Debug)]
 struct Field {
     #[serde(rename = "type")]
     field_type: String,
@@ -46,7 +48,6 @@ fn main() {
     let yaml_content =
         fs::read_to_string("svg_elements.yml").expect("Failed to read svg_elements.yml");
     let mut config: Config = serde_yaml::from_str(&yaml_content).expect("Failed to parse YAML");
-
     if let Some(derives) = &config.derives {
         for element in config.elements.values_mut() {
             if let Some(element_derives) = &element.derives {
@@ -178,7 +179,7 @@ fn generate_struct(name: &str, element: &Element) -> TokenStream {
     #[derive(Debug, Clone, Serialize, Deserialize)]
      pub struct #struct_name_ident {
            #( #fields ),*,
-            children: Vec<Shape>
+            pub children: Vec<Shape>
          }
      }
 }
@@ -247,13 +248,40 @@ fn generate_impl(name: &str, element: &Element) -> TokenStream {
         })
         .collect::<Vec<_>>();
     let struct_name_ident = format_ident!("{}", struct_name);
+
+    let element_type_ident = format_ident!("{}", element.element_type);
+
+    let children_methods = generate_children_methods(element);
+
+    //todo(effdotsh) add check to verify valid element type. Not super critical because will fail to generate proper code but harder to debug without it
     quote! {
+        impl #element_type_ident for #struct_name_ident {}
         impl #struct_name_ident {
             #constructor_tokens
             #( #builder_methods )*
+          #( #children_methods )*
         }
     }
 }
+
+fn generate_children_methods(element: &Element) -> Vec<TokenStream> {
+    let mut methods = Vec::new();
+    for child_type in element.valid_child_types.iter() {
+        let child_type_ident = format_ident!("{}", child_type);
+        let method_name_ident = format_ident!("add_child_{}", camel_to_snake(child_type));
+        methods.push(quote! {
+            fn #method_name_ident <T>(mut self, child: T) -> Self
+            where
+                T: Into<Shape> + #child_type_ident,
+            {
+                self.children.push(child.into());
+                self
+            }
+        });
+    }
+    methods
+}
+
 fn generate_constructor(element: &Element) -> TokenStream {
     let constructor_params = element.constructor_params.iter().map(|p| {
         let param_name_ident = format_ident!("{}", &p.name);
@@ -285,7 +313,7 @@ fn generate_constructor(element: &Element) -> TokenStream {
         pub fn new(#( #constructor_params ),*) -> Self {
             Self {
                 #( #field_assignments ),*,
-                children: Vec::new()
+                 children: Vec::new()
             }
         }
     }

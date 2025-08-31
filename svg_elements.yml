@@ -30,17 +30,17 @@ element_types:
 
 elements:
   circle:
-    type: "BasicShape"
+    element_type: "BasicShape"
     derives: [ "FillAndStroke" ]
-    validChildren: [ "AnimationElements", "DescriptiveElement" ]
+    valid_child_types: [ "AnimationElement", "DescriptiveElement" ]
     fields:
       cx: { type: "Option<f64>" }
       cy: { type: "Option<f64>" }
       r: { type: "Option<f64>" }
   rect:
-    type: "BasicShape"
+    element_type: "BasicShape"
     derives: [ "FillAndStroke", "xy" ]
-    validChildren: [ "AnimationElements", "DescriptiveElement" ]
+    valid_child_types: [ "AnimationElement", "DescriptiveElement" ]
     fields:
       width: { type: "Option<f64>" }
       height: { type: "Option<f64>" }
