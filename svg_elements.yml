@@ -53,7 +53,7 @@ attributes:
       #      - textPath
       #      - tspan
       #      - animate
-      - animateMotion
+    #      - animateMotion
     #      - animateTransform
     #      - set
     type: "Option<Color>"
@@ -344,30 +344,9 @@ elements:
       #      type: { type: "Option<String>" }
       #      "xlink:href": { type: "Option<String>", is_deprecated: "true" }
     }
-  #  animate:
-  #    element_types: [ "AnimationElement" ]
-  #    derives: [ ]
-  #    valid_child_types: [ "AnimationElement", "DescriptiveElement", "ShapeElement", "StructuralElement", "GradientElement", "Rect" ]
-  #    fields: {
-  #
-  #    }
-  animateMotion:
-    element_types: [ "AnimationElement" ]
-    derives: [ ]
-    valid_child_types: [ "DescriptiveElement",
-      #                         "Mpath",
-    ]
-    fields: {
-      keyPoints: { type: "Option<f64>" },
-      path: { type: "Option<String>" },
-      #      rotate: {type: "Option<Rotate>"}
-    }
-  #  animateTransform:
-  #    element_types: [ "AnimationElement" ]
-  #    derives: [ ]
-  #    valid_child_types: [ "DescriptiveElement", ]
-  #    fields: { }
-
+  #  animate: {}
+  #  animateMotion: {}
+  #  animateTransform: {}
   circle:
     element_types: [ "BasicShape" ]
     derives: [ "SVGGeometryElement" ]
