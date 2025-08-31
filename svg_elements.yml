@@ -57,13 +57,18 @@ attributes:
     #      - animateTransform
     #      - set
     type: "Option<Color>"
-  #  fill-opacity: { }
-  #  fill-rule: { }
-  #  filter: { }
-  #  filterUnits: { }
-  #  flood-color: { }
-  #  flood-opacity: { }
-  #  font-family: { }
+    #  fill-opacity: { }
+    #  fill-rule: { }
+    #  filter: { }
+    #  filterUnits: { }
+    #  flood-color: { }
+    #  flood-opacity: { }
+  font-family:
+    type: "Option<String>"
+    elements:
+      - text
+  #        - textPath
+  #        - tSpan
   #  font-size: { }
   #  font-size-adjust: { }
   #  font-stretch: { }

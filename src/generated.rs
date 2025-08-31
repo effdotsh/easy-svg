@@ -1321,6 +1321,7 @@ pub struct Text {
     pub dy: Option<f64>,
     pub elementTiming: Option<String>,
     pub fill: Option<Color>,
+    pub font_family: Option<String>,
     pub id: Option<String>,
     pub innerHtml: Option<String>,
     pub lengthAdjust: Option<String>,
@@ -1347,6 +1348,7 @@ impl Text {
             dy: None,
             elementTiming: None,
             fill: None,
+            font_family: None,
             id: None,
             innerHtml: None,
             lengthAdjust: None,
@@ -1386,6 +1388,10 @@ impl Text {
     }
     pub fn fill(mut self, value: Color) -> Self {
         self.fill = Some(value);
+        self
+    }
+    pub fn font_family(mut self, value: String) -> Self {
+        self.font_family = Some(value);
         self
     }
     pub fn id(mut self, value: String) -> Self {
@@ -1500,6 +1506,9 @@ impl std::fmt::Display for Text {
         }
         if let Some(fill) = &self.fill {
             svg.push_str(&format!(" {}=\"{}\"", "fill", fill));
+        }
+        if let Some(font_family) = &self.font_family {
+            svg.push_str(&format!(" {}=\"{}\"", "font-family", font_family));
         }
         if let Some(id) = &self.id {
             svg.push_str(&format!(" {}=\"{}\"", "id", id));
