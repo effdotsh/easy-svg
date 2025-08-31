@@ -22,7 +22,6 @@ pub trait UncategorizedElement: Into<Shape> + Clone {}
 #[serde(tag = "type")]
 pub enum Shape {
     A(A),
-    AnimateMotion(AnimateMotion),
     Circle(Circle),
     Defs(Defs),
     Desc(Desc),
@@ -41,7 +40,6 @@ impl std::fmt::Display for Shape {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let display_str = match self {
             Shape::A(a) => a.to_string(),
-            Shape::AnimateMotion(animate_motion) => animate_motion.to_string(),
             Shape::Circle(circle) => circle.to_string(),
             Shape::Defs(defs) => defs.to_string(),
             Shape::Desc(desc) => desc.to_string(),
@@ -173,77 +171,6 @@ impl std::fmt::Display for A {
 impl From<A> for Shape {
     fn from(a: A) -> Self {
         Self::A(a)
-    }
-}
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AnimateMotion {
-    pub fill: Option<Color>,
-    pub key_points: Option<f64>,
-    pub path: Option<String>,
-    children: Vec<Shape>,
-}
-impl AnimationElement for AnimateMotion {}
-impl Default for AnimateMotion {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-impl AnimateMotion {
-    pub fn new() -> Self {
-        Self {
-            fill: None,
-            key_points: None,
-            path: None,
-            children: Vec::new(),
-        }
-    }
-    pub fn fill(mut self, value: Color) -> Self {
-        self.fill = Some(value);
-        self
-    }
-    pub fn key_points(mut self, value: f64) -> Self {
-        self.key_points = Some(value);
-        self
-    }
-    pub fn path(mut self, value: String) -> Self {
-        self.path = Some(value);
-        self
-    }
-    pub fn add_child_descriptive_element<T>(mut self, child: T) -> Self
-    where
-        T: Into<Shape> + DescriptiveElement,
-    {
-        self.children.push(child.into());
-        self
-    }
-}
-impl std::fmt::Display for AnimateMotion {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        let mut svg = format!(r#"<{}{}"#, "animateMotion", "",);
-        if let Some(fill) = &self.fill {
-            svg.push_str(&format!(" {}=\"{}\"", "fill", fill));
-        }
-        if let Some(key_points) = &self.key_points {
-            svg.push_str(&format!(" {}=\"{}\"", "keyPoints", key_points));
-        }
-        if let Some(path) = &self.path {
-            svg.push_str(&format!(" {}=\"{}\"", "path", path));
-        }
-        if self.children.is_empty() {
-            svg.push_str("/>");
-            return write!(f, "{}", svg);
-        }
-        svg.push('>');
-        for child in self.children.iter() {
-            svg.push_str(&child.to_string());
-        }
-        svg.push_str(&format!("</{}>", "animateMotion"));
-        write!(f, "{}", svg)
-    }
-}
-impl From<AnimateMotion> for Shape {
-    fn from(animate_motion: AnimateMotion) -> Self {
-        Self::AnimateMotion(animate_motion)
     }
 }
 #[derive(Debug, Clone, Serialize, Deserialize)]
