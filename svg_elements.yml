@@ -29,6 +29,13 @@ element_types:
 
 
 elements:
+  a:
+    element_type: "ContainerElement"
+    derives: [ ]
+    valid_child_types: [ "AnimationElement", "DescriptiveElement", "ShapeElement", "StructuralElement", "GradientElement", "Rect" ]
+    fields: {
+      download: { type: "Option<String>" }
+    }
   circle:
     element_type: "BasicShape"
     derives: [ "FillAndStroke" ]

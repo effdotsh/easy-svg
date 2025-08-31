@@ -3,6 +3,7 @@ use serde::Deserialize;
 use std::collections::BTreeMap;
 use std::fs;
 use syn::__private::quote::{format_ident, quote};
+
 #[derive(Deserialize, Debug)]
 struct Config {
     elements: BTreeMap<String, Element>,
@@ -14,6 +15,26 @@ struct Config {
 struct Derivable {
     fields: BTreeMap<String, Field>,
 }
+
+static ELEMENT_TYPES: &[&str] = &[
+    "AnimationElement",
+    "BasicShape",
+    "ContainerElement",
+    "DescriptiveElement",
+    "FilterPrimitiveElement",
+    "GradientElement",
+    "GraphicsElement",
+    "GraphicsReferencingElement",
+    "LightSourceElement",
+    "NeverRenderedElement",
+    "PaintServerElement",
+    "RenderableElement",
+    "ShapeElement",
+    "StructuralElement",
+    "TextContentElement",
+    "TextContentChildElement",
+    "UncategorizedElement",
+];
 
 #[derive(Deserialize, Clone, Debug)]
 struct ElementType {}
@@ -178,7 +199,7 @@ fn generate_struct(name: &str, element: &Element) -> TokenStream {
     #[derive(Debug, Clone, Serialize, Deserialize)]
      pub struct #struct_name_ident {
            #( #fields ),*,
-            pub children: Vec<Shape>
+            children: Vec<Shape>
          }
      }
 }
@@ -275,12 +296,18 @@ fn generate_impl(name: &str, element: &Element) -> TokenStream {
 fn generate_children_methods(element: &Element) -> Vec<TokenStream> {
     let mut methods = Vec::new();
     for child_type in element.valid_child_types.iter() {
-        let child_type_ident = format_ident!("{}", child_type);
+        let child_type_tokens: TokenStream;
+        if ELEMENT_TYPES.contains(&&**child_type) {
+            child_type_tokens = format!("{}", child_type).parse().unwrap();
+        } else {
+            child_type_tokens = format!("Into<{}>", child_type).parse().unwrap();
+        }
+
         let method_name_ident = format_ident!("add_child_{}", camel_to_snake(child_type));
         methods.push(quote! {
-            fn #method_name_ident <T>(mut self, child: T) -> Self
+            pub fn #method_name_ident <T>(mut self, child: T) -> Self
             where
-                T: Into<Shape> + #child_type_ident,
+                T: Into<Shape> + #child_type_tokens,
             {
                 self.children.push(child.into());
                 self

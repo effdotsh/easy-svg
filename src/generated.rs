@@ -20,16 +20,101 @@ pub trait UncategorizedElement: Into<Shape> + Clone {}
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum Shape {
+    A(A),
     Circle(Circle),
     Rect(Rect),
 }
 impl std::fmt::Display for Shape {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let display_str = match self {
+            Shape::A(a) => a.to_string(),
             Shape::Circle(circle) => circle.to_string(),
             Shape::Rect(rect) => rect.to_string(),
         };
         write!(f, "{}", display_str)
+    }
+}
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct A {
+    pub download: Option<String>,
+    children: Vec<Shape>,
+}
+impl ContainerElement for A {}
+impl A {
+    pub fn new() -> Self {
+        Self {
+            download: None,
+            children: Vec::new(),
+        }
+    }
+    pub fn download(mut self, value: String) -> Self {
+        self.download = Some(value);
+        self
+    }
+    pub fn add_child_animation_element<T>(mut self, child: T) -> Self
+    where
+        T: Into<Shape> + AnimationElement,
+    {
+        self.children.push(child.into());
+        self
+    }
+    pub fn add_child_descriptive_element<T>(mut self, child: T) -> Self
+    where
+        T: Into<Shape> + DescriptiveElement,
+    {
+        self.children.push(child.into());
+        self
+    }
+    pub fn add_child_shape_element<T>(mut self, child: T) -> Self
+    where
+        T: Into<Shape> + ShapeElement,
+    {
+        self.children.push(child.into());
+        self
+    }
+    pub fn add_child_structural_element<T>(mut self, child: T) -> Self
+    where
+        T: Into<Shape> + StructuralElement,
+    {
+        self.children.push(child.into());
+        self
+    }
+    pub fn add_child_gradient_element<T>(mut self, child: T) -> Self
+    where
+        T: Into<Shape> + GradientElement,
+    {
+        self.children.push(child.into());
+        self
+    }
+    pub fn add_child_rect<T>(mut self, child: T) -> Self
+    where
+        T: Into<Shape> + Into<Rect>,
+    {
+        self.children.push(child.into());
+        self
+    }
+}
+impl std::fmt::Display for A {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        let mut svg = format!(r#"<{}{}"#, "a", "",);
+        if let Some(download) = &self.download {
+            svg.push_str(&format!(" {}=\"{}\"", "download", download));
+        }
+        if (self.children.is_empty()) {
+            svg.push_str("/>");
+            return write!(f, "{}", svg);
+        }
+        svg.push_str(">");
+        for child in self.children.iter() {
+            svg.push_str(&child.to_string());
+        }
+        svg.push_str(&format!("</{}>", "a"));
+        write!(f, "{}", svg)
+    }
+}
+impl From<A> for Shape {
+    fn from(a: A) -> Self {
+        Self::A(a)
     }
 }
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -39,7 +124,7 @@ pub struct Circle {
     pub fill: Option<Color>,
     pub r: Option<f64>,
     pub stroke: Option<Color>,
-    pub children: Vec<Shape>,
+    children: Vec<Shape>,
 }
 impl BasicShape for Circle {}
 impl Circle {
@@ -73,14 +158,14 @@ impl Circle {
         self.stroke = Some(value);
         self
     }
-    fn add_child_animation_element<T>(mut self, child: T) -> Self
+    pub fn add_child_animation_element<T>(mut self, child: T) -> Self
     where
         T: Into<Shape> + AnimationElement,
     {
         self.children.push(child.into());
         self
     }
-    fn add_child_descriptive_element<T>(mut self, child: T) -> Self
+    pub fn add_child_descriptive_element<T>(mut self, child: T) -> Self
     where
         T: Into<Shape> + DescriptiveElement,
     {
@@ -131,7 +216,7 @@ pub struct Rect {
     pub width: Option<f64>,
     pub x: Option<f64>,
     pub y: Option<f64>,
-    pub children: Vec<Shape>,
+    children: Vec<Shape>,
 }
 impl BasicShape for Rect {}
 impl Rect {
@@ -170,14 +255,14 @@ impl Rect {
         self.y = Some(value);
         self
     }
-    fn add_child_animation_element<T>(mut self, child: T) -> Self
+    pub fn add_child_animation_element<T>(mut self, child: T) -> Self
     where
         T: Into<Shape> + AnimationElement,
     {
         self.children.push(child.into());
         self
     }
-    fn add_child_descriptive_element<T>(mut self, child: T) -> Self
+    pub fn add_child_descriptive_element<T>(mut self, child: T) -> Self
     where
         T: Into<Shape> + DescriptiveElement,
     {

@@ -7,7 +7,7 @@ pub use generated::*;
 mod tests {
     use crate::color::Color;
     use crate::svg::Svg;
-    use crate::{Circle, Rect};
+    use crate::{A, Circle, Rect};
 
     #[test]
     fn test_rect_and_circle() {
@@ -27,5 +27,16 @@ mod tests {
             svg.to_string(),
             r#"<svg width="500" height="500"><circle cx="15" cy="30" fill="aqua" r="20"/><rect fill="darkolivegreen" height="400" width="200" x="20"/></svg>"#
         );
+    }
+
+    #[test]
+    fn test_a() {
+        let svg = Svg::new(500., 500.).add_element(
+            A::new()
+                .download("https://google.com".into())
+                .add_child_rect(Rect::new()),
+        );
+        println!("{}", svg);
+        assert_eq!(svg.to_string(), "<svg width=\"500\" height=\"500\">");
     }
 }
