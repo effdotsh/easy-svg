@@ -43,7 +43,7 @@ struct ElementType {}
 struct Element {
     derives: Option<Vec<String>>,
     fields: BTreeMap<String, Field>,
-    element_type: String,
+    element_types: Vec<String>,
     valid_child_types: Vec<String>,
     #[serde(default)]
     constructor_params: Vec<Param>,
@@ -61,6 +61,8 @@ struct Field {
     #[serde(rename = "type")]
     field_type: String,
     from_constructor: Option<bool>,
+    is_deprecated: Option<bool>,
+    is_experimental: Option<bool>,
 }
 
 fn main() {
@@ -279,13 +281,17 @@ fn generate_impl(name: &str, element: &Element) -> TokenStream {
         .collect::<Vec<_>>();
     let struct_name_ident = format_ident!("{}", struct_name);
 
-    let element_type_ident = format_ident!("{}", element.element_type);
-
+    let element_type_impls = element.element_types.iter().map(|element_type_str| {
+        let element_type_ident = format_ident!("{}", element_type_str);
+        quote! {
+            impl #element_type_ident for #struct_name_ident {}
+        }
+    });
     let children_methods = generate_children_methods(element);
 
     //todo(effdotsh) add check to verify valid element type. Not super critical because will fail to generate proper code but harder to debug without it
     quote! {
-        impl #element_type_ident for #struct_name_ident {}
+        #( #element_type_impls )*
         impl #struct_name_ident {
             #constructor_tokens
             #( #builder_methods )*

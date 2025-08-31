@@ -22,6 +22,7 @@ pub trait UncategorizedElement: Into<Shape> + Clone {}
 #[serde(tag = "type")]
 pub enum Shape {
     A(A),
+    Animate(Animate),
     Circle(Circle),
     Rect(Rect),
 }
@@ -29,6 +30,7 @@ impl std::fmt::Display for Shape {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let display_str = match self {
             Shape::A(a) => a.to_string(),
+            Shape::Animate(animate) => animate.to_string(),
             Shape::Circle(circle) => circle.to_string(),
             Shape::Rect(rect) => rect.to_string(),
         };
@@ -152,6 +154,125 @@ impl std::fmt::Display for A {
 impl From<A> for Shape {
     fn from(a: A) -> Self {
         Self::A(a)
+    }
+}
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Animate {
+    pub download: Option<String>,
+    pub href: Option<String>,
+    pub hreflang: Option<String>,
+    pub referrerpolicy: Option<String>,
+    pub target: Option<Target>,
+    children: Vec<Shape>,
+}
+impl ContainerElement for Animate {}
+impl Animate {
+    pub fn new() -> Self {
+        Self {
+            download: None,
+            href: None,
+            hreflang: None,
+            referrerpolicy: None,
+            target: None,
+            children: Vec::new(),
+        }
+    }
+    pub fn download(mut self, value: String) -> Self {
+        self.download = Some(value);
+        self
+    }
+    pub fn href(mut self, value: String) -> Self {
+        self.href = Some(value);
+        self
+    }
+    pub fn hreflang(mut self, value: String) -> Self {
+        self.hreflang = Some(value);
+        self
+    }
+    pub fn referrerpolicy(mut self, value: String) -> Self {
+        self.referrerpolicy = Some(value);
+        self
+    }
+    pub fn target(mut self, value: Target) -> Self {
+        self.target = Some(value);
+        self
+    }
+    pub fn add_child_animation_element<T>(mut self, child: T) -> Self
+    where
+        T: Into<Shape> + AnimationElement,
+    {
+        self.children.push(child.into());
+        self
+    }
+    pub fn add_child_descriptive_element<T>(mut self, child: T) -> Self
+    where
+        T: Into<Shape> + DescriptiveElement,
+    {
+        self.children.push(child.into());
+        self
+    }
+    pub fn add_child_shape_element<T>(mut self, child: T) -> Self
+    where
+        T: Into<Shape> + ShapeElement,
+    {
+        self.children.push(child.into());
+        self
+    }
+    pub fn add_child_structural_element<T>(mut self, child: T) -> Self
+    where
+        T: Into<Shape> + StructuralElement,
+    {
+        self.children.push(child.into());
+        self
+    }
+    pub fn add_child_gradient_element<T>(mut self, child: T) -> Self
+    where
+        T: Into<Shape> + GradientElement,
+    {
+        self.children.push(child.into());
+        self
+    }
+    pub fn add_child_rect<T>(mut self, child: T) -> Self
+    where
+        T: Into<Shape> + Into<Rect>,
+    {
+        self.children.push(child.into());
+        self
+    }
+}
+impl std::fmt::Display for Animate {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        let mut svg = format!(r#"<{}{}"#, "animate", "",);
+        if let Some(download) = &self.download {
+            svg.push_str(&format!(" {}=\"{}\"", "download", download));
+        }
+        if let Some(href) = &self.href {
+            svg.push_str(&format!(" {}=\"{}\"", "href", href));
+        }
+        if let Some(hreflang) = &self.hreflang {
+            svg.push_str(&format!(" {}=\"{}\"", "hreflang", hreflang));
+        }
+        if let Some(referrerpolicy) = &self.referrerpolicy {
+            svg.push_str(&format!(" {}=\"{}\"", "referrerpolicy", referrerpolicy));
+        }
+        if let Some(target) = &self.target {
+            svg.push_str(&format!(" {}=\"{}\"", "target", target));
+        }
+        if (self.children.is_empty()) {
+            svg.push_str("/>");
+            return write!(f, "{}", svg);
+        }
+        svg.push_str(">");
+        for child in self.children.iter() {
+            svg.push_str(&child.to_string());
+        }
+        svg.push_str(&format!("</{}>", "animate"));
+        write!(f, "{}", svg)
+    }
+}
+impl From<Animate> for Shape {
+    fn from(animate: Animate) -> Self {
+        Self::Animate(animate)
     }
 }
 #[derive(Debug, Clone, Serialize, Deserialize)]

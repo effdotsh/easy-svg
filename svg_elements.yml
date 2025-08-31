@@ -29,25 +29,41 @@ element_types:
 
 
 elements:
+  #TODO(effdotsh): Commenting out for not fields that take either vectors or some special types while creating a better system. These need to be added
   a:
-    element_type: "ContainerElement"
+    element_types: [ "ContainerElement" ]
     derives: [ ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement", "ShapeElement", "StructuralElement", "GradientElement", "Rect" ]
     fields: {
       download: { type: "Option<String>" },
       href: { type: "Option<String>" },
       hreflang: { type: "Option<String>" },
-      #      ping: { type: "Option<Vec<String>>" },
-
+      #      ping: { type: "Option<Vec<String>>", is_experimental: true },
       referrerpolicy: { type: "Option<String>" },
-      # todo(effdotsh): There are only a set number of string so this should be typed
-      #      rel: { type: "Option<Vec<String>>" },
-      target: { type: "Option<Target>" }
-
-
+      # rel: { type: "Option<Vec<String>>" },
+      target: { type: "Option<Target>" },
+      #      todo(effdotsh): "type" is conflicting with the type keyword
+      #      type: { type: "Option<String>" }
+      #      "xlink:href": { type: "Option<String>", is_deprecated: "true" }
+    }
+  animate:
+    element_types: [ "ContainerElement" ]
+    derives: [ ]
+    valid_child_types: [ "AnimationElement", "DescriptiveElement", "ShapeElement", "StructuralElement", "GradientElement", "Rect" ]
+    fields: {
+      download: { type: "Option<String>" },
+      href: { type: "Option<String>" },
+      hreflang: { type: "Option<String>" },
+      #      ping: { type: "Option<Vec<String>>", is_experimental: true },
+      referrerpolicy: { type: "Option<String>" },
+      # rel: { type: "Option<Vec<String>>" },
+      target: { type: "Option<Target>" },
+      #      todo(effdotsh): "type" is conflicting with the type keyword
+      #      type: { type: "Option<String>" }
+      #      "xlink:href": { type: "Option<String>", is_deprecated: "true" }
     }
   circle:
-    element_type: "BasicShape"
+    element_types: [ "BasicShape" ]
     derives: [ "FillAndStroke" ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement" ]
     fields:
@@ -55,7 +71,7 @@ elements:
       cy: { type: "Option<f64>" }
       r: { type: "Option<f64>" }
   rect:
-    element_type: "BasicShape"
+    element_types: [ "BasicShape" ]
     derives: [ "FillAndStroke", "xy" ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement" ]
     fields:
