@@ -253,13 +253,22 @@ fn generate_shape_enum(config: &Config) -> TokenStream {
         #[derive(Debug, Clone, Serialize, Deserialize)]
         #[serde(tag = "type")]
         pub enum Shape {
-            #( #enum_variants ),*
+            #( #enum_variants ),*,
+            String(String)
         }
+
+        impl From<String> for Shape {
+            fn from(string: String) -> Self {
+                Self::String(string)
+            }
+        }
+
 
         impl std::fmt::Display for Shape {
             fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
                 let display_str = match self {
-                    #( #display_match_arms ),*
+                    #( #display_match_arms ),*,
+                     Shape::String(string) => string.to_string(),
                 };
                 write!(f, "{}", display_str)
             }

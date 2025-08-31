@@ -49,7 +49,7 @@ attributes:
       #      - polygon
       #      - polyline
       - rect
-      #      - text
+      - text
       #      - textPath
       #      - tspan
       #      - animate
@@ -243,19 +243,13 @@ derives:
     fields: { }
   Node:
     derives: [ ]
-    fields:
-      #      node: {}
-      textContent: { type: "Option<String>" }
+    fields: { }
+    #      node: {}
+  #      textContent: { type: "Option<String>" }
   SVGDefsElement:
     derives: [ "SVGGraphicsElement" ]
     fields: { }
   SVGDescElement:
-    derives: [ "SVGElement" ]
-    fields: { }
-  SVGGeometryElement:
-    derives: [ "SVGGraphicsElement" ]
-    fields: { }
-  SVGGraphicsElement:
     derives: [ "SVGElement" ]
     fields: { }
   SVGElement:
@@ -265,6 +259,17 @@ derives:
       nonce: { type: "Option<String>" }
       style: { type: "Option<String>" } #typed css?
       tabIndex: { type: "Option<i32>" }
+  SVGGeometryElement:
+    derives: [ "SVGGraphicsElement" ]
+    fields: { }
+  SVGGraphicsElement:
+    derives: [ "SVGElement" ]
+    fields: { }
+  SVGTextContentElement:
+    derives: [ "SVGGraphicsElement" ]
+    fields:
+      textLength: { type: "Option<f64>" }
+      lengthAdjust: { type: "Option<String>" }
 
 
 
@@ -457,19 +462,30 @@ elements:
       pathLength: { type: "Option<f64>" }
 
 
-#  script: { }
-#  set: { }
-#  stop: { }
-#  style: { }
-#  svg: { }
-#  switch: { }
-#  symbol: { }
-#  text: { }
-#  textPath: { }
-#  title: { }
-#  tspan: { }
-#  use: { }
-#  view: { }
+  #  script: { }
+  #  set: { }
+  #  stop: { }
+  #  style: { }
+  #  svg: { }
+  #  switch: { }
+  #  symbol: { }
+  text:
+    element_types: [ "TextContentElement" ]
+    derives: [ "SVGTextContentElement" ]
+    valid_child_types: [ "AnimationElement", "DescriptiveElement", "TextContentChildElement", "A", "String" ]
+    fields:
+      x: { type: "Option<f64>" }
+      y: { type: "Option<f64>" }
+      dx: { type: "Option<f64>" }
+      dy: { type: "Option<f64>" }
+      rotate: { type: "Option<f64>" }
+      textLength: { type: "Option<f64>" }
+      lengthAdjust: { type: "Option<String>" }
+  #  textPath: { }
+  #  title: { }
+  #  tspan: { }
+  #  use: { }
+  #  view: { }
 
 
 
