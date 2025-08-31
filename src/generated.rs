@@ -1,22 +1,22 @@
 use crate::color::Color;
 use serde::{Deserialize, Serialize};
-pub trait PaintServerElement: Into<Shape> + Clone {}
 pub trait ShapeElement: Into<Shape> + Clone {}
-pub trait BasicShape: Into<Shape> + Clone {}
 pub trait StructuralElement: Into<Shape> + Clone {}
-pub trait GraphicsReferencingElement: Into<Shape> + Clone {}
-pub trait UncategorizedElement: Into<Shape> + Clone {}
-pub trait TextContentElement: Into<Shape> + Clone {}
-pub trait NeverRenderedElement: Into<Shape> + Clone {}
-pub trait LightSourceElement: Into<Shape> + Clone {}
-pub trait DescriptiveElement: Into<Shape> + Clone {}
-pub trait FilterPrimitiveElement: Into<Shape> + Clone {}
-pub trait RenderableElement: Into<Shape> + Clone {}
-pub trait GraphicsElement: Into<Shape> + Clone {}
-pub trait TextContentChildElement: Into<Shape> + Clone {}
-pub trait AnimationElement: Into<Shape> + Clone {}
 pub trait ContainerElement: Into<Shape> + Clone {}
+pub trait PaintServerElement: Into<Shape> + Clone {}
+pub trait LightSourceElement: Into<Shape> + Clone {}
+pub trait NeverRenderedElement: Into<Shape> + Clone {}
+pub trait UncategorizedElement: Into<Shape> + Clone {}
+pub trait BasicShape: Into<Shape> + Clone {}
 pub trait GradientElement: Into<Shape> + Clone {}
+pub trait TextContentElement: Into<Shape> + Clone {}
+pub trait FilterPrimitiveElement: Into<Shape> + Clone {}
+pub trait TextContentChildElement: Into<Shape> + Clone {}
+pub trait RenderableElement: Into<Shape> + Clone {}
+pub trait DescriptiveElement: Into<Shape> + Clone {}
+pub trait GraphicsElement: Into<Shape> + Clone {}
+pub trait AnimationElement: Into<Shape> + Clone {}
+pub trait GraphicsReferencingElement: Into<Shape> + Clone {}
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum Shape {
@@ -34,43 +34,43 @@ impl std::fmt::Display for Shape {
 }
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Circle {
-    pub stroke: Option<Color>,
     pub cx: Option<f64>,
-    pub r: Option<f64>,
-    pub cy: Option<f64>,
     pub fill: Option<Color>,
+    pub cy: Option<f64>,
+    pub r: Option<f64>,
+    pub stroke: Option<Color>,
     pub children: Vec<Shape>,
 }
 impl BasicShape for Circle {}
 impl Circle {
     pub fn new() -> Self {
         Self {
-            stroke: None,
             cx: None,
-            r: None,
-            cy: None,
             fill: None,
+            cy: None,
+            r: None,
+            stroke: None,
             children: Vec::new(),
         }
-    }
-    pub fn stroke(mut self, value: Color) -> Self {
-        self.stroke = Some(value);
-        self
     }
     pub fn cx(mut self, value: f64) -> Self {
         self.cx = Some(value);
         self
     }
-    pub fn r(mut self, value: f64) -> Self {
-        self.r = Some(value);
+    pub fn fill(mut self, value: Color) -> Self {
+        self.fill = Some(value);
         self
     }
     pub fn cy(mut self, value: f64) -> Self {
         self.cy = Some(value);
         self
     }
-    pub fn fill(mut self, value: Color) -> Self {
-        self.fill = Some(value);
+    pub fn r(mut self, value: f64) -> Self {
+        self.r = Some(value);
+        self
+    }
+    pub fn stroke(mut self, value: Color) -> Self {
+        self.stroke = Some(value);
         self
     }
     fn add_child_animation_element<T>(mut self, child: T) -> Self
@@ -91,20 +91,20 @@ impl Circle {
 impl std::fmt::Display for Circle {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         let mut svg = format!(r#"<{}{}"#, "circle", "",);
-        if let Some(stroke) = &self.stroke {
-            svg.push_str(&format!(" {}=\"{}\"", "stroke", stroke));
-        }
         if let Some(cx) = &self.cx {
             svg.push_str(&format!(" {}=\"{}\"", "cx", cx));
         }
-        if let Some(r) = &self.r {
-            svg.push_str(&format!(" {}=\"{}\"", "r", r));
+        if let Some(fill) = &self.fill {
+            svg.push_str(&format!(" {}=\"{}\"", "fill", fill));
         }
         if let Some(cy) = &self.cy {
             svg.push_str(&format!(" {}=\"{}\"", "cy", cy));
         }
-        if let Some(fill) = &self.fill {
-            svg.push_str(&format!(" {}=\"{}\"", "fill", fill));
+        if let Some(r) = &self.r {
+            svg.push_str(&format!(" {}=\"{}\"", "r", r));
+        }
+        if let Some(stroke) = &self.stroke {
+            svg.push_str(&format!(" {}=\"{}\"", "stroke", stroke));
         }
         svg.push_str("/>");
         write!(f, "{}", svg)
@@ -117,34 +117,26 @@ impl From<Circle> for Shape {
 }
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Rect {
-    pub width: Option<f64>,
-    pub height: Option<f64>,
     pub fill: Option<Color>,
     pub x: Option<f64>,
-    pub stroke: Option<Color>,
+    pub height: Option<f64>,
     pub y: Option<f64>,
+    pub stroke: Option<Color>,
+    pub width: Option<f64>,
     pub children: Vec<Shape>,
 }
 impl BasicShape for Rect {}
 impl Rect {
     pub fn new() -> Self {
         Self {
-            width: None,
-            height: None,
             fill: None,
             x: None,
-            stroke: None,
+            height: None,
             y: None,
+            stroke: None,
+            width: None,
             children: Vec::new(),
         }
-    }
-    pub fn width(mut self, value: f64) -> Self {
-        self.width = Some(value);
-        self
-    }
-    pub fn height(mut self, value: f64) -> Self {
-        self.height = Some(value);
-        self
     }
     pub fn fill(mut self, value: Color) -> Self {
         self.fill = Some(value);
@@ -154,12 +146,20 @@ impl Rect {
         self.x = Some(value);
         self
     }
-    pub fn stroke(mut self, value: Color) -> Self {
-        self.stroke = Some(value);
+    pub fn height(mut self, value: f64) -> Self {
+        self.height = Some(value);
         self
     }
     pub fn y(mut self, value: f64) -> Self {
         self.y = Some(value);
+        self
+    }
+    pub fn stroke(mut self, value: Color) -> Self {
+        self.stroke = Some(value);
+        self
+    }
+    pub fn width(mut self, value: f64) -> Self {
+        self.width = Some(value);
         self
     }
     fn add_child_animation_element<T>(mut self, child: T) -> Self
@@ -180,23 +180,23 @@ impl Rect {
 impl std::fmt::Display for Rect {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         let mut svg = format!(r#"<{}{}"#, "rect", "",);
-        if let Some(width) = &self.width {
-            svg.push_str(&format!(" {}=\"{}\"", "width", width));
-        }
-        if let Some(height) = &self.height {
-            svg.push_str(&format!(" {}=\"{}\"", "height", height));
-        }
         if let Some(fill) = &self.fill {
             svg.push_str(&format!(" {}=\"{}\"", "fill", fill));
         }
         if let Some(x) = &self.x {
             svg.push_str(&format!(" {}=\"{}\"", "x", x));
         }
-        if let Some(stroke) = &self.stroke {
-            svg.push_str(&format!(" {}=\"{}\"", "stroke", stroke));
+        if let Some(height) = &self.height {
+            svg.push_str(&format!(" {}=\"{}\"", "height", height));
         }
         if let Some(y) = &self.y {
             svg.push_str(&format!(" {}=\"{}\"", "y", y));
+        }
+        if let Some(stroke) = &self.stroke {
+            svg.push_str(&format!(" {}=\"{}\"", "stroke", stroke));
+        }
+        if let Some(width) = &self.width {
+            svg.push_str(&format!(" {}=\"{}\"", "width", width));
         }
         svg.push_str("/>");
         write!(f, "{}", svg)
