@@ -1,19 +1,18 @@
 use proc_macro2::TokenStream;
 use serde::Deserialize;
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 use std::fs;
 use syn::__private::quote::{format_ident, quote};
-
 #[derive(Deserialize, Debug)]
 struct Config {
-    elements: HashMap<String, Element>,
-    derives: Option<HashMap<String, Derivable>>,
-    element_types: HashMap<String, ElementType>,
+    elements: BTreeMap<String, Element>,
+    derives: Option<BTreeMap<String, Derivable>>,
+    element_types: BTreeMap<String, ElementType>,
 }
 
 #[derive(Deserialize, Clone, Debug)]
 struct Derivable {
-    fields: HashMap<String, Field>,
+    fields: BTreeMap<String, Field>,
 }
 
 #[derive(Deserialize, Clone, Debug)]
@@ -22,7 +21,7 @@ struct ElementType {}
 #[derive(Deserialize, Debug)]
 struct Element {
     derives: Option<Vec<String>>,
-    fields: HashMap<String, Field>,
+    fields: BTreeMap<String, Field>,
     element_type: String,
     valid_child_types: Vec<String>,
     #[serde(default)]
