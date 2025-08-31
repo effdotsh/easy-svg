@@ -12,6 +12,12 @@ unused_variables = "deny"
 #dead_code = "deny"
 unused_imports = "deny"
 
+[workspace.lints.clippy]
+pedantic = "warn"
+nursery = "warn"
+cargo = "warn"
+cognitive_complexity = "warn"
+
 [build-dependencies]
 serde = { version = "1.0.219", features = ["derive"] }
 serde_yaml = "0.9.34"
