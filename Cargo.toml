@@ -2,6 +2,12 @@
 name = "easy-svg"
 version = "0.1.0"
 edition = "2024"
+authors = ["effdotsh"]
+license-file = "LICENSE"
+description = "Author SVGs in Rust through a statically typed system"
+homepage = "https://github.com/effdotsh/easy-svg"
+readme = "README.md"
+repository = "https://github.com/effdotsh/easy-svg"
 
 [dependencies]
 serde = { version = "1.0.219", features = ["derive"] }
