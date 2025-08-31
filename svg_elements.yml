@@ -177,10 +177,83 @@ elements:
                          "UncategorizedElement", ]
     fields: { }
 
+  ellipse:
+    element_types: [ "BasicShape" ]
+    derives: [ "SVGGeometryElement" ]
+    valid_child_types: [ "AnimationElement", "DescriptiveElement" ]
+    fields:
+      cx: { type: "Option<f64>" }
+      cy: { type: "Option<f64>" }
+      rx: { type: "Option<f64>" }
+      ry: { type: "Option<f64>" }
+      pathLength: { type: "Option<f64>" }
+
+  #  feBlend: { }
+  #  feColorMatrix: { }
+  #  feComponentTransfer: { }
+  #  feComposite: { }
+  #  feConvolveMatrix: { }
+  #  feDiffuseLighting: { }
+  #  feDisplacementMap: { }
+  #  feDistantLight: { }
+  #  feDropShadow: { }
+  #  feFlood: { }
+  #  feFuncA: { }
+  #  feFuncB: { }
+  #  feFuncG: { }
+  #  feFuncR: { }
+  #  feGaussianBlur: { }
+  #  feImage: { }
+  #  feMerge: { }
+  #  feMergeNode: { }
+  #  feMorphology: { }
+  #  feOffset: { }
+  #  fePointLight: { }
+  #  feSpecularLighting: { }
+  #  feSpotLight: { }
+  #  feTile: { }
+  #  feTurbulence: { }
+  #  filter: { }
+  #  foreignObject: { }
+  #  image: { }
+  #  line: { }
+  #  linearGradient: { }
+  #  marker: { }
+  #  mask: { }
+  #  metadata: { }
+  #  mpath: { }
+  #  path: { }
+  #  pattern: { }
+  #  polygon: { }
+  #  polyline: { }
+  #  radialGradient: { }
   rect:
     element_types: [ "BasicShape" ]
     derives: [ "SVGGeometryElement" ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement" ]
     fields:
+      x: { type: "Option<f64>" }
+      y: { type: "Option<f64>" }
       width: { type: "Option<f64>" }
       height: { type: "Option<f64>" }
+      rx: { type: "Option<f64>" }
+      ry: { type: "Option<f64>" }
+      pathLength: { type: "Option<f64>" }
+
+
+#  script: { }
+#  set: { }
+#  stop: { }
+#  style: { }
+#  svg: { }
+#  switch: { }
+#  symbol: { }
+#  text: { }
+#  textPath: { }
+#  title: { }
+#  tspan: { }
+#  use: { }
+#  view: { }
+
+
+

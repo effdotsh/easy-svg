@@ -26,6 +26,7 @@ pub enum Shape {
     Circle(Circle),
     Defs(Defs),
     Desc(Desc),
+    Ellipse(Ellipse),
     Rect(Rect),
 }
 impl std::fmt::Display for Shape {
@@ -36,6 +37,7 @@ impl std::fmt::Display for Shape {
             Shape::Circle(circle) => circle.to_string(),
             Shape::Defs(defs) => defs.to_string(),
             Shape::Desc(desc) => desc.to_string(),
+            Shape::Ellipse(ellipse) => ellipse.to_string(),
             Shape::Rect(rect) => rect.to_string(),
         };
         write!(f, "{}", display_str)
@@ -887,6 +889,214 @@ impl From<Desc> for Shape {
     }
 }
 #[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Ellipse {
+    pub autofocus: Option<bool>,
+    pub className: Option<String>,
+    pub cx: Option<f64>,
+    pub cy: Option<f64>,
+    pub elementTiming: Option<String>,
+    pub id: Option<String>,
+    pub innerHtml: Option<String>,
+    pub nonce: Option<String>,
+    pub outerHtml: Option<String>,
+    pub pathLength: Option<f64>,
+    pub rx: Option<f64>,
+    pub ry: Option<f64>,
+    pub scrollLeft: Option<f64>,
+    pub scrollTop: Option<f64>,
+    pub slot: Option<String>,
+    pub style: Option<String>,
+    pub tabIndex: Option<i32>,
+    pub textContent: Option<String>,
+    children: Vec<Shape>,
+}
+impl BasicShape for Ellipse {}
+impl Ellipse {
+    pub fn new() -> Self {
+        Self {
+            autofocus: None,
+            className: None,
+            cx: None,
+            cy: None,
+            elementTiming: None,
+            id: None,
+            innerHtml: None,
+            nonce: None,
+            outerHtml: None,
+            pathLength: None,
+            rx: None,
+            ry: None,
+            scrollLeft: None,
+            scrollTop: None,
+            slot: None,
+            style: None,
+            tabIndex: None,
+            textContent: None,
+            children: Vec::new(),
+        }
+    }
+    pub fn autofocus(mut self, value: bool) -> Self {
+        self.autofocus = Some(value);
+        self
+    }
+    pub fn className(mut self, value: String) -> Self {
+        self.className = Some(value);
+        self
+    }
+    pub fn cx(mut self, value: f64) -> Self {
+        self.cx = Some(value);
+        self
+    }
+    pub fn cy(mut self, value: f64) -> Self {
+        self.cy = Some(value);
+        self
+    }
+    pub fn elementTiming(mut self, value: String) -> Self {
+        self.elementTiming = Some(value);
+        self
+    }
+    pub fn id(mut self, value: String) -> Self {
+        self.id = Some(value);
+        self
+    }
+    pub fn innerHtml(mut self, value: String) -> Self {
+        self.innerHtml = Some(value);
+        self
+    }
+    pub fn nonce(mut self, value: String) -> Self {
+        self.nonce = Some(value);
+        self
+    }
+    pub fn outerHtml(mut self, value: String) -> Self {
+        self.outerHtml = Some(value);
+        self
+    }
+    pub fn pathLength(mut self, value: f64) -> Self {
+        self.pathLength = Some(value);
+        self
+    }
+    pub fn rx(mut self, value: f64) -> Self {
+        self.rx = Some(value);
+        self
+    }
+    pub fn ry(mut self, value: f64) -> Self {
+        self.ry = Some(value);
+        self
+    }
+    pub fn scrollLeft(mut self, value: f64) -> Self {
+        self.scrollLeft = Some(value);
+        self
+    }
+    pub fn scrollTop(mut self, value: f64) -> Self {
+        self.scrollTop = Some(value);
+        self
+    }
+    pub fn slot(mut self, value: String) -> Self {
+        self.slot = Some(value);
+        self
+    }
+    pub fn style(mut self, value: String) -> Self {
+        self.style = Some(value);
+        self
+    }
+    pub fn tabIndex(mut self, value: i32) -> Self {
+        self.tabIndex = Some(value);
+        self
+    }
+    pub fn textContent(mut self, value: String) -> Self {
+        self.textContent = Some(value);
+        self
+    }
+    pub fn add_child_animation_element<T>(mut self, child: T) -> Self
+    where
+        T: Into<Shape> + AnimationElement,
+    {
+        self.children.push(child.into());
+        self
+    }
+    pub fn add_child_descriptive_element<T>(mut self, child: T) -> Self
+    where
+        T: Into<Shape> + DescriptiveElement,
+    {
+        self.children.push(child.into());
+        self
+    }
+}
+impl std::fmt::Display for Ellipse {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        let mut svg = format!(r#"<{}{}"#, "ellipse", "",);
+        if let Some(autofocus) = &self.autofocus {
+            svg.push_str(&format!(" {}=\"{}\"", "autofocus", autofocus));
+        }
+        if let Some(className) = &self.className {
+            svg.push_str(&format!(" {}=\"{}\"", "className", className));
+        }
+        if let Some(cx) = &self.cx {
+            svg.push_str(&format!(" {}=\"{}\"", "cx", cx));
+        }
+        if let Some(cy) = &self.cy {
+            svg.push_str(&format!(" {}=\"{}\"", "cy", cy));
+        }
+        if let Some(elementTiming) = &self.elementTiming {
+            svg.push_str(&format!(" {}=\"{}\"", "elementTiming", elementTiming));
+        }
+        if let Some(id) = &self.id {
+            svg.push_str(&format!(" {}=\"{}\"", "id", id));
+        }
+        if let Some(innerHtml) = &self.innerHtml {
+            svg.push_str(&format!(" {}=\"{}\"", "innerHtml", innerHtml));
+        }
+        if let Some(nonce) = &self.nonce {
+            svg.push_str(&format!(" {}=\"{}\"", "nonce", nonce));
+        }
+        if let Some(outerHtml) = &self.outerHtml {
+            svg.push_str(&format!(" {}=\"{}\"", "outerHtml", outerHtml));
+        }
+        if let Some(pathLength) = &self.pathLength {
+            svg.push_str(&format!(" {}=\"{}\"", "pathLength", pathLength));
+        }
+        if let Some(rx) = &self.rx {
+            svg.push_str(&format!(" {}=\"{}\"", "rx", rx));
+        }
+        if let Some(ry) = &self.ry {
+            svg.push_str(&format!(" {}=\"{}\"", "ry", ry));
+        }
+        if let Some(scrollLeft) = &self.scrollLeft {
+            svg.push_str(&format!(" {}=\"{}\"", "scrollLeft", scrollLeft));
+        }
+        if let Some(scrollTop) = &self.scrollTop {
+            svg.push_str(&format!(" {}=\"{}\"", "scrollTop", scrollTop));
+        }
+        if let Some(slot) = &self.slot {
+            svg.push_str(&format!(" {}=\"{}\"", "slot", slot));
+        }
+        if let Some(style) = &self.style {
+            svg.push_str(&format!(" {}=\"{}\"", "style", style));
+        }
+        if let Some(tabIndex) = &self.tabIndex {
+            svg.push_str(&format!(" {}=\"{}\"", "tabIndex", tabIndex));
+        }
+        if let Some(textContent) = &self.textContent {
+            svg.push_str(&format!(" {}=\"{}\"", "textContent", textContent));
+        }
+        if self.children.is_empty() {
+            svg.push_str("/>");
+            return write!(f, "{}", svg);
+        }
+        svg.push_str(">");
+        for child in self.children.iter() {
+            svg.push_str(&child.to_string());
+        }
+        svg.push_str(&format!("</{}>", "ellipse"));
+        write!(f, "{}", svg)
+    }
+}
+impl From<Ellipse> for Shape {
+    fn from(ellipse: Ellipse) -> Self {
+        Self::Ellipse(ellipse)
+    }
+}
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Rect {
     pub autofocus: Option<bool>,
     pub className: Option<String>,
@@ -897,6 +1107,9 @@ pub struct Rect {
     pub innerHtml: Option<String>,
     pub nonce: Option<String>,
     pub outerHtml: Option<String>,
+    pub pathLength: Option<f64>,
+    pub rx: Option<f64>,
+    pub ry: Option<f64>,
     pub scrollLeft: Option<f64>,
     pub scrollTop: Option<f64>,
     pub slot: Option<String>,
@@ -905,6 +1118,7 @@ pub struct Rect {
     pub textContent: Option<String>,
     pub width: Option<f64>,
     pub x: Option<f64>,
+    pub y: Option<f64>,
     children: Vec<Shape>,
 }
 impl BasicShape for Rect {}
@@ -920,6 +1134,9 @@ impl Rect {
             innerHtml: None,
             nonce: None,
             outerHtml: None,
+            pathLength: None,
+            rx: None,
+            ry: None,
             scrollLeft: None,
             scrollTop: None,
             slot: None,
@@ -928,6 +1145,7 @@ impl Rect {
             textContent: None,
             width: None,
             x: None,
+            y: None,
             children: Vec::new(),
         }
     }
@@ -967,6 +1185,18 @@ impl Rect {
         self.outerHtml = Some(value);
         self
     }
+    pub fn pathLength(mut self, value: f64) -> Self {
+        self.pathLength = Some(value);
+        self
+    }
+    pub fn rx(mut self, value: f64) -> Self {
+        self.rx = Some(value);
+        self
+    }
+    pub fn ry(mut self, value: f64) -> Self {
+        self.ry = Some(value);
+        self
+    }
     pub fn scrollLeft(mut self, value: f64) -> Self {
         self.scrollLeft = Some(value);
         self
@@ -997,6 +1227,10 @@ impl Rect {
     }
     pub fn x(mut self, value: f64) -> Self {
         self.x = Some(value);
+        self
+    }
+    pub fn y(mut self, value: f64) -> Self {
+        self.y = Some(value);
         self
     }
     pub fn add_child_animation_element<T>(mut self, child: T) -> Self
@@ -1044,6 +1278,15 @@ impl std::fmt::Display for Rect {
         if let Some(outerHtml) = &self.outerHtml {
             svg.push_str(&format!(" {}=\"{}\"", "outerHtml", outerHtml));
         }
+        if let Some(pathLength) = &self.pathLength {
+            svg.push_str(&format!(" {}=\"{}\"", "pathLength", pathLength));
+        }
+        if let Some(rx) = &self.rx {
+            svg.push_str(&format!(" {}=\"{}\"", "rx", rx));
+        }
+        if let Some(ry) = &self.ry {
+            svg.push_str(&format!(" {}=\"{}\"", "ry", ry));
+        }
         if let Some(scrollLeft) = &self.scrollLeft {
             svg.push_str(&format!(" {}=\"{}\"", "scrollLeft", scrollLeft));
         }
@@ -1067,6 +1310,9 @@ impl std::fmt::Display for Rect {
         }
         if let Some(x) = &self.x {
             svg.push_str(&format!(" {}=\"{}\"", "x", x));
+        }
+        if let Some(y) = &self.y {
+            svg.push_str(&format!(" {}=\"{}\"", "y", y));
         }
         if self.children.is_empty() {
             svg.push_str("/>");
