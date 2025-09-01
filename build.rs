@@ -119,8 +119,8 @@ fn main() {
     });
 
     let generated_code = quote! {
-        use crate::types::color::Color;
-        use crate::types::target::Target;
+        use crate::color::Color;
+        use crate::target::Target;
         use serde::{Deserialize, Serialize};
         #category_traits
         #shape_enum

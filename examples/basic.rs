@@ -1,5 +1,5 @@
+use easy_svg::color::Color;
 use easy_svg::svg::Svg;
-use easy_svg::types::color::Color;
 use easy_svg::{Circle, Rect, Text};
 
 fn main() {

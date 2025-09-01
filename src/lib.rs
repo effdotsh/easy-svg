@@ -1,14 +1,15 @@
 pub mod generated {
     include!(concat!(env!("OUT_DIR"), "/generated.rs"));
 }
+pub mod color;
 pub mod svg;
-pub mod types;
+pub mod target;
 
 pub use generated::*;
 #[cfg(test)]
 mod tests {
+    use crate::color::Color;
     use crate::svg::Svg;
-    use crate::types::color::Color;
     use crate::{A, Circle, Line, Rect, Text};
 
     #[test]
