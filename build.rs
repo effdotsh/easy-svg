@@ -2,8 +2,6 @@ use proc_macro2::TokenStream;
 use serde::Deserialize;
 use std::collections::BTreeMap;
 use std::fs;
-use std::fs::File;
-use std::io::Write;
 
 use syn::__private::quote::{format_ident, quote};
 
@@ -58,28 +56,13 @@ struct Field {
 }
 
 fn main() {
-    let mut log_file = File::create("build_debug.log").expect("Could not create build_debug.log");
-    writeln!(log_file, "Starting build.rs debugging output.").unwrap();
     println!("cargo:rerun-if-chancategory_traitsged=svg_elements.yml");
     let yaml_content =
         fs::read_to_string("svg_elements.yml").expect("Failed to read svg_elements.yml");
     let mut config: Config = serde_yaml::from_str(&yaml_content).expect("Failed to parse YAML");
-    let keys = config.elements.keys().cloned().collect::<Vec<_>>().clone();
-    for (i, element) in config.elements.values_mut().enumerate() {
-        writeln!(log_file, "Starting on {}", keys[i]).unwrap();
-
+    for element in config.elements.values_mut() {
         let mut derives_queue: Vec<&String> = Vec::new();
         derives_queue.extend(element.derives.iter());
-        writeln!(
-            log_file,
-            "    Derives Queue: {}",
-            derives_queue
-                .iter()
-                .map(|x| (*x).as_str())
-                .collect::<Vec<_>>()
-                .join(", ")
-        )
-        .unwrap();
 
         let mut processed_derives: std::collections::HashSet<&String> =
             std::collections::HashSet::new();
@@ -100,40 +83,13 @@ fn main() {
             } else {
                 panic!("Derivable {} not found", derive_name);
             }
-            writeln!(
-                log_file,
-                "    Derives Queue: {}",
-                derives_queue
-                    .iter()
-                    .map(|x| (*x).as_str())
-                    .collect::<Vec<_>>()
-                    .join(", ")
-            )
-            .unwrap();
         }
 
         element.derives = all_derives;
     }
 
-    writeln!(
-        log_file,
-        "config.elements: {}",
-        config
-            .elements
-            .keys()
-            .map(|x| x.to_string())
-            .collect::<Vec<_>>()
-            .join(", ")
-    )
-    .unwrap();
     for (attribute_name, attribute) in config.attributes.iter() {
         for element in &attribute.elements {
-            writeln!(
-                log_file,
-                "   adding attribute {} to element {}",
-                attribute_name, element
-            )
-            .unwrap();
             config.elements.get_mut(element).unwrap().fields.insert(
                 attribute_name.clone(),
                 Field {
@@ -149,11 +105,10 @@ fn main() {
     let shape_enum = generate_shape_enum(&config);
 
     let element_code = config.elements.iter().map(|(element_name, element)| {
-        let struct_code = generate_struct(element_name, element, &mut log_file);
-        writeln!(log_file, "struct_code: {}", struct_code).unwrap();
-        let impl_code = generate_impl(element_name, element, &mut log_file, &config);
-        let to_string_code = generate_to_string(element_name, element, &mut log_file);
-        let shape_from_code = generate_shape_from(element_name, &mut log_file);
+        let struct_code = generate_struct(element_name, element);
+        let impl_code = generate_impl(element_name, element, &config);
+        let to_string_code = generate_to_string(element_name, element);
+        let shape_from_code = generate_shape_from(element_name);
 
         quote! {
             #struct_code
@@ -192,9 +147,7 @@ fn generate_category_traits(config: &Config) -> TokenStream {
     }
 }
 
-fn generate_shape_from(element_name: &String, log_file: &mut File) -> TokenStream {
-    writeln!(log_file, "making shape for {}", element_name).unwrap();
-
+fn generate_shape_from(element_name: &String) -> TokenStream {
     let struct_name = capitalize(element_name);
 
     let struct_name_ident = format_ident!("{}", &struct_name);
@@ -254,14 +207,11 @@ fn generate_shape_enum(config: &Config) -> TokenStream {
         }
     }
 }
-fn generate_struct(name: &str, element: &Element, log_file: &mut File) -> TokenStream {
+fn generate_struct(name: &str, element: &Element) -> TokenStream {
     let struct_name = capitalize(name);
     let mut fields = Vec::new();
-    writeln!(log_file, "generating struct for {}", name).unwrap();
 
     for (field_name, field) in &element.fields {
-        writeln!(log_file, "    field name {}", field_name).unwrap();
-
         let field_name_ident = format_ident!("{}", camel_to_snake(field_name));
         let field_type_tokens: TokenStream = field
             .field_type
@@ -283,9 +233,7 @@ fn generate_struct(name: &str, element: &Element, log_file: &mut File) -> TokenS
      }
 }
 
-fn generate_to_string(name: &str, element: &Element, log_file: &mut File) -> TokenStream {
-    writeln!(log_file, "making ToString for {}", name).unwrap();
-
+fn generate_to_string(name: &str, element: &Element) -> TokenStream {
     let struct_name = capitalize(name);
     let struct_name_ident = format_ident!("{}", struct_name);
 
@@ -343,23 +291,16 @@ fn generate_to_string(name: &str, element: &Element, log_file: &mut File) -> Tok
                 }
     }
 }
-fn generate_impl(
-    name: &str,
-    element: &Element,
-    log_file: &mut File,
-    config: &Config,
-) -> TokenStream {
+fn generate_impl(name: &str, element: &Element, config: &Config) -> TokenStream {
     let struct_name = capitalize(name);
-    let constructor_tokens = generate_constructor(element, log_file);
-
-    writeln!(log_file, "making builders for {}", name).unwrap();
+    let constructor_tokens = generate_constructor(element);
 
     let builder_methods = element
         .fields
         .iter()
         .filter_map(|(field_name, field)| {
             if !field.from_constructor.unwrap_or(false) {
-                return Some(generate_builder_method(field_name, field, log_file));
+                return Some(generate_builder_method(field_name, field));
             }
             None
         })
@@ -428,10 +369,8 @@ fn generate_children_methods(element: &Element, config: &Config) -> Vec<TokenStr
     methods
 }
 
-fn generate_constructor(element: &Element, log_file: &mut File) -> TokenStream {
+fn generate_constructor(element: &Element) -> TokenStream {
     let constructor_params = element.constructor_params.iter().map(|p| {
-        writeln!(log_file, "    making constructor for {}", p.name).unwrap();
-
         let param_name_ident = format_ident!("{}", camel_to_snake(&p.name));
         let param_type_tokens: TokenStream = p
             .param_type
@@ -442,8 +381,6 @@ fn generate_constructor(element: &Element, log_file: &mut File) -> TokenStream {
             #param_name_ident: #param_type_tokens
         }
     });
-
-    // writeln!(log_file, "making builders for {}", name).unwrap();
 
     let field_assignments = element.fields.iter().map(|(field_name, field)| {
         let field_name_ident = format_ident!("{}", camel_to_snake(field_name));
@@ -468,8 +405,7 @@ fn generate_constructor(element: &Element, log_file: &mut File) -> TokenStream {
         }
     }
 }
-fn generate_builder_method(field_name: &str, field: &Field, log_file: &mut File) -> TokenStream {
-    writeln!(log_file, "    builder {}", field_name).unwrap();
+fn generate_builder_method(field_name: &str, field: &Field) -> TokenStream {
     let param_type = if field.field_type.starts_with("Option<") {
         &field.field_type[7..field.field_type.len() - 1]
     } else {
