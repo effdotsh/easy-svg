@@ -5,6 +5,7 @@ use std::fs;
 use std::fs::File;
 use std::io::Write;
 
+
 use syn::__private::quote::{format_ident, quote};
 
 #[derive(Deserialize, Debug)]
@@ -172,8 +173,9 @@ fn main() {
         #( #element_code )*
     };
 
+    let out_path = std::path::PathBuf::from(std::env::var("OUT_DIR").unwrap());
     fs::write(
-        "src/generated.rs",
+        out_path.join("generated.rs"),
         format_rust_code(&generated_code.to_string()),
     )
     .unwrap();
