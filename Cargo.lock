@@ -4,7 +4,7 @@ version = 4
 
 [[package]]
 name = "easy-svg"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "indexmap",
  "prettyplease",
