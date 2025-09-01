@@ -1,6 +1,5 @@
 use serde::{Deserialize, Serialize};
 use std::fmt::Display;
-
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum Target {
     _Self,

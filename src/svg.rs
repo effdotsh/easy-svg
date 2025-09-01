@@ -1,13 +1,7 @@
-use crate::Shape;
+use crate::shape::Shape;
+use crate::svg_element::SvgElement;
 use serde::{Deserialize, Serialize};
 use std::fmt::{Debug, Display};
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(tag = "type")]
-pub enum SvgElement {
-    Shape(Box<Shape>),
-    Svg(Svg),
-}
 
 impl From<Shape> for SvgElement {
     fn from(shape: Shape) -> Self {

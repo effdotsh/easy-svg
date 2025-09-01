@@ -122,8 +122,10 @@ fn main() {
         use crate::color::Color;
         use crate::target::Target;
         use serde::{Deserialize, Serialize};
+        use crate::shape::Shape;
+
         #category_traits
-        #shape_enum
+        // #shape_enum
         #( #element_code )*
     };
 
@@ -131,6 +133,20 @@ fn main() {
     fs::write(
         out_path.join("generated.rs"),
         format_rust_code(&generated_code.to_string()),
+    )
+    .unwrap();
+
+    fs::write(
+        out_path.join("shape.rs"),
+        format_rust_code(
+            quote! {
+                use serde::{Deserialize, Serialize};
+                use crate::generated::*;
+                #shape_enum
+            }
+            .to_string()
+            .as_str(),
+        ),
     )
     .unwrap();
 }

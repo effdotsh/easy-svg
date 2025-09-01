@@ -1,10 +1,14 @@
 pub mod generated {
     include!(concat!(env!("OUT_DIR"), "/generated.rs"));
 }
+mod shape {
+    include!(concat!(env!("OUT_DIR"), "/shape.rs"));
+}
 pub mod color;
 pub mod path;
 pub mod svg;
 pub use svg::*;
+mod svg_element;
 pub mod target;
 
 pub use generated::*;

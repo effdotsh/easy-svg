@@ -1,5 +1,5 @@
 use easy_svg::color::Color;
-use easy_svg::{Rect, Svg, Text};
+use easy_svg::{Circle, Rect, Svg, Text};
 
 fn main() {
     let svg = Svg::new(500., 500.)
@@ -18,13 +18,7 @@ fn main() {
                 .add_child_string("Hello World".to_string())
                 .font_family("Arial".to_string()),
         )
-        .add_element(
-            easy_svg::Circle::new()
-                .fill(Color::DarkBlue)
-                .r(20.)
-                .cx(80.)
-                .cy(85.),
-        );
+        .add_element(Circle::new().fill(Color::DarkBlue).r(20.).cx(80.).cy(85.));
 
     println!("{}", svg);
 }
