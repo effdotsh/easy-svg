@@ -147,7 +147,7 @@ fn generate_category_traits(config: &Config) -> TokenStream {
     }
 }
 
-fn generate_shape_from(element_name: &String) -> TokenStream {
+fn generate_shape_from(element_name: &str) -> TokenStream {
     let struct_name = capitalize(element_name);
 
     let struct_name_ident = format_ident!("{}", &struct_name);
