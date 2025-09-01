@@ -5,7 +5,6 @@ use std::fs;
 use std::fs::File;
 use std::io::Write;
 
-
 use syn::__private::quote::{format_ident, quote};
 
 #[derive(Deserialize, Debug)]
