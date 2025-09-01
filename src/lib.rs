@@ -15,8 +15,9 @@ pub use generated::*;
 #[cfg(test)]
 mod tests {
     use crate::color::Color;
+    use crate::elements::{A, Circle, Line, Rect, Text};
+    use crate::path::Path;
     use crate::svg::Svg;
-    use crate::{A, Circle, Line, Rect, Text};
 
     #[test]
     fn test_rect_and_circle() {
@@ -100,5 +101,12 @@ mod tests {
             svg.to_string(),
             r#"<svg width="500" height="500"><line stroke="red" x1="10" x2="100" y1="10" y2="100"/></svg>"#
         );
+    }
+
+    #[test]
+    fn test_path_commands() {
+        let path = Path::new().M(10.0, 20.0).l(5.0, -5.0).H(30.0).v(10.0).Z();
+
+        assert_eq!(path.to_string(), "M10 20 l5 -5 H30 v10 Z");
     }
 }

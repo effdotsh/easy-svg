@@ -1,5 +1,6 @@
+use easy_svg::Svg;
 use easy_svg::color::Color;
-use easy_svg::{Circle, Rect, Svg, Text};
+use easy_svg::elements::{Circle, Rect, Text};
 
 fn main() {
     let svg = Svg::new(500., 500.)

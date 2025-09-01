@@ -88,7 +88,7 @@ impl Display for Svg {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::generated::Rect;
+    use crate::elements::Rect;
 
     #[test]
     fn test_new_svg() {

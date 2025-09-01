@@ -119,14 +119,14 @@ fn main() {
     });
 
     let generated_code = quote! {
-        use crate::color::Color;
-        use crate::target::Target;
-        use serde::{Deserialize, Serialize};
-        use crate::shape::Shape;
-
-        #category_traits
-        // #shape_enum
-        #( #element_code )*
+        pub mod elements{
+            use crate::color::Color;
+            use crate::target::Target;
+            use serde::{Deserialize, Serialize};
+            use crate::shape::Shape;
+            #category_traits
+            #( #element_code )*
+        }
     };
 
     let out_path = std::path::PathBuf::from(std::env::var("OUT_DIR").unwrap());
@@ -141,7 +141,7 @@ fn main() {
         format_rust_code(
             quote! {
                 use serde::{Deserialize, Serialize};
-                use crate::generated::*;
+                use crate::generated::elements::*;
                 #shape_enum
             }
             .to_string()
