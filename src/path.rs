@@ -1,0 +1,2 @@
+struct Path {}
+impl Path {}
