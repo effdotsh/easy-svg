@@ -1,9 +1,9 @@
 [package]
 name = "easy-svg"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2024"
 authors = ["effdotsh"]
-license-file = "LICENSE"
+license = "MIT"
 description = "Author SVGs in Rust through a statically typed system"
 homepage = "https://github.com/effdotsh/easy-svg"
 readme = "README.md"
