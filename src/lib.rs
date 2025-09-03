@@ -4,16 +4,15 @@ pub mod generated {
 mod shape {
     include!(concat!(env!("OUT_DIR"), "/shape.rs"));
 }
-pub mod color;
-pub mod path_data;
-pub mod target;
+
+pub mod types;
 
 pub use generated::*;
 #[cfg(test)]
 mod tests {
-    use crate::color::Color;
     use crate::elements::{A, Circle, Line, Path, Rect, Svg, Text};
-    use crate::path_data::PathData;
+    use crate::types::color::Color;
+    use crate::types::path_data::PathData;
 
     #[test]
     fn test_rect_and_circle() {
