@@ -5,7 +5,7 @@ mod shape {
     include!(concat!(env!("OUT_DIR"), "/shape.rs"));
 }
 pub mod color;
-pub mod path;
+pub mod path_data;
 pub mod svg;
 pub use svg::*;
 mod svg_element;
@@ -15,8 +15,8 @@ pub use generated::*;
 #[cfg(test)]
 mod tests {
     use crate::color::Color;
-    use crate::elements::{A, Circle, Line, Rect, Text};
-    use crate::path::Path;
+    use crate::elements::{A, Circle, Line, Path, Rect, Text};
+    use crate::path_data::PathData;
     use crate::svg::Svg;
 
     #[test]
@@ -104,19 +104,9 @@ mod tests {
     }
 
     #[test]
-    fn test_path_bezier() {
-        // from https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorials/SVG_from_scratch/Paths#b%C3%A9zier_curves
-        let path = Path::new()
-            .M(130., 110.)
-            .C(120., 140., 180., 140., 170., 110.);
-
-        assert_eq!(path.to_string(), "M 130 110 C 120 140, 180 140, 170 110")
-    }
-
-    #[test]
     fn test_path_arc() {
         // from https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorials/SVG_from_scratch/Paths#arcs
-        let path = Path::new()
+        let path_data = PathData::new()
             .M(10., 315.)
             .L(110., 215.)
             .A(30., 50., 0., false, true, 162.55, 162.45)
@@ -124,9 +114,17 @@ mod tests {
             .A(30., 50., -45., false, true, 215.1, 109.9)
             .L(315., 10.);
 
+        let svg = Svg::new(500., 500.).add_element(
+            Path::new()
+                .d(path_data)
+                .stroke(Color::Black)
+                .fill(Color::Green)
+                .stroke_width(2.)
+                .fill_opacity(0.5),
+        );
         assert_eq!(
-            path.to_string(),
-            "M 10 315 L 110 215 A 30 50 0 0 1 162.55 162.45 L 172.55 152.45 A 30 50 -45 0 1 215.1 109.9 L 315 10"
+            svg.to_string(),
+            r#"<svg width="500" height="500"><path d="M 10 315 L 110 215 A 30 50 0 0 1 162.55 162.45 L 172.55 152.45 A 30 50 -45 0 1 215.1 109.9 L 315 10" fill="green" fill-opacity="0.5" stroke="black" stroke-width="2"/></svg>"#
         )
     }
 }

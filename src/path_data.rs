@@ -2,14 +2,14 @@ use serde::{Deserialize, Serialize};
 use std::fmt::Formatter;
 
 #[derive(Clone, Deserialize, Serialize, PartialEq, Debug)]
-pub struct Path {
+pub struct PathData {
     points: Vec<String>,
 }
 
 #[allow(non_snake_case)]
-impl Path {
+impl PathData {
     pub fn new() -> Self {
-        Path { points: Vec::new() }
+        PathData { points: Vec::new() }
     }
 
     pub fn M(mut self, x: f64, y: f64) -> Self {
@@ -140,12 +140,12 @@ impl Path {
     }
 }
 
-impl Default for Path {
+impl Default for PathData {
     fn default() -> Self {
         Self::new()
     }
 }
-impl std::fmt::Display for Path {
+impl std::fmt::Display for PathData {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.points.join(" "))
     }

@@ -42,10 +42,11 @@ attributes:
   #  exponent: { }
   #  fetchpriority: { }
   fill:
+    type: "Option<Color>"
     elements:
       - circle
       - ellipse
-      #      - path
+      - path
       #      - polygon
       #      - polyline
       - rect
@@ -56,13 +57,24 @@ attributes:
     #      - animateMotion
     #      - animateTransform
     #      - set
-    type: "Option<Color>"
-    #  fill-opacity: { }
-    #  fill-rule: { }
-    #  filter: { }
-    #  filterUnits: { }
-    #  flood-color: { }
-    #  flood-opacity: { }
+  fill-opacity:
+    type: "Option<f64>"
+    elements:
+      - circle
+      #      - ellipse
+      - path
+      #      - polygon
+      #      - polyline
+      - rect
+      - text
+    #      - textPath
+    #      - tspan
+
+  #  fill-rule: { }
+  #  filter: { }
+  #  filterUnits: { }
+  #  flood-color: { }
+  #  flood-opacity: { }
   font-family:
     type: "Option<String>"
     elements:
@@ -81,130 +93,141 @@ attributes:
       - text
     #        - textPath
     #        - tSpan
-    #  font-stretch: { }
-    #  font-style: { }
-    #  font-variant: { }
-    #  font-weight: { }
-    #  fr: { }
-    #  from: { }
-    #  fx: { }
-    #  fy: { }
-    #  glyph-orientation-horizontal: { }
-    #  glyph-orientation-vertical: { }
-    #  gradientTransform: { }
-    #  gradientUnits: { }
-    #  height: { }
-    #  href: { }
-    #  hreflang: { }
-    #  id: { }
-    #  image-rendering: { }
-    #  in: { }
-    #  in2: { }
-    #  intercept: { }
-    #  k1: { }
-    #  k2: { }
-    #  k3: { }
-    #  k4: { }
-    #  kernelMatrix: { }
-    #  kernelUnitLength: { }
-    #  keyPoints: { }
-    #  keySplines: { }
-    #  keyTimes: { }
-    #  lang: { }
-    #  lengthAdjust: { }
-    #  letter-spacing: { }
-    #  lighting-color: { }
-    #  limitingConeAngle: { }
-    #  marker-end: { }
-    #  marker-mid: { }
-    #  marker-start: { }
-    #  markerHeight: { }
-    #  markerUnits: { }
-    #  markerWidth: { }
-    #  mask: { }
-    #  maskContentUnits: { }
-    #  maskUnits: { }
-    #  max: { }
-    #  media: { }
-    #  method: { }
-    #  min: { }
-    #  mode: { }
-    #  numOctaves: { }
-    #  offset: { }
-    #  opacity: { }
-    #  operator: { }
-    #  order: { }
-    #  orient: { }
-    #  origin: { }
-    #  overflow: { }
-    #  paint-order: { }
-    #  path: { }
-    #  pathLength: { }
-    #  patternContentUnits: { }
-    #  patternTransform: { }
-    #  patternUnits: { }
-    #  ping: { }
-    #  pointer-events: { }
-    #  points: { }
-    #  pointsAtX: { }
-    #  pointsAtY: { }
-    #  pointsAtZ: { }
-    #  preserveAlpha: { }
-    #  preserveAspectRatio: { }
-    #  primitiveUnits: { }
-    #  r: { }
-    #  radius: { }
-    #  referrerPolicy: { }
-    #  refX: { }
-    #  refY: { }
-    #  rel: { }
-    #  repeatCount: { }
-    #  repeatDur: { }
-    #  requiredExtensions: { }
-    #  requiredFeatures: { }
-    #  restart: { }
-    #  result: { }
-    #  rotate: { }
-    #  rx: { }
-    #  ry: { }
-    #  scale: { }
-    #  seed: { }
-    #  shape-rendering: { }
-    #  side: { }
-    #  slope: { }
-    #  spacing: { }
-    #  specularConstant: { }
-    #  specularExponent: { }
-    #  spreadMethod: { }
-    #  startOffset: { }
-    #  stdDeviation: { }
-    #  stitchTiles: { }
-    #  stop-color: { }
-    #  stop-opacity: { }
+  #  font-stretch: { }
+  #  font-style: { }
+  #  font-variant: { }
+  #  font-weight: { }
+  #  fr: { }
+  #  from: { }
+  #  fx: { }
+  #  fy: { }
+  #  glyph-orientation-horizontal: { }
+  #  glyph-orientation-vertical: { }
+  #  gradientTransform: { }
+  #  gradientUnits: { }
+  #  height: { }
+  #  href: { }
+  #  hreflang: { }
+  #  id: { }
+  #  image-rendering: { }
+  #  in: { }
+  #  in2: { }
+  #  intercept: { }
+  #  k1: { }
+  #  k2: { }
+  #  k3: { }
+  #  k4: { }
+  #  kernelMatrix: { }
+  #  kernelUnitLength: { }
+  #  keyPoints: { }
+  #  keySplines: { }
+  #  keyTimes: { }
+  #  lang: { }
+  #  lengthAdjust: { }
+  #  letter-spacing: { }
+  #  lighting-color: { }
+  #  limitingConeAngle: { }
+  #  marker-end: { }
+  #  marker-mid: { }
+  #  marker-start: { }
+  #  markerHeight: { }
+  #  markerUnits: { }
+  #  markerWidth: { }
+  #  mask: { }
+  #  maskContentUnits: { }
+  #  maskUnits: { }
+  #  max: { }
+  #  media: { }
+  #  method: { }
+  #  min: { }
+  #  mode: { }
+  #  numOctaves: { }
+  #  offset: { }
+  #  opacity: { }
+  #  operator: { }
+  #  order: { }
+  #  orient: { }
+  #  origin: { }
+  #  overflow: { }
+  #  paint-order: { }
+  #  path: { }
+  #  pathLength: { }
+  #  patternContentUnits: { }
+  #  patternTransform: { }
+  #  patternUnits: { }
+  #  ping: { }
+  #  pointer-events: { }
+  #  points: { }
+  #  pointsAtX: { }
+  #  pointsAtY: { }
+  #  pointsAtZ: { }
+  #  preserveAlpha: { }
+  #  preserveAspectRatio: { }
+  #  primitiveUnits: { }
+  #  r: { }
+  #  radius: { }
+  #  referrerPolicy: { }
+  #  refX: { }
+  #  refY: { }
+  #  rel: { }
+  #  repeatCount: { }
+  #  repeatDur: { }
+  #  requiredExtensions: { }
+  #  requiredFeatures: { }
+  #  restart: { }
+  #  result: { }
+  #  rotate: { }
+  #  rx: { }
+  #  ry: { }
+  #  scale: { }
+  #  seed: { }
+  #  shape-rendering: { }
+  #  side: { }
+  #  slope: { }
+  #  spacing: { }
+  #  specularConstant: { }
+  #  specularExponent: { }
+  #  spreadMethod: { }
+  #  startOffset: { }
+  #  stdDeviation: { }
+  #  stitchTiles: { }
+  #  stop-color: { }
+  #  stop-opacity: { }
   stroke:
     type: "Option<Color>"
     elements:
       - circle
       - ellipse
       - line
-      #        - path
-      #        - polygon
-      #        - polyline
+      - path
+      # - polygon
+      # - polyline
       - rect
       - text
-  #        - textPath
-  #        - tspan
-
+      # - textPath
+      # - tspan
   #  stroke-dasharray: { }
   #  stroke-dashoffset: { }
   #  stroke-linecap: { }
   #  stroke-linejoin: { }
   #  stroke-miterlimit: { }
   #  stroke-opacity: { }
-  #  stroke-width: { }
+  stroke-width:
+    type: "Option<f64>"
+    elements:
+      - circle
+      #        - ellipse
+      #        - line
+      - path
+      #        - polygon
+      #        - polyline
+      - rect
+      - text
+      #- textPath
+      #- tspan
   #  style: { }
   #  surfaceScale: { }
-  #  systemLanguage: { }
+  #  systemLanguage: { }`
   #  tabindex: { }
   #  tableValues: { }
   #  target: { }
@@ -294,6 +317,9 @@ derives:
     derives: [ "SVGElement" ]
     fields: { }
   SVGLineElement:
+    derives: [ "SVGGeometryElement" ]
+    fields: { }
+  SVGPathElement:
     derives: [ "SVGGeometryElement" ]
     fields: { }
   SVGTextContentElement:
@@ -458,11 +484,18 @@ elements:
       y2: { type: "Option<f64>" }
       pathLength: { type: "Option<f64>" }
 
-  #  marker: { }
-  #  mask: { }
-  #  metadata: { }
-  #  mpath: { }
-  #  path: { }
+    #  marker: { }
+    #  mask: { }
+    #  metadata: { }
+    #  mpath: { }
+  path:
+    element_types: [ "GraphicsElement", "RenderableElement", "ShapeElement" ]
+    derives: [ "SVGPathElement" ]
+    valid_child_types: [ "AnimationElement", "DescriptiveElement" ]
+    fields:
+      d: { type: "Option<PathData>" }
+      pathLength: { type: "Option<f64>" }
+
   #  pattern: { }
   #  polygon: { }
   #  polyline: { }
