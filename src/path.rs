@@ -103,6 +103,7 @@ impl Path {
         self
     }
 
+    #[allow(clippy::too_many_arguments)]
     pub fn A(
         mut self,
         rx: f64,
@@ -120,6 +121,7 @@ impl Path {
         self
     }
 
+    #[allow(clippy::too_many_arguments)]
     pub fn a(
         mut self,
         rx: f64,
@@ -138,6 +140,11 @@ impl Path {
     }
 }
 
+impl Default for Path {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 impl std::fmt::Display for Path {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.points.join(" "))
