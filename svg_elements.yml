@@ -45,7 +45,7 @@ attributes:
     elements:
       - circle
       - ellipse
-      #      - path
+      - path
       #      - polygon
       #      - polyline
       - rect
@@ -187,7 +187,7 @@ attributes:
       - circle
       - ellipse
       - line
-      #        - path
+      - path
       #        - polygon
       #        - polyline
       - rect
@@ -294,6 +294,9 @@ derives:
     derives: [ "SVGElement" ]
     fields: { }
   SVGLineElement:
+    derives: [ "SVGGeometryElement" ]
+    fields: { }
+  SVGPathElement:
     derives: [ "SVGGeometryElement" ]
     fields: { }
   SVGTextContentElement:
@@ -458,11 +461,18 @@ elements:
       y2: { type: "Option<f64>" }
       pathLength: { type: "Option<f64>" }
 
-  #  marker: { }
-  #  mask: { }
-  #  metadata: { }
-  #  mpath: { }
-  #  path: { }
+    #  marker: { }
+    #  mask: { }
+    #  metadata: { }
+    #  mpath: { }
+  path:
+    element_types: [ "GraphicsElement", "RenderableElement", "ShapeElement" ]
+    derives: [ "SVGPathElement" ]
+    valid_child_types: [ "AnimationElement", "DescriptiveElement" ]
+    fields:
+      d: { type: "Option<PathData>" }
+      pathLength: { type: "Option<f64>" }
+
   #  pattern: { }
   #  polygon: { }
   #  polyline: { }

@@ -121,6 +121,7 @@ fn main() {
     let generated_code = quote! {
         pub mod elements{
             use crate::color::Color;
+            use crate::path_data::PathData;
             use crate::target::Target;
             use serde::{Deserialize, Serialize};
             use crate::shape::Shape;
