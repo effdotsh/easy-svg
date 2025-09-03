@@ -60,21 +60,21 @@ attributes:
   fill-opacity:
     type: "Option<f64>"
     elements:
-      - <circle
-      - <ellipse
-      - <path
-      - <polygon
-      - <polyline
-      - <rect
-      - <text
-      - <textPath
-      - <tspan
+      - circle
+      #      - ellipse
+      - path
+      #      - polygon
+      #      - polyline
+      - rect
+      - text
+    #      - textPath
+    #      - tspan
 
-    #  fill-rule: { }
-    #  filter: { }
-    #  filterUnits: { }
-    #  flood-color: { }
-    #  flood-opacity: { }
+  #  fill-rule: { }
+  #  filter: { }
+  #  filterUnits: { }
+  #  flood-color: { }
+  #  flood-opacity: { }
   font-family:
     type: "Option<String>"
     elements:

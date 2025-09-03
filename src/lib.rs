@@ -119,11 +119,12 @@ mod tests {
                 .d(path_data)
                 .stroke(Color::Black)
                 .fill(Color::Green)
-                .stroke_width(2.),
+                .stroke_width(2.)
+                .fill_opacity(0.5),
         );
         assert_eq!(
             svg.to_string(),
-            r#""<svg width="500" height="500">M 10 315 L 110 215 A 30 50 0 0 1 162.55 162.45 L 172.55 152.45 A 30 50 -45 0 1 215.1 109.9 L 315 10"#
+            r#"<svg width="500" height="500"><path d="M 10 315 L 110 215 A 30 50 0 0 1 162.55 162.45 L 172.55 152.45 A 30 50 -45 0 1 215.1 109.9 L 315 10" fill="green" fill-opacity="0.5" stroke="black" stroke-width="2"/></svg>"#
         )
     }
 }
