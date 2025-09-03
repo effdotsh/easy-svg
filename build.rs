@@ -89,7 +89,9 @@ fn main() {
     }
 
     for (attribute_name, attribute) in config.attributes.iter() {
+        println!("attribute: {}", attribute_name);
         for element in &attribute.elements {
+            println!("  element: {}", element);
             config.elements.get_mut(element).unwrap().fields.insert(
                 attribute_name.clone(),
                 Field {
