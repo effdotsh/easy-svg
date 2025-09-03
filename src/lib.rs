@@ -1,15 +1,23 @@
 pub mod generated {
     include!(concat!(env!("OUT_DIR"), "/generated.rs"));
 }
+mod shape {
+    include!(concat!(env!("OUT_DIR"), "/shape.rs"));
+}
+pub mod color;
+pub mod path;
 pub mod svg;
-pub mod types;
+pub use svg::*;
+mod svg_element;
+pub mod target;
 
 pub use generated::*;
 #[cfg(test)]
 mod tests {
+    use crate::color::Color;
+    use crate::elements::{A, Circle, Line, Rect, Text};
+    use crate::path::Path;
     use crate::svg::Svg;
-    use crate::types::color::Color;
-    use crate::{A, Circle, Line, Rect, Text};
 
     #[test]
     fn test_rect_and_circle() {
@@ -93,5 +101,32 @@ mod tests {
             svg.to_string(),
             r#"<svg width="500" height="500"><line stroke="red" x1="10" x2="100" y1="10" y2="100"/></svg>"#
         );
+    }
+
+    #[test]
+    fn test_path_bezier() {
+        // from https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorials/SVG_from_scratch/Paths#b%C3%A9zier_curves
+        let path = Path::new()
+            .M(130., 110.)
+            .C(120., 140., 180., 140., 170., 110.);
+
+        assert_eq!(path.to_string(), "M 130 110 C 120 140, 180 140, 170 110")
+    }
+
+    #[test]
+    fn test_path_arc() {
+        // from https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorials/SVG_from_scratch/Paths#arcs
+        let path = Path::new()
+            .M(10., 315.)
+            .L(110., 215.)
+            .A(30., 50., 0., false, true, 162.55, 162.45)
+            .L(172.55, 152.45)
+            .A(30., 50., -45., false, true, 215.1, 109.9)
+            .L(315., 10.);
+
+        assert_eq!(
+            path.to_string(),
+            "M 10 315 L 110 215 A 30 50 0 0 1 162.55 162.45 L 172.55 152.45 A 30 50 -45 0 1 215.1 109.9 L 315 10"
+        )
     }
 }
