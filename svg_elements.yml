@@ -374,7 +374,7 @@ elements:
   #  animateMotion: {}
   #  animateTransform: {}
   circle:
-    element_types: [ "BasicShape" ]
+    element_types: [ "BasicShape", "GraphicsElement", "RenderableElement", "ShapeElement" ]
     derives: [ "SVGGeometryElement" ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement" ]
     fields:
@@ -501,7 +501,7 @@ elements:
   #  polyline: { }
   #  radialGradient: { }
   rect:
-    element_types: [ "BasicShape" ]
+    element_types: [ "BasicShape", "GraphicsElement", "RenderableElement", "ShapeElement" ]
     derives: [ "SVGGeometryElement" ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement" ]
     fields:
@@ -518,7 +518,32 @@ elements:
   #  set: { }
   #  stop: { }
   #  style: { }
-  #  svg: { }
+  svg:
+    element_types: [ "ContainerElement", "RenderableElement", "StructuralElement", ]
+    derives: [ ]
+    valid_child_types: [ "AnimationElement", "DescriptiveElement", "ShapeElement", "StructuralElement", "GradientElement",
+                         "A",
+      #                         "ClipPath",
+      #                         "Filter",
+      #                         "ForeignObject",
+      #                         "Image",
+      #                         "Marker",
+      #                         "Mask",
+      #                         "Pattern",
+      #                         "Script",
+      #                         "Style",
+      #                         "Switch",
+                         "Text",
+      #                         "View"
+    ]
+    fields:
+      baseProfile: { type: "Option<String>" }
+      height: { type: "Option<f64>" }
+      #preserveAspectRatio
+      #      viewBox: { type: "Option<Vec<f64>>" }
+      width: { type: "Option<f64>" }
+      x: { type: "Option<f64>" }
+      y: { type: "Option<f64>" }
   #  switch: { }
   #  symbol: { }
   text:

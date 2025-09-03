@@ -6,24 +6,22 @@ mod shape {
 }
 pub mod color;
 pub mod path_data;
-pub mod svg;
-pub use svg::*;
-mod svg_element;
 pub mod target;
 
 pub use generated::*;
 #[cfg(test)]
 mod tests {
     use crate::color::Color;
-    use crate::elements::{A, Circle, Line, Path, Rect, Text};
+    use crate::elements::{A, Circle, Line, Path, Rect, Svg, Text};
     use crate::path_data::PathData;
-    use crate::svg::Svg;
 
     #[test]
     fn test_rect_and_circle() {
-        let svg = Svg::new(500., 500.)
-            .add_element(Circle::new().fill(Color::Aqua).r(20.).cx(15.).cy(30.))
-            .add_element(
+        let svg = Svg::new()
+            .height(500.)
+            .width(500.)
+            .add_child_shape_element(Circle::new().fill(Color::Aqua).r(20.).cx(15.).cy(30.))
+            .add_child_shape_element(
                 Rect::new()
                     .width(200.)
                     .height(400.)
@@ -41,7 +39,7 @@ mod tests {
 
     #[test]
     fn test_a() {
-        let svg = Svg::new(500., 500.).add_element(
+        let svg = Svg::new().width(500.).height(500.).add_child_a(
             A::new().href("https://google.com".into()).add_child_rect(
                 Rect::new()
                     .width(200.)
@@ -59,15 +57,17 @@ mod tests {
 
     #[test]
     fn test_rect_and_text() {
-        let svg = Svg::new(500., 500.)
-            .add_element(
+        let svg = Svg::new()
+            .width(500.)
+            .height(500.)
+            .add_child_shape_element(
                 Rect::new()
                     .width(200.)
                     .height(400.)
                     .x(20.)
                     .fill(Color::DarkOliveGreen),
             )
-            .add_element(
+            .add_child_text(
                 Text::new()
                     .x(30.)
                     .y(70.)
@@ -75,7 +75,7 @@ mod tests {
                     .add_child_string("Hello World".to_string())
                     .font_family("Arial".to_string()),
             )
-            .add_element(Circle::new().fill(Color::DarkBlue).r(20.).cx(80.).cy(85.));
+            .add_child_shape_element(Circle::new().fill(Color::DarkBlue).r(20.).cx(80.).cy(85.));
 
         println!("{}", svg);
 
@@ -86,7 +86,7 @@ mod tests {
     }
     #[test]
     fn test_line() {
-        let svg = Svg::new(500., 500.).add_element(
+        let svg = Svg::new().width(500.).height(500.).add_child_shape_element(
             Line::new()
                 .x1(10.)
                 .y1(10.)
@@ -114,7 +114,7 @@ mod tests {
             .A(30., 50., -45., false, true, 215.1, 109.9)
             .L(315., 10.);
 
-        let svg = Svg::new(500., 500.).add_element(
+        let svg = Svg::new().height(500.).width(500.).add_child_shape_element(
             Path::new()
                 .d(path_data)
                 .stroke(Color::Black)
