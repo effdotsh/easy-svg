@@ -107,6 +107,15 @@ mod tests {
     fn test_path_commands() {
         let path = Path::new().M(10.0, 20.0).l(5.0, -5.0).H(30.0).v(10.0).Z();
 
-        assert_eq!(path.to_string(), "M10 20 l5 -5 H30 v10 Z");
+        assert_eq!(path.to_string(), "M 10 20 l 5 -5 H 30 v 10 Z");
+    }
+
+    #[test]
+    fn test_path() {
+        let path = Path::new()
+            .M(130., 110.)
+            .C(120., 140., 180., 140., 170., 110.);
+
+        assert_eq!(path.to_string(), "M 130 110 C 120 140, 180 140, 170 110")
     }
 }

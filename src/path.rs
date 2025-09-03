@@ -13,42 +13,42 @@ impl Path {
     }
 
     pub fn M(mut self, x: f64, y: f64) -> Self {
-        self.points.push(format!("M{} {}", x, y));
+        self.points.push(format!("M {} {}", x, y));
         self
     }
 
     pub fn m(mut self, dx: f64, dy: f64) -> Self {
-        self.points.push(format!("m{} {}", dx, dy));
+        self.points.push(format!("m {} {}", dx, dy));
         self
     }
 
     pub fn L(mut self, x: f64, y: f64) -> Self {
-        self.points.push(format!("L{} {}", x, y));
+        self.points.push(format!("L {} {}", x, y));
         self
     }
 
     pub fn l(mut self, dx: f64, dy: f64) -> Self {
-        self.points.push(format!("l{} {}", dx, dy));
+        self.points.push(format!("l {} {}", dx, dy));
         self
     }
 
     pub fn H(mut self, x: f64) -> Self {
-        self.points.push(format!("H{}", x));
+        self.points.push(format!("H {}", x));
         self
     }
 
     pub fn h(mut self, dx: f64) -> Self {
-        self.points.push(format!("h{}", dx));
+        self.points.push(format!("h {}", dx));
         self
     }
 
     pub fn V(mut self, y: f64) -> Self {
-        self.points.push(format!("V{}", y));
+        self.points.push(format!("V {}", y));
         self
     }
 
     pub fn v(mut self, dy: f64) -> Self {
-        self.points.push(format!("v{}", dy));
+        self.points.push(format!("v {}", dy));
         self
     }
 
@@ -75,12 +75,12 @@ impl Path {
     }
 
     pub fn S(mut self, x2: f64, y2: f64, x: f64, y: f64) -> Self {
-        self.points.push(format!("S  {} {}, {} {}", x2, y2, x, y));
+        self.points.push(format!("S {} {}, {} {}", x2, y2, x, y));
         self
     }
     pub fn s(mut self, dx2: f64, dy2: f64, dx: f64, dy: f64) -> Self {
         self.points
-            .push(format!("s  {} {}, {} {}", dx2, dy2, dx, dy));
+            .push(format!("s {} {}, {} {}", dx2, dy2, dx, dy));
         self
     }
 
