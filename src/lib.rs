@@ -11,8 +11,8 @@ pub use generated::*;
 #[cfg(test)]
 mod tests {
     use crate::elements::{A, Circle, Line, Path, Rect, Svg, Text};
-    use crate::types::color::Color;
-    use crate::types::path_data::PathData;
+    use crate::types::Color;
+    use crate::types::PathData;
 
     #[test]
     fn test_rect_and_circle() {
