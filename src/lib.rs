@@ -39,7 +39,7 @@ mod tests {
     #[test]
     fn test_a() {
         let svg = Svg::new().width(500.).height(500.).add_child_a(
-            A::new().href("https://google.com".into()).add_child_rect(
+            A::new().href("https://google.com").add_child_rect(
                 Rect::new()
                     .width(200.)
                     .height(400.)

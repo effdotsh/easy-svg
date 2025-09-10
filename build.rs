@@ -237,7 +237,7 @@ fn generate_struct(name: &str, element: &Element) -> TokenStream {
             .parse()
             .expect("Failed to parse field type");
         fields.push(quote! {
-            pub #field_name_ident: #field_type_tokens
+            pub #field_name_ident: Option<#field_type_tokens>
         });
     }
 
@@ -425,17 +425,17 @@ fn generate_constructor(element: &Element) -> TokenStream {
     }
 }
 fn generate_builder_method(field_name: &str, field: &Field) -> TokenStream {
-    let param_type = if field.field_type.starts_with("Option<") {
-        &field.field_type[7..field.field_type.len() - 1]
-    } else {
-        &field.field_type
-    };
-
     let field_name_ident = format_ident!("{}", camel_to_snake(field_name));
-    let param_type_tokens: TokenStream = param_type.parse().expect("Failed to parse field type");
+    let param_type_tokens: TokenStream = field
+        .field_type
+        .parse()
+        .expect("Failed to parse field type");
     quote! {
-        pub fn #field_name_ident(mut self, value: #param_type_tokens) -> Self {
-            self.#field_name_ident = Some(value);
+        pub fn #field_name_ident<T>(mut self, value: T) -> Self
+        where
+        T: Into<#param_type_tokens>
+        {
+            self.#field_name_ident = Some(value.into());
             self
         }
     }
@@ -448,6 +448,7 @@ fn capitalize(s: &str) -> String {
         Some(first) => first.to_uppercase().collect::<String>() + chars.as_str(),
     }
 }
+
 fn format_rust_code(code: &str) -> String {
     match syn::parse_file(code) {
         Ok(syntax_tree) => prettyplease::unparse(&syntax_tree),
