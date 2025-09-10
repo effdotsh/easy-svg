@@ -1,6 +1,8 @@
 use crate::types::{Length, Percentage};
+use serde::{Deserialize, Serialize};
 use std::fmt::{Display, Formatter};
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum AutoOrLengthOrPercentage {
     Length(Length),
     Percentage(Percentage),

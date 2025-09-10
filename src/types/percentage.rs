@@ -1,5 +1,7 @@
+use serde::{Deserialize, Serialize};
 use std::fmt::Formatter;
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Percentage {
     percentage: f64,
 }

@@ -252,7 +252,7 @@ attributes:
   #  writing-mode: { }
   x:
     elements: [ "rect" ]
-    type: "f64"
+    type: "LengthOrPercentage"
 #  x1: { }
 #  x2: { }
 #  xChannelSelector: { }
@@ -378,9 +378,9 @@ elements:
     derives: [ "SVGGeometryElement" ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement" ]
     fields:
-      cx: { type: "f64" }
-      cy: { type: "f64" }
-      r: { type: "f64" }
+      cx: { type: "LengthOrPercentage" }
+      cy: { type: "LengthOrPercentage" }
+      r: { type: "LengthOrPercentage" }
 
   #  clipPath:
   #    elementType: [ "NeverRenderedElement", "UncategorizedElement" ]
@@ -409,8 +409,8 @@ elements:
       #                         "View",
     ]
     fields:
-      width: { type: "f64" }
-      height: { type: "f64" }
+      width: { type: "LengthOrPercentage" }
+      height: { type: "LengthOrPercentage" }
 
   desc:
     element_types: [ "DescriptiveElement" ]
@@ -439,10 +439,10 @@ elements:
     derives: [ "SVGGeometryElement" ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement" ]
     fields:
-      cx: { type: "f64" }
-      cy: { type: "f64" }
-      rx: { type: "f64" }
-      ry: { type: "f64" }
+      cx: { type: "LengthOrPercentage" }
+      cy: { type: "LengthOrPercentage" }
+      rx: { type: "AutoOrLengthOrPercentage" }
+      ry: { type: "AutoOrLengthOrPercentage" }
       pathLength: { type: "f64" }
 
   #  feBlend: { }
@@ -478,10 +478,10 @@ elements:
     derives: [ "SVGLineElement" ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement", "TextContentChildElement", "A", "String" ]
     fields:
-      x1: { type: "f64" }
-      y1: { type: "f64" }
-      x2: { type: "f64" }
-      y2: { type: "f64" }
+      x1: { type: "LengthOrPercentage" }
+      y1: { type: "LengthOrPercentage" }
+      x2: { type: "LengthOrPercentage" }
+      y2: { type: "LengthOrPercentage" }
       pathLength: { type: "f64" }
 
     #  marker: { }
@@ -505,12 +505,12 @@ elements:
     derives: [ "SVGGeometryElement" ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement" ]
     fields:
-      x: { type: "f64" }
-      y: { type: "f64" }
-      width: { type: "f64" }
-      height: { type: "f64" }
-      rx: { type: "f64" }
-      ry: { type: "f64" }
+      x: { type: "LengthOrPercentage" }
+      y: { type: "LengthOrPercentage" }
+      width: { type: "AutoOrLengthOrPercentage" }
+      height: { type: "AutoOrLengthOrPercentage" }
+      rx: { type: "AutoOrLengthOrPercentage" }
+      ry: { type: "AutoOrLengthOrPercentage" }
       pathLength: { type: "f64" }
 
 

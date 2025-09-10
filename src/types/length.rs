@@ -1,5 +1,7 @@
+use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Length {
     length: f64,
 }

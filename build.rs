@@ -127,6 +127,8 @@ fn main() {
             use crate::types::Target;
             use serde::{Deserialize, Serialize};
             use crate::shape::Shape;
+            use crate::types::unions::*;
+
             #category_traits
             #( #element_code )*
         }
