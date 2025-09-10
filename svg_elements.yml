@@ -42,7 +42,7 @@ attributes:
   #  exponent: { }
   #  fetchpriority: { }
   fill:
-    type: "Option<Color>"
+    type: "Color"
     elements:
       - circle
       - ellipse
@@ -58,7 +58,7 @@ attributes:
     #      - animateTransform
     #      - set
   fill-opacity:
-    type: "Option<f64>"
+    type: "f64"
     elements:
       - circle
       #      - ellipse
@@ -76,19 +76,19 @@ attributes:
   #  flood-color: { }
   #  flood-opacity: { }
   font-family:
-    type: "Option<String>"
+    type: "String"
     elements:
       - text
     #        - textPath
     #        - tSpan
   font-size:
-    type: "Option<String>"
+    type: "String"
     elements:
       - text
   #        - textPath
   #        - tSpan
   font-size-adjust:
-    type: "Option<f64>"
+    type: "f64"
     elements:
       - text
     #        - textPath
@@ -194,7 +194,7 @@ attributes:
   #  stop-color: { }
   #  stop-opacity: { }
   stroke:
-    type: "Option<Color>"
+    type: "Color"
     elements:
       - circle
       - ellipse
@@ -213,7 +213,7 @@ attributes:
   #  stroke-miterlimit: { }
   #  stroke-opacity: { }
   stroke-width:
-    type: "Option<f64>"
+    type: "f64"
     elements:
       - circle
       #        - ellipse
@@ -252,7 +252,7 @@ attributes:
   #  writing-mode: { }
   x:
     elements: [ "rect" ]
-    type: "Option<f64>"
+    type: "LengthOrPercentage"
 #  x1: { }
 #  x2: { }
 #  xChannelSelector: { }
@@ -278,17 +278,17 @@ derives:
   Element:
     derives: [ "Node", "EventTarget" ]
     fields:
-      className: { type: "Option<String>" }
+      className: { type: "String" }
       elementTiming:
-        type: "Option<String>"
+        type: "String"
         is_experimental: true
-      id: { type: "Option<String>" }
-      innerHtml: { type: "Option<String>" }
-      outerHtml: { type: "Option<String>" }
+      id: { type: "String" }
+      innerHtml: { type: "String" }
+      outerHtml: { type: "String" }
       #      part: {type: ""}
-      scrollLeft: { type: "Option<f64>" }
-      scrollTop: { type: "Option<f64>" }
-      slot: { type: "Option<String>" }
+      scrollLeft: { type: "f64" }
+      scrollTop: { type: "f64" }
+      slot: { type: "String" }
   EventTarget:
     derives: [ ]
     fields: { }
@@ -296,7 +296,7 @@ derives:
     derives: [ ]
     fields: { }
     #      node: {}
-  #      textContent: { type: "Option<String>" }
+  #      textContent: { type: "String" }
   SVGDefsElement:
     derives: [ "SVGGraphicsElement" ]
     fields: { }
@@ -306,10 +306,10 @@ derives:
   SVGElement:
     derives: [ "Element" ]
     fields:
-      autofocus: { type: "Option<bool>" }
-      nonce: { type: "Option<String>" }
-      style: { type: "Option<String>" } #typed css?
-      tabIndex: { type: "Option<i32>" }
+      autofocus: { type: "bool" }
+      nonce: { type: "String" }
+      style: { type: "String" } #typed css?
+      tabIndex: { type: "i32" }
   SVGGeometryElement:
     derives: [ "SVGGraphicsElement" ]
     fields: { }
@@ -325,8 +325,8 @@ derives:
   SVGTextContentElement:
     derives: [ "SVGGraphicsElement" ]
     fields:
-      textLength: { type: "Option<f64>" }
-      lengthAdjust: { type: "Option<String>" }
+      textLength: { type: "f64" }
+      lengthAdjust: { type: "String" }
 
 
 
@@ -359,28 +359,28 @@ elements:
     derives: [ ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement", "ShapeElement", "StructuralElement", "GradientElement", "Rect" ]
     fields: {
-      download: { type: "Option<String>" },
-      href: { type: "Option<String>" },
-      hreflang: { type: "Option<String>" },
-      #      ping: { type: "Option<Vec<String>>", is_experimental: true },
-      referrerpolicy: { type: "Option<String>" },
-      # rel: { type: "Option<Vec<String>>" },
-      target: { type: "Option<Target>" },
+      download: { type: "String" },
+      href: { type: "String" },
+      hreflang: { type: "String" },
+      #      ping: { type: "Vec<String", is_experimental: true },
+      referrerpolicy: { type: "String" },
+      # rel: { type: "Vec<String" },
+      target: { type: "Target" },
       #      todo(effdotsh): "type" is conflicting with the type keyword
-      #      type: { type: "Option<String>" }
-      #      "xlink:href": { type: "Option<String>", is_deprecated: "true" }
+      #      type: { type: "String" }
+      #      "xlink:href": { type: "String", is_deprecated: "true" }
     }
   #  animate: {}
   #  animateMotion: {}
   #  animateTransform: {}
   circle:
-    element_types: [ "BasicShape" ]
+    element_types: [ "BasicShape", "GraphicsElement", "RenderableElement", "ShapeElement" ]
     derives: [ "SVGGeometryElement" ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement" ]
     fields:
-      cx: { type: "Option<f64>" }
-      cy: { type: "Option<f64>" }
-      r: { type: "Option<f64>" }
+      cx: { type: "LengthOrPercentage" }
+      cy: { type: "LengthOrPercentage" }
+      r: { type: "LengthOrPercentage" }
 
   #  clipPath:
   #    elementType: [ "NeverRenderedElement", "UncategorizedElement" ]
@@ -409,8 +409,8 @@ elements:
       #                         "View",
     ]
     fields:
-      width: { type: "Option<f64>" }
-      height: { type: "Option<f64>" }
+      width: { type: "LengthOrPercentage" }
+      height: { type: "LengthOrPercentage" }
 
   desc:
     element_types: [ "DescriptiveElement" ]
@@ -439,11 +439,11 @@ elements:
     derives: [ "SVGGeometryElement" ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement" ]
     fields:
-      cx: { type: "Option<f64>" }
-      cy: { type: "Option<f64>" }
-      rx: { type: "Option<f64>" }
-      ry: { type: "Option<f64>" }
-      pathLength: { type: "Option<f64>" }
+      cx: { type: "LengthOrPercentage" }
+      cy: { type: "LengthOrPercentage" }
+      rx: { type: "AutoOrLengthOrPercentage" }
+      ry: { type: "AutoOrLengthOrPercentage" }
+      pathLength: { type: "f64" }
 
   #  feBlend: { }
   #  feColorMatrix: { }
@@ -478,11 +478,11 @@ elements:
     derives: [ "SVGLineElement" ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement", "TextContentChildElement", "A", "String" ]
     fields:
-      x1: { type: "Option<f64>" }
-      y1: { type: "Option<f64>" }
-      x2: { type: "Option<f64>" }
-      y2: { type: "Option<f64>" }
-      pathLength: { type: "Option<f64>" }
+      x1: { type: "LengthOrPercentage" }
+      y1: { type: "LengthOrPercentage" }
+      x2: { type: "LengthOrPercentage" }
+      y2: { type: "LengthOrPercentage" }
+      pathLength: { type: "f64" }
 
     #  marker: { }
     #  mask: { }
@@ -493,32 +493,57 @@ elements:
     derives: [ "SVGPathElement" ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement" ]
     fields:
-      d: { type: "Option<PathData>" }
-      pathLength: { type: "Option<f64>" }
+      d: { type: "PathData" }
+      pathLength: { type: "f64" }
 
   #  pattern: { }
   #  polygon: { }
   #  polyline: { }
   #  radialGradient: { }
   rect:
-    element_types: [ "BasicShape" ]
+    element_types: [ "BasicShape", "GraphicsElement", "RenderableElement", "ShapeElement" ]
     derives: [ "SVGGeometryElement" ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement" ]
     fields:
-      x: { type: "Option<f64>" }
-      y: { type: "Option<f64>" }
-      width: { type: "Option<f64>" }
-      height: { type: "Option<f64>" }
-      rx: { type: "Option<f64>" }
-      ry: { type: "Option<f64>" }
-      pathLength: { type: "Option<f64>" }
+      x: { type: "LengthOrPercentage" }
+      y: { type: "LengthOrPercentage" }
+      width: { type: "AutoOrLengthOrPercentage" }
+      height: { type: "AutoOrLengthOrPercentage" }
+      rx: { type: "AutoOrLengthOrPercentage" }
+      ry: { type: "AutoOrLengthOrPercentage" }
+      pathLength: { type: "f64" }
 
 
   #  script: { }
   #  set: { }
   #  stop: { }
   #  style: { }
-  #  svg: { }
+  svg:
+    element_types: [ "ContainerElement", "RenderableElement", "StructuralElement", ]
+    derives: [ ]
+    valid_child_types: [ "AnimationElement", "DescriptiveElement", "ShapeElement", "StructuralElement", "GradientElement",
+                         "A",
+      #                         "ClipPath",
+      #                         "Filter",
+      #                         "ForeignObject",
+      #                         "Image",
+      #                         "Marker",
+      #                         "Mask",
+      #                         "Pattern",
+      #                         "Script",
+      #                         "Style",
+      #                         "Switch",
+                         "Text",
+      #                         "View"
+    ]
+    fields:
+      baseProfile: { type: "String" }
+      height: { type: "f64" }
+      #preserveAspectRatio
+      #      viewBox: { type: "Vec<f64" }
+      width: { type: "f64" }
+      x: { type: "f64" }
+      y: { type: "f64" }
   #  switch: { }
   #  symbol: { }
   text:
@@ -526,13 +551,13 @@ elements:
     derives: [ "SVGTextContentElement" ]
     valid_child_types: [ "AnimationElement", "DescriptiveElement", "TextContentChildElement", "A", "String" ]
     fields:
-      x: { type: "Option<f64>" }
-      y: { type: "Option<f64>" }
-      dx: { type: "Option<f64>" }
-      dy: { type: "Option<f64>" }
-      rotate: { type: "Option<f64>" }
-      textLength: { type: "Option<f64>" }
-      lengthAdjust: { type: "Option<String>" }
+      x: { type: "f64" }
+      y: { type: "f64" }
+      dx: { type: "f64" }
+      dy: { type: "f64" }
+      rotate: { type: "f64" }
+      textLength: { type: "f64" }
+      lengthAdjust: { type: "String" }
   #  textPath: { }
   #  title: { }
   #  tspan: { }
