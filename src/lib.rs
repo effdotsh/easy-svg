@@ -32,7 +32,7 @@ mod tests {
 
         assert_eq!(
             svg.to_string(),
-            r#"<svg width="500" height="500"><circle cx="15" cy="30" fill="aqua" r="20"/><rect fill="darkolivegreen" height="400" width="200" x="20"/></svg>"#
+            r#"<svg height="500" width="500"><circle cx="15" cy="30" fill="aqua" r="20"/><rect fill="darkolivegreen" height="400" width="200" x="20"/></svg>"#
         );
     }
 
@@ -50,7 +50,7 @@ mod tests {
         println!("{}", svg);
         assert_eq!(
             svg.to_string(),
-            r#"<svg width="500" height="500"><a href="https://google.com"><rect fill="darkolivegreen" height="400" width="200" x="20"/></a></svg>"#
+            r#"<svg height="500" width="500"><a href="https://google.com"><rect fill="darkolivegreen" height="400" width="200" x="20"/></a></svg>"#
         );
     }
 
@@ -80,7 +80,7 @@ mod tests {
 
         assert_eq!(
             svg.to_string(),
-            r#"<svg width="500" height="500"><rect fill="darkolivegreen" height="400" width="200" x="20"/><text fill="darkmagenta" font-family="Arial" x="30" y="70">Hello World</text><circle cx="80" cy="85" fill="darkblue" r="20"/></svg>"#
+            r#"<svg height="500" width="500"><rect fill="darkolivegreen" height="400" width="200" x="20"/><text fill="darkmagenta" font-family="Arial" x="30" y="70">Hello World</text><circle cx="80" cy="85" fill="darkblue" r="20"/></svg>"#
         );
     }
     #[test]
@@ -98,7 +98,7 @@ mod tests {
 
         assert_eq!(
             svg.to_string(),
-            r#"<svg width="500" height="500"><line stroke="red" x1="10" x2="100" y1="10" y2="100"/></svg>"#
+            r#"<svg height="500" width="500"><line stroke="red" x1="10" x2="100" y1="10" y2="100"/></svg>"#
         );
     }
 
@@ -123,7 +123,7 @@ mod tests {
         );
         assert_eq!(
             svg.to_string(),
-            r#"<svg width="500" height="500"><path d="M 10 315 L 110 215 A 30 50 0 0 1 162.55 162.45 L 172.55 152.45 A 30 50 -45 0 1 215.1 109.9 L 315 10" fill="green" fill-opacity="0.5" stroke="black" stroke-width="2"/></svg>"#
+            r#"<svg height="500" width="500"><path d="M 10 315 L 110 215 A 30 50 0 0 1 162.55 162.45 L 172.55 152.45 A 30 50 -45 0 1 215.1 109.9 L 315 10" fill="green" fill-opacity="0.5" stroke="black" stroke-width="2"/></svg>"#
         )
     }
 }
