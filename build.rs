@@ -122,9 +122,7 @@ fn main() {
 
     let generated_code = quote! {
         pub mod elements{
-            use crate::types::Color;
-            use crate::types::PathData;
-            use crate::types::Target;
+            use crate::types::*;
             use serde::{Deserialize, Serialize};
             use crate::shape::Shape;
             use crate::types::unions::*;

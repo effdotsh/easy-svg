@@ -3,8 +3,9 @@ use easy_svg::types::Color;
 
 fn main() {
     let svg = Svg::new()
-        .width(500.)
-        .height(500.)
+        .view_box((0., 0., 500., 500.))
+        .width(600.)
+        .height(600.)
         .add_child_shape_element(
             Rect::new()
                 .width(200.)

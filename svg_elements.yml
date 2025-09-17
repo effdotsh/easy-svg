@@ -225,27 +225,36 @@ attributes:
       - text
       #- textPath
       #- tspan
-  #  style: { }
-  #  surfaceScale: { }
-  #  systemLanguage: { }`
-  #  tabindex: { }
-  #  tableValues: { }
-  #  target: { }
-  #  targetX: { }
-  #  targetY: { }
-  #  text-anchor: { }
-  #  text-decoration: { }
-  #  text-rendering: { }
-  #  textLength: { }
-  #  to: { }
-  #  transform: { }
-  #  transform-origin: { }
-  #  type: { }
-  #  unicode-bidi: { }
-  #  values: { }
-  #  vector-effect: { }
-  #  version: { }
-  #  viewBox: { }
+    #  style: { }
+    #  surfaceScale: { }
+    #  systemLanguage: { }`
+    #  tabindex: { }
+    #  tableValues: { }
+    #  target: { }
+    #  targetX: { }
+    #  targetY: { }
+    #  text-anchor: { }
+    #  text-decoration: { }
+    #  text-rendering: { }
+    #  textLength: { }
+    #  to: { }
+    #  transform: { }
+    #  transform-origin: { }
+    #  type: { }
+    #  unicode-bidi: { }
+    #  values: { }
+    #  vector-effect: { }
+    #  version: { }
+  viewBox:
+    elements: [
+      #      "marker",
+      #      "pattern",
+      "svg",
+      #      "symbol",
+      #    "view",
+    ]
+    type: "ViewBoxSize"
+
   #  visibility: { }
   #  width: { }
   #  word-spacing: { }
