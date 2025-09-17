@@ -1,6 +1,6 @@
 [package]
 name = "easy-svg"
-version = "0.3.1"
+version = "0.3.2"
 edition = "2024"
 authors = ["effdotsh"]
 license = "MIT"

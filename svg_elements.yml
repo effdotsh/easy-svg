@@ -248,7 +248,28 @@ attributes:
     #  text-rendering: { }
     #  textLength: { }
     #  to: { }
-    #  transform: { }
+  transform:
+    elements: [
+      "a",
+      "circle",
+      #      "clipPath",
+      #      "defs",
+      "ellipse",
+      #      "foreignObject",
+      #      "g",
+      #      "image",
+      "line",
+      #      "path",
+      #      "polygon",
+      #      "polyline",
+      "rect",
+      #      "switch",
+      "svg",
+      #      "text",
+      "use"
+
+    ]
+    type: "String" # note, this should be made typed eventually but is lower priority
     #  transform-origin: { }
     #  type: { }
     #  unicode-bidi: { }
