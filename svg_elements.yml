@@ -266,7 +266,7 @@ attributes:
       #      "switch",
       "svg",
       #      "text",
-      "use"
+      #      "use"
 
     ]
     type: "String" # note, this should be made typed eventually but is lower priority
