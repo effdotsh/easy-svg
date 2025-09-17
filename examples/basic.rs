@@ -1,9 +1,10 @@
 use easy_svg::elements::{Circle, Rect, Svg, Text};
-use easy_svg::types::Color;
+use easy_svg::types::{Color, PreserveAspectRatio};
 
 fn main() {
     let svg = Svg::new()
         .view_box((0., 0., 500., 500.))
+        .preserve_aspect_ratio(PreserveAspectRatio::XMidYMid)
         .width(600.)
         .height(600.)
         .add_child_shape_element(

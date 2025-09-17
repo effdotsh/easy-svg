@@ -15,3 +15,6 @@ pub use target::*;
 
 mod viewbox_size;
 pub use viewbox_size::*;
+
+mod preserve_aspect_ratio;
+pub use preserve_aspect_ratio::*;

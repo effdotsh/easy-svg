@@ -11,7 +11,7 @@ pub struct ViewBoxSize {
 impl Display for ViewBoxSize {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let str = format!(
-            "({}, {}, {}, {})",
+            "{}, {}, {}, {}",
             self.min_x, self.min_y, self.width, self.height
         );
         write!(f, "{}", str)

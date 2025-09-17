@@ -93,76 +93,86 @@ attributes:
       - text
     #        - textPath
     #        - tSpan
-  #  font-stretch: { }
-  #  font-style: { }
-  #  font-variant: { }
-  #  font-weight: { }
-  #  fr: { }
-  #  from: { }
-  #  fx: { }
-  #  fy: { }
-  #  glyph-orientation-horizontal: { }
-  #  glyph-orientation-vertical: { }
-  #  gradientTransform: { }
-  #  gradientUnits: { }
-  #  height: { }
-  #  href: { }
-  #  hreflang: { }
-  #  id: { }
-  #  image-rendering: { }
-  #  in: { }
-  #  in2: { }
-  #  intercept: { }
-  #  k1: { }
-  #  k2: { }
-  #  k3: { }
-  #  k4: { }
-  #  kernelMatrix: { }
-  #  kernelUnitLength: { }
-  #  keyPoints: { }
-  #  keySplines: { }
-  #  keyTimes: { }
-  #  lang: { }
-  #  lengthAdjust: { }
-  #  letter-spacing: { }
-  #  lighting-color: { }
-  #  limitingConeAngle: { }
-  #  marker-end: { }
-  #  marker-mid: { }
-  #  marker-start: { }
-  #  markerHeight: { }
-  #  markerUnits: { }
-  #  markerWidth: { }
-  #  mask: { }
-  #  maskContentUnits: { }
-  #  maskUnits: { }
-  #  max: { }
-  #  media: { }
-  #  method: { }
-  #  min: { }
-  #  mode: { }
-  #  numOctaves: { }
-  #  offset: { }
-  #  opacity: { }
-  #  operator: { }
-  #  order: { }
-  #  orient: { }
-  #  origin: { }
-  #  overflow: { }
-  #  paint-order: { }
-  #  path: { }
-  #  pathLength: { }
-  #  patternContentUnits: { }
-  #  patternTransform: { }
-  #  patternUnits: { }
-  #  ping: { }
-  #  pointer-events: { }
-  #  points: { }
-  #  pointsAtX: { }
-  #  pointsAtY: { }
-  #  pointsAtZ: { }
-  #  preserveAlpha: { }
-  #  preserveAspectRatio: { }
+    #  font-stretch: { }
+    #  font-style: { }
+    #  font-variant: { }
+    #  font-weight: { }
+    #  fr: { }
+    #  from: { }
+    #  fx: { }
+    #  fy: { }
+    #  glyph-orientation-horizontal: { }
+    #  glyph-orientation-vertical: { }
+    #  gradientTransform: { }
+    #  gradientUnits: { }
+    #  height: { }
+    #  href: { }
+    #  hreflang: { }
+    #  id: { }
+    #  image-rendering: { }
+    #  in: { }
+    #  in2: { }
+    #  intercept: { }
+    #  k1: { }
+    #  k2: { }
+    #  k3: { }
+    #  k4: { }
+    #  kernelMatrix: { }
+    #  kernelUnitLength: { }
+    #  keyPoints: { }
+    #  keySplines: { }
+    #  keyTimes: { }
+    #  lang: { }
+    #  lengthAdjust: { }
+    #  letter-spacing: { }
+    #  lighting-color: { }
+    #  limitingConeAngle: { }
+    #  marker-end: { }
+    #  marker-mid: { }
+    #  marker-start: { }
+    #  markerHeight: { }
+    #  markerUnits: { }
+    #  markerWidth: { }
+    #  mask: { }
+    #  maskContentUnits: { }
+    #  maskUnits: { }
+    #  max: { }
+    #  media: { }
+    #  method: { }
+    #  min: { }
+    #  mode: { }
+    #  numOctaves: { }
+    #  offset: { }
+    #  opacity: { }
+    #  operator: { }
+    #  order: { }
+    #  orient: { }
+    #  origin: { }
+    #  overflow: { }
+    #  paint-order: { }
+    #  path: { }
+    #  pathLength: { }
+    #  patternContentUnits: { }
+    #  patternTransform: { }
+    #  patternUnits: { }
+    #  ping: { }
+    #  pointer-events: { }
+    #  points: { }
+    #  pointsAtX: { }
+    #  pointsAtY: { }
+    #  pointsAtZ: { }
+    #  preserveAlpha: { }
+  preserveAspectRatio:
+    elements: [
+      "svg",
+      #      "symbol",
+      #      "image",
+      #      "feImage",
+      #      "marker",
+      #      "pattern",
+      #      "view",
+    ]
+    type: "PreserveAspectRatio"
   #  primitiveUnits: { }
   #  r: { }
   #  radius: { }
@@ -548,8 +558,6 @@ elements:
     fields:
       baseProfile: { type: "String" }
       height: { type: "f64" }
-      #preserveAspectRatio
-      #      viewBox: { type: "Vec<f64" }
       width: { type: "f64" }
       x: { type: "f64" }
       y: { type: "f64" }
