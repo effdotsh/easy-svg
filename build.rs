@@ -1034,8 +1034,108 @@ fn generate_svg_types(
     }
 }
 
+/// The CSS/SVG named color keywords, as `SCREAMING_SNAKE_CASE` identifiers.
+/// The rendered keyword is the identifier lowercased with underscores removed,
+/// so word boundaries here are purely cosmetic.
+const NAMED_COLORS: &[&str] = &[
+    "ALICE_BLUE", "ANTIQUE_WHITE", "AQUA", "AQUAMARINE", "AZURE", "BEIGE",
+    "BISQUE", "BLACK", "BLANCHED_ALMOND", "BLUE", "BLUE_VIOLET", "BROWN",
+    "BURLY_WOOD", "CADET_BLUE", "CHARTREUSE", "CHOCOLATE", "CORAL",
+    "CORNFLOWER_BLUE", "CORNSILK", "CRIMSON", "CYAN", "DARK_BLUE", "DARK_CYAN",
+    "DARK_GOLDENROD", "DARK_GRAY", "DARK_GREEN", "DARK_GREY", "DARK_KHAKI",
+    "DARK_MAGENTA", "DARK_OLIVE_GREEN", "DARK_ORANGE", "DARK_ORCHID", "DARK_RED",
+    "DARK_SALMON", "DARK_SEA_GREEN", "DARK_SLATE_BLUE", "DARK_SLATE_GRAY",
+    "DARK_SLATE_GREY", "DARK_TURQUOISE", "DARK_VIOLET", "DEEP_PINK",
+    "DEEP_SKY_BLUE", "DIM_GRAY", "DIM_GREY", "DODGER_BLUE", "FIRE_BRICK",
+    "FLORAL_WHITE", "FOREST_GREEN", "FUCHSIA", "GAINSBORO", "GHOST_WHITE",
+    "GOLD", "GOLDENROD", "GRAY", "GREEN", "GREEN_YELLOW", "GREY", "HONEYDEW",
+    "HOT_PINK", "INDIAN_RED", "INDIGO", "IVORY", "KHAKI", "LAVENDER",
+    "LAVENDER_BLUSH", "LAWN_GREEN", "LEMON_CHIFFON", "LIGHT_BLUE", "LIGHT_CORAL",
+    "LIGHT_CYAN", "LIGHT_GOLDENROD_YELLOW", "LIGHT_GRAY", "LIGHT_GREEN",
+    "LIGHT_GREY", "LIGHT_PINK", "LIGHT_SALMON", "LIGHT_SEA_GREEN",
+    "LIGHT_SKY_BLUE", "LIGHT_SLATE_GRAY", "LIGHT_SLATE_GREY", "LIGHT_STEEL_BLUE",
+    "LIGHT_YELLOW", "LIME", "LIME_GREEN", "LINEN", "MAGENTA", "MAROON",
+    "MEDIUM_AQUAMARINE", "MEDIUM_BLUE", "MEDIUM_ORCHID", "MEDIUM_PURPLE",
+    "MEDIUM_SEA_GREEN", "MEDIUM_SLATE_BLUE", "MEDIUM_SPRING_GREEN",
+    "MEDIUM_TURQUOISE", "MEDIUM_VIOLET_RED", "MIDNIGHT_BLUE", "MINT_CREAM",
+    "MISTY_ROSE", "MOCCASIN", "NAVAJO_WHITE", "NAVY", "OLD_LACE", "OLIVE",
+    "OLIVE_DRAB", "ORANGE", "ORANGE_RED", "ORCHID", "PALE_GOLDENROD",
+    "PALE_GREEN", "PALE_TURQUOISE", "PALE_VIOLET_RED", "PAPAYA_WHIP",
+    "PEACH_PUFF", "PERU", "PINK", "PLUM", "POWDER_BLUE", "PURPLE",
+    "REBECCA_PURPLE", "RED", "ROSY_BROWN", "ROYAL_BLUE", "SADDLE_BROWN",
+    "SALMON", "SANDY_BROWN", "SEA_GREEN", "SEASHELL", "SIENNA", "SILVER",
+    "SKY_BLUE", "SLATE_BLUE", "SLATE_GRAY", "SLATE_GREY", "SNOW", "SPRING_GREEN",
+    "STEEL_BLUE", "TAN", "TEAL", "THISTLE", "TOMATO", "TURQUOISE", "VIOLET",
+    "WHEAT", "WHITE", "WHITE_SMOKE", "YELLOW", "YELLOW_GREEN", "TRANSPARENT",
+];
+
+/// Generates the named-color associated constants for `impl Color`.
+fn named_color_consts() -> Vec<TokenStream> {
+    let mut consts: Vec<TokenStream> = NAMED_COLORS
+        .iter()
+        .map(|ident| {
+            let keyword = ident.to_ascii_lowercase().replace('_', "");
+            let name = format_ident!("{ident}");
+            let doc = format!("The `{keyword}` color keyword.");
+            quote! {
+                #[doc = #doc]
+                pub const #name: Color = Color(std::borrow::Cow::Borrowed(#keyword));
+            }
+        })
+        .collect();
+    consts.push(quote! {
+        #[doc = "The `currentColor` keyword: inherits the element's `color` value."]
+        pub const CURRENT_COLOR: Color = Color(std::borrow::Cow::Borrowed("currentColor"));
+    });
+    consts
+}
+
+/// CSS/SVG length units as `(method name, rendered suffix)` pairs. Physical
+/// units get descriptive names; font- and viewport-relative units keep their
+/// conventional CSS abbreviations.
+const LENGTH_UNITS: &[(&str, &str)] = &[
+    ("pixels", "px"),
+    ("centimeters", "cm"),
+    ("millimeters", "mm"),
+    ("inches", "in"),
+    ("points", "pt"),
+    ("picas", "pc"),
+    ("em", "em"),
+    ("ex", "ex"),
+    ("ch", "ch"),
+    ("rem", "rem"),
+    ("vw", "vw"),
+    ("vh", "vh"),
+    ("vmin", "vmin"),
+    ("vmax", "vmax"),
+    ("percent", "%"),
+];
+
+/// Generates the per-unit constructors for `impl Length`.
+fn length_unit_methods() -> Vec<TokenStream> {
+    LENGTH_UNITS
+        .iter()
+        .map(|(method, suffix)| {
+            let name = format_ident!("{method}");
+            let doc = if *suffix == "%" {
+                "A percentage length, e.g. `50` renders as `50%`.".to_string()
+            } else {
+                format!("A length in `{suffix}`.")
+            };
+            quote! {
+                #[doc = #doc]
+                pub fn #name(value: impl Into<f64>) -> Self {
+                    Self(format!("{}{}", value.into(), #suffix))
+                }
+            }
+        })
+        .collect()
+}
+
 #[allow(clippy::too_many_lines)]
 fn generate_value_helpers() -> TokenStream {
+    let named_color_consts = named_color_consts();
+    let length_unit_methods = length_unit_methods();
     quote! {
         #[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
         pub struct TextValue(String);
@@ -1065,29 +1165,27 @@ fn generate_value_helpers() -> TokenStream {
         }
 
         #[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-        pub struct Color(String);
+        pub struct Color(std::borrow::Cow<'static, str>);
 
         impl Color {
-            pub fn new(value: impl Into<String>) -> Self {
-                Self(value.into())
-            }
-
             pub fn hex(value: impl AsRef<str>) -> Self {
                 let value = value.as_ref();
-                Self(if value.starts_with('#') {
+                Self(std::borrow::Cow::Owned(if value.starts_with('#') {
                     value.to_owned()
                 } else {
                     format!("#{value}")
-                })
+                }))
             }
 
             pub fn rgb(red: u8, green: u8, blue: u8) -> Self {
-                Self(format!("rgb({red} {green} {blue})"))
+                Self(std::borrow::Cow::Owned(format!("rgb({red} {green} {blue})")))
             }
 
             pub fn rgba(red: u8, green: u8, blue: u8, alpha: f64) -> Self {
-                Self(format!("rgb({red} {green} {blue} / {alpha})"))
+                Self(std::borrow::Cow::Owned(format!("rgb({red} {green} {blue} / {alpha})")))
             }
+
+            #( #named_color_consts )*
         }
 
         impl std::fmt::Display for Color {
@@ -1096,34 +1194,20 @@ fn generate_value_helpers() -> TokenStream {
             }
         }
 
-        impl From<String> for Color {
-            fn from(value: String) -> Self {
-                Self(value)
-            }
-        }
-
-        impl From<&str> for Color {
-            fn from(value: &str) -> Self {
-                Self(value.to_owned())
-            }
-        }
-
         #[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
         pub struct Length(String);
 
         impl Length {
-            pub fn with_unit(value: f64, unit: impl std::fmt::Display) -> Self {
-                Self(format!("{value}{unit}"))
+            /// A length in user units (no unit suffix).
+            pub fn unitless(value: impl Into<f64>) -> Self {
+                Self(value.into().to_string())
             }
 
-            pub fn unitless(value: f64) -> Self {
-                Self(value.to_string())
-            }
+            #( #length_unit_methods )*
 
-            pub fn percent(value: f64) -> Self {
-                Self(format!("{value}%"))
-            }
-
+            /// Escape hatch: build a length from an arbitrary string, such as a
+            /// `calc(...)` expression. Prefer a typed constructor like
+            /// [`Length::pixels`] or [`Length::percent`].
             pub fn raw(value: impl Into<String>) -> Self {
                 Self(value.into())
             }
@@ -1144,18 +1228,6 @@ fn generate_value_helpers() -> TokenStream {
         impl From<i32> for Length {
             fn from(value: i32) -> Self {
                 Self::unitless(f64::from(value))
-            }
-        }
-
-        impl From<String> for Length {
-            fn from(value: String) -> Self {
-                Self(value)
-            }
-        }
-
-        impl From<&str> for Length {
-            fn from(value: &str) -> Self {
-                Self(value.to_owned())
             }
         }
 
@@ -1414,15 +1486,21 @@ fn generate_value_helpers() -> TokenStream {
         }
 
         #[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-        pub struct Paint(String);
+        pub struct Paint(std::borrow::Cow<'static, str>);
 
         impl Paint {
+            /// The `none` keyword: the element is not painted.
+            pub const NONE: Paint = Paint(std::borrow::Cow::Borrowed("none"));
+
             pub fn url(value: impl Into<Iri>) -> Self {
-                Self(format!("url({})", value.into()))
+                Self(std::borrow::Cow::Owned(format!("url({})", value.into())))
             }
 
+            /// Escape hatch: build a paint from an arbitrary string. Prefer a
+            /// [`Color`] (named constant, [`Color::rgb`], [`Color::hex`]),
+            /// [`Paint::url`], or [`Paint::NONE`].
             pub fn raw(value: impl Into<String>) -> Self {
-                Self(value.into())
+                Self(std::borrow::Cow::Owned(value.into()))
             }
         }
 
@@ -1434,19 +1512,7 @@ fn generate_value_helpers() -> TokenStream {
 
         impl From<Color> for Paint {
             fn from(value: Color) -> Self {
-                Self(value.to_string())
-            }
-        }
-
-        impl From<String> for Paint {
-            fn from(value: String) -> Self {
-                Self(value)
-            }
-        }
-
-        impl From<&str> for Paint {
-            fn from(value: &str) -> Self {
-                Self(value.to_owned())
+                Self(value.0)
             }
         }
 

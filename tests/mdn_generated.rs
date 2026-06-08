@@ -1,5 +1,5 @@
 use easy_svg::elements::{Circle, G, Path, Polygon, Rect, Svg, Text};
-use easy_svg::types::{Length, PathData, Points, TransformList};
+use easy_svg::types::{Color, Length, Paint, PathData, Points, TransformList};
 
 #[test]
 fn builds_typed_mdn_elements() {
@@ -10,13 +10,13 @@ fn builds_typed_mdn_elements() {
             .add_child(
                 Polygon::new()
                     .points(Points::from([(0., 0.), (20., 0.), (10., 20.)]))
-                    .fill("gold"),
+                    .fill(Color::GOLD),
             )
             .add_child(
                 Path::new()
                     .d(PathData::new().M(0., 0.).L(10., 10.).Z())
-                    .stroke("black")
-                    .fill("none"),
+                    .stroke(Color::BLACK)
+                    .fill(Paint::NONE),
             ),
     );
 
@@ -33,8 +33,8 @@ fn supports_units_raw_attributes_and_xml_escaping() {
         .attr("data-label", "A&B")
         .add_child(
             Rect::new()
-                .width(Length::with_unit(20., "px"))
-                .height("calc(100% - 2px)"),
+                .width(Length::pixels(20))
+                .height(Length::raw("calc(100% - 2px)")),
         )
         .add_child(Text::new().add_text("<typed & escaped>"))
         .add_child(Circle::new().r(5.));

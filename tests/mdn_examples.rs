@@ -1,6 +1,6 @@
 use easy_svg::FormatOptions;
 use easy_svg::elements::{Path, Polygon, Polyline, Svg, Text, Tspan};
-use easy_svg::types::{PathData, Points, TransformList};
+use easy_svg::types::{Color, Paint, PathData, Points, TransformList};
 
 // SVG/developer.mozilla.org/en-US/docs/Web/SVG/Attribute/points.html
 #[test]
@@ -11,14 +11,14 @@ fn builds_mdn_points_example() {
         .attr("xmlns", "http://www.w3.org/2000/svg")
         .add_child(
             Polyline::new()
-                .stroke("black")
-                .fill("none")
+                .stroke(Color::BLACK)
+                .fill(Paint::NONE)
                 .points(points.clone()),
         )
         .add_child(
             Polygon::new()
-                .stroke("black")
-                .fill("none")
+                .stroke(Color::BLACK)
+                .fill(Paint::NONE)
                 .transform(TransformList::new().translate(100., Some(0.)))
                 .points(points),
         );
@@ -45,7 +45,7 @@ fn builds_mdn_fill_rule_example() {
                 (79., 90.),
             ]))
             .fill_rule("nonzero")
-            .stroke("red"),
+            .stroke(Color::RED),
         Polygon::new()
             .points(Points::from([
                 (150., 0.),
@@ -55,7 +55,7 @@ fn builds_mdn_fill_rule_example() {
                 (179., 90.),
             ]))
             .fill_rule("evenodd")
-            .stroke("red"),
+            .stroke(Color::RED),
     ]);
 
     assert_eq!(
