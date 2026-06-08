@@ -1,0 +1,25 @@
+<html><!-- Online page at https://1970b0e38fce1fd357eb401586372f2f45ae57dd.mdnplay.dev/en-US/docs/Web/API/SVGMaskElement/x/runner.html?state=hVRtb9MwEP4rJoDWijQvQ0VszSZtaKBJjBeNDQnlw5zklpi5TrCdtlHV%2F87ZSZMwJlAb%2Be5yd37uubtsnVQp59gp9JK7sUjKrMFDrXKyjQUhBbC80MckDIKXi1jsYuG41hdDooytTo1TZNxXDNbn5eYkdmZhQMwTHtondsiaZbrAN5gFtTbnXrUZMMeSqgfCMjQbCd1MKuNu1BvBtEK9ViCvK5rCZ3GjoA%2FG8GezGblYgWx0wUROapGBJJSsC6aBVGwDHFFwThJApIolHMhsNoRLSHV%2FY9Od%2F4JN7jEbKvYCVH3M9T8wCafpwyMwTDwFp6K62CuEGFKuwsB9PSdnh4GLf%2FML3fnfpiNr%2BorHm7l5f4RKaJU2%2FkfsDHm7EiysroTufirYkmJdvSvVWrKk1vCJLgFjNuM8K8prMO0JFm%2BDRTB%2BldUS7XM1tkmogOp3ZS0MmwzJuWdiYNEC8E3Xe0qjquRNXgpSlUzYQcD5ckMzY6MTbUNfSklF%2FmdjbFvWTBcE26LsXBFaVZxB5pI1kNipapEWGEOx2VRqogpaASlKbvqkS4wDkjKZjrsVdYbUTM%2FcIEibvST3grnLjK%2Fkk%2BdGnva1Rj4uD0qR325TVElo14CXOQ545KPh1K7dT7OnaSmUbrGfkKxM6yUI7eWgLzgY8by5zCb7HZouTO33WJVmyF7GVMVp87HMJ9N2vdtsptu3poeY0gR6G68zeba1i8E1oQoeuXamkSsi9zRssMVCIyR0vfuGzB30aQ8I8v9i29%2B78%2BJY3D0Z%2B2oI7i7qgnskO6%2BNlPALp1Cf2dHFct9LHNXJUPO0%2FX6NSVhYXpVMkVgfxOzm2kdKlf8dEv%2Fsy6V%2FffvhCovsqPU3vrP7DQ%3D%3D&code=76262355& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <div>
+  <svg viewBox="-10 -10 120 120" width="100" height="100">
+    <mask id="mask" x="0" maskUnits="userSpaceOnUse">
+      <!-- Everything under a white pixel will be visible -->
+      <rect x="0" y="0" width="100" height="100" fill="white"></rect>
+
+      <!-- Everything under a black pixel will be invisible -->
+      <path d="M10,35 A20,20,0,0,1,50,35 A20,20,0,0,1,90,35 Q90,65,50,95 Q10,65,10,35 Z" fill="black"></path>
+      <animate attributeName="x" values="0;80;0" dur="5s" repeatCount="indefinite"></animate>
+    </mask>
+
+    <polygon points="-10,110 110,110 110,-10" fill="orange"></polygon>
+
+    <!-- with this mask applied, we "punch" a heart shape hole into the circle -->
+    <circle cx="50" cy="50" r="50" mask="url(#mask)"></circle>
+  </svg>
+</div>
+<pre id="log">The 'x.animVal' is 0.
+The 'x.baseVal' is 0.</pre>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script><script type='text/javascript' src='../../../../../../js_2.js'></script></body></html>

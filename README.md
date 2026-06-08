@@ -1,30 +1,29 @@
 # easy-svg
 
-easy-svg is a crate for composing SVGs with rust code through a statically-typed system. The motivation behind this project is that [other rust svg libraries](https://crates.io/crates/svg) require you to set attributes by string, leading to invalid states and a worse dev experience. easy-svg is being implemented per the [Mozilla MDN SVG Reference](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference), allowing for no ambiguity in SVG composition.
+Typed Rust SVG builders generated at compile time from the offline MDN reference
+in `SVG/`. Elements, attributes, permitted children, value helpers, and hover
+documentation update when the reference is replaced.
 
 ```rust
-Svg::new()
-    .width(500.)
-    .height(500.)
-    .add_child_shape_element(
-        Rect::new()
-            .width(200.)
-            .height(400.)
-            .x(20.)
-            .fill(Color::DarkOliveGreen),
-    )
-    .add_child_text(
-        Text::new()
-            .x(30.)
-            .y(70.)
-            .fill(Color::DarkMagenta)
-            .add_child_string("Hello World".to_string())
-            .font_family("Arial".to_string()),
-    )
-    .add_child_shape_element(Circle::new().fill(Color::DarkBlue).r(20.).cx(80.).cy(85.));
+use easy_svg::elements::{Circle, Svg};
+
+let svg = Svg::new()
+    .view_box((0., 0., 100., 100.))
+    .add_child(Circle::new().cx(50.).cy(50.).r(40.).fill("gold"));
+
+assert_eq!(
+    svg.to_string(),
+    r#"<svg viewBox="0 0 100 100"><circle cx="50" cy="50" fill="gold" r="40"/></svg>"#
+);
 ```
 
-![svg_example_1](docs/examples/rect_circle_text.png)
+Parents expose typed `.add_child(...)` and `.add_children(...)` methods.
+Open-ended values accept strings; `.attr(...)` and `.add_child_unchecked(...)`
+are escape hatches to build invalid SVGs.
+Use `.to_string_pretty()` for copy-friendly output.
 
-This project is a work in progress, and there may be minor breaking changes in the future. This crate is not yet feature-complete, however adding any individual tag or attribute is trivial so you can [open an issue](https://github.com/effdotsh/easy-svg/issues/new) or file a pr updating `svg_elements.yml`.
+To regenerate after replacing `SVG/`:
 
+```bash
+cargo test --all-targets
+```

@@ -1,0 +1,24 @@
+<html><!-- Online page at https://b828458aa46b6d2cf3b7c00f488e87884e093ce6.mdnplay.dev/en-US/docs/Web/SVG/Element/clipPath/runner.html?state=ZVNtb9MwEP4rRyYkqJI5ZXTSulIB07R9QWzqYALlS%2BJcGrPEjmynXTT1v3O2E6hAefH57nLPc48vLxE3JlpGtW2bOJOFKgdazG4LL5kEqFFsa7uEeZq%2BvszkIZOZZDN4FLaGHKzqeQ2qgqvNBiqlodBqb1Ab2NcKZlRgBqLtGmxRWizB1ggablC1aPUAd1p1qO1wCjPmCn98wqHSeYsGKCB%2FqF7fYq5toFJp1QYLQC8hvXTmwb2sOvKfp93zFPJ0T9rhqhEdcKF5gyEzl6LNrVBy%2BQ%2FSfGFAyEpIYTH0G8VeG5Jo5VTZCdx%2FVs8fsiiF1Mninixau6orTjh3OUkjSkoIuGOMoq%2BSJFgA1zvUg62F3ILqrRElem1GinvRNFDglOyqdqReLr2CGklpJJY7YUTR4GnIS5IJZ6zCHcn3xA34QNbZgiw9GSwQZhPjtVMqcIQHYqK02AqZE40m5080BiRO7I%2BY4ImC5Dghrjr6PkD7tn1uFgWPc3yZp%2FFZCp%2FepTHd7prHi%2F9dF951T8t56uIXtJn7Tfj%2B50h74hkAvspm8Np1SrsDddPox4wEC0wCM%2FlX5KNhEAaOVZw66k1IS1xr1EGvmzfjGL0lFjVpQN6TsVOo6LxoT5AjxRWjUVn72fnlfi5ajeZkMJTJtw0rFTfsEQu2%2BX7DrsPv8ecoWHT4DQ%3D%3D&code=70588727& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <svg viewBox="0 0 100 100">
+  <clipPath id="myClip">
+    <!--
+      Everything outside the circle will be
+      clipped and therefore invisible.
+    -->
+    <circle cx="40" cy="35" r="35"></circle>
+  </clipPath>
+
+  <!-- The original black heart, for reference -->
+  <path id="heart" d="M10,30 A20,20,0,0,1,50,30 A20,20,0,0,1,90,30 Q90,60,50,90 Q10,60,10,30 Z"></path>
+
+  <!--
+    Only the portion of the red heart
+    inside the clip circle is visible.
+  -->
+  <use clip-path="url(#myClip)" href="#heart" fill="red"></use>
+</svg>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script></body></html>

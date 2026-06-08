@@ -1,0 +1,29 @@
+<html><!-- Online page at https://94a33032088e175854d485d6718b8c3f3a28c546.mdnplay.dev/en-US/docs/Web/SVG/Attribute/clipPathUnits/runner.html?state=pVTfT8IwEP5X6oiJJoyOH3tBJBEffNQE0Ze9jO5gJaMjbQGR%2BL971zHMAA3qw3J37d33Xb%2F2tvWEMV7XS%2B08q0dqnCcbNGY1ZdtIMZaCnKa2y5pBcHkTqY9IeXWXiyU9ylpJWA%2Fyt9vIC1hAafRFXp%2BKeyKTi6fYpkwmmDDf3GPcjDxWro%2BUtAZ3lgb0cBELeFQjA7tqqpdaZMAEwYcBFW5KT6PTDtHhBRUvMTH8lrt1gjsfz0DYQb5UiVRTPMpp%2BkZY0juP6Bs%2F8l%2F4Phvmc2AaJqBBCfKEZTZn89iClnEm3yGhmErZgnr1%2FQLNZbrGNenl5EW72dm1TGyKfocaKK6ojPgRQOsAIAx%2Fi9DeIbjKv0F0DiHOOMZexucU2ERqY1m70DDW4ERboH5ribpVHxBb0t3uxcRNl%2B2TxPTadHZV2z3Ga2LGG8LlmpN6IrOMGobk6xxnA7T%2BC9A%2BBVDRIYtRhkJYU9Xg6CGfL0Or0kTnVBM9jtPed%2BM%2Fo%2F8FWqMFOhyUPxryJBeGv8KYD18e%2BJ21Wo6XFvZT4aaNex%2Bf&code=36127114& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <svg viewBox="0 0 100 100">
+  <clipPath id="myClip1" clipPathUnits="userSpaceOnUse">
+    <circle cx="50" cy="50" r="35"></circle>
+  </clipPath>
+
+  <clipPath id="myClip2" clipPathUnits="objectBoundingBox">
+    <circle cx=".5" cy=".5" r=".35"></circle>
+  </clipPath>
+
+  <!-- Some reference rect to materialized to clip path -->
+  <rect id="r1" x="0" y="0" width="45" height="45"></rect>
+  <rect id="r2" x="0" y="55" width="45" height="45"></rect>
+  <rect id="r3" x="55" y="55" width="45" height="45"></rect>
+  <rect id="r4" x="55" y="0" width="45" height="45"></rect>
+
+  <!-- The first 3 rect are clipped with userSpaceOnUse units -->
+  <use clip-path="url(#myClip1)" href="#r1" fill="red"></use>
+  <use clip-path="url(#myClip1)" href="#r2" fill="red"></use>
+  <use clip-path="url(#myClip1)" href="#r3" fill="red"></use>
+
+  <!-- The last rect is clipped with objectBoundingBox units -->
+  <use clip-path="url(#myClip2)" href="#r4" fill="red"></use>
+</svg>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script></body></html>

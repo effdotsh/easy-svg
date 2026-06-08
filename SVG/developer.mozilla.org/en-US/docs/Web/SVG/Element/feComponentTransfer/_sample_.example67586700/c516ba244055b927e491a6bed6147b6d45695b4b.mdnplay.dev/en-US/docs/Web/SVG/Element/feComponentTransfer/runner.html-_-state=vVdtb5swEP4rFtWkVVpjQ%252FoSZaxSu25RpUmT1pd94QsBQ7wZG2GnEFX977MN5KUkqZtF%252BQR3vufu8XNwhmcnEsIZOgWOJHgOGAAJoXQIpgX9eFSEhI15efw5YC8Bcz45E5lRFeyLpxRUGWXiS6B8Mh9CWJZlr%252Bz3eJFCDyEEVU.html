@@ -1,0 +1,68 @@
+<html><!-- Online page at https://c516ba244055b927e491a6bed6147b6d45695b4b.mdnplay.dev/en-US/docs/Web/SVG/Element/feComponentTransfer/runner.html?state=vVdtb5swEP4rFtWkVVpjQ%2FoSZaxSu25RpUmT1pd94QsBQ7wZG2GnEFX977MN5KUkqZtF%2BQR3vufu8XNwhmcnEsIZOgWOJHgOGAAJoXQIpgX9eFSEhI15efw5YC8Bcz45E5lRFeyLpxRUGWXiS6B8Mh9CWJZlr%2Bz3eJFCDyEEVUjggCeCy2teqTAEEDhHCPQRCpxLXciPcSLMnbqnhOGwGBVhTDCTtRMAEitkwyJwWm%2FaRD0wIjWDqcDFXR5G%2BCd7EHgRV7m67sKevbIrT9kuQh%2BWQrw65LJ1%2BELyHPAkEVjWS0B7TiJOeaEcR0midqsRPtQLG4E9bw1Ugy2gpx0oQpbQ87XQJLGADtZANfhNqNsBDhRw0KHrw9Wut271BEpc1M0nsVogcqZSVo3%2Bs%2BZaklhO5h0EE0zSiZzbC3IJ%2FsqznDOV6L4ImUhwMV80y9%2BnLPoF5CzHKwUV2WatGz7aEj7qhl9vCb%2Fuhl9tCb9abAxu3plaMyKuk1SGY4oPpmdbzVwfQzrF%2BpXV08AFrqXI63MovMqCLJXfxMNkWduOXfWNiYgKLA8n8VLB%2F1F5Y5r3Cb2Fzf61rgfIwZSelxOUGwfqnSmLMEUownlzQlipbZOq551Zim6V7Wyv0qdhloUHU76tFmY5JXIaa58%2BFnFVp1DmhTKXD2qrNljkPd2Ud1tDLPK6m%2FLu0Bsfzj%2Bm%2FBQknMmTshV%2BzGk8F96XuJIrPfN06RuchFMqfaiX21DzTbgc2t%2FWX6%2FeggZtrHWhY26bQ61brN12A2lNjRws2asMWu8KkdYp5Ixq6Wuphuartj1Uj9%2Fm65pN3esxBijnf6f5u0i7%2Ff2xNrPUhrLR%2BKYZwvUI3on7HhVvjwQL%2Bp5R%2FIcZZyBRL4MknL2LuLdH0euxakPbqD7SL%2F2OrPcot5k9r0j7MFVXX%2F%2BWXZpfuT%2F6r09dRRGpG4jZycMdjHkk4G88hnePI%2FiN4ky9KetGEHRe%2FgE%3D&code=67586700& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300">
+  <defs>
+    <linearGradient id="rainbow" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="100%" y2="0">
+      <stop offset="0" stop-color="#ff0000"></stop>
+      <stop offset="0.2" stop-color="#ffff00"></stop>
+      <stop offset="0.4" stop-color="#00ff00"></stop>
+      <stop offset="0.6" stop-color="#00ffff"></stop>
+      <stop offset="0.8" stop-color="#0000ff"></stop>
+      <stop offset="1" stop-color="#800080"></stop>
+    </linearGradient>
+    <filter id="identity" x="0" y="0" width="100%" height="100%">
+      <feComponentTransfer>
+        <feFuncR type="identity"></feFuncR>
+        <feFuncG type="identity"></feFuncG>
+        <feFuncB type="identity"></feFuncB>
+        <feFuncA type="identity"></feFuncA>
+      </feComponentTransfer>
+    </filter>
+    <filter id="table" x="0" y="0" width="100%" height="100%">
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0 0 1 1"></feFuncR>
+        <feFuncG type="table" tableValues="1 1 0 0"></feFuncG>
+        <feFuncB type="table" tableValues="0 1 1 0"></feFuncB>
+      </feComponentTransfer>
+    </filter>
+    <filter id="discrete" x="0" y="0" width="100%" height="100%">
+      <feComponentTransfer>
+        <feFuncR type="discrete" tableValues="0 0 1 1"></feFuncR>
+        <feFuncG type="discrete" tableValues="1 1 0 0"></feFuncG>
+        <feFuncB type="discrete" tableValues="0 1 1 0"></feFuncB>
+      </feComponentTransfer>
+    </filter>
+    <filter id="linear" x="0" y="0" width="100%" height="100%">
+      <feComponentTransfer>
+        <feFuncR type="linear" slope="0.5" intercept="0"></feFuncR>
+        <feFuncG type="linear" slope="0.5" intercept="0.25"></feFuncG>
+        <feFuncB type="linear" slope="0.5" intercept="0.5"></feFuncB>
+      </feComponentTransfer>
+    </filter>
+    <filter id="gamma" x="0" y="0" width="100%" height="100%">
+      <feComponentTransfer>
+        <feFuncR type="gamma" amplitude="4" exponent="7" offset="0"></feFuncR>
+        <feFuncG type="gamma" amplitude="4" exponent="4" offset="0"></feFuncG>
+        <feFuncB type="gamma" amplitude="4" exponent="1" offset="0"></feFuncB>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <g font-weight="bold">
+    <text x="0" y="20">Default</text>
+    <rect x="0" y="30" width="100%" height="20"></rect>
+    <text x="0" y="70">Identity</text>
+    <rect x="0" y="80" width="100%" height="20" style="filter:url(#identity)"></rect>
+    <text x="0" y="120">Table lookup</text>
+    <rect x="0" y="130" width="100%" height="20" style="filter:url(#table)"></rect>
+    <text x="0" y="170">Discrete table lookup</text>
+    <rect x="0" y="180" width="100%" height="20" style="filter:url(#discrete)"></rect>
+    <text x="0" y="220">Linear function</text>
+    <rect x="0" y="230" width="100%" height="20" style="filter:url(#linear)"></rect>
+    <text x="0" y="270">Gamma function</text>
+    <rect x="0" y="280" width="100%" height="20" style="filter:url(#gamma)"></rect>
+  </g>
+</svg>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script></body></html>

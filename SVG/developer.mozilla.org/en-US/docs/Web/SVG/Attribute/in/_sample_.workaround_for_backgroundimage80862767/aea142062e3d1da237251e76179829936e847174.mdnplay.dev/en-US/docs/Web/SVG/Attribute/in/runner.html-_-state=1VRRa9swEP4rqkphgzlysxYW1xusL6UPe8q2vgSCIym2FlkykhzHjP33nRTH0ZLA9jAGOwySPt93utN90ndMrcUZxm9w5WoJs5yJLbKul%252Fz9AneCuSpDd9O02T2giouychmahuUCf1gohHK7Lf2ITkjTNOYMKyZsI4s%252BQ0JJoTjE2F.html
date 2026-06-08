@@ -1,0 +1,70 @@
+<html><!-- Online page at https://aea142062e3d1da237251e76179829936e847174.mdnplay.dev/en-US/docs/Web/SVG/Attribute/in/runner.html?state=1VRRa9swEP4rqkphgzlysxYW1xusL6UPe8q2vgSCIym2FlkykhzHjP33nRTH0ZLA9jAGOwySPt93utN90ndMrcUZxm9w5WoJs5yJLbKul%2Fz9AneCuSpDd9O02T2giouychmahuUCf1gohHK7Lf2ITkjTNOYMKyZsI4s%2BQ0JJoTjE2FN3tVQWqJVzTUZI13WT7u1Em5IAMSV%2Bi9gz2wF7c9H%2FdjabkfB7yA8yZHxthzms1kI6bpBgwF8VdFMa3Sr2qZVONLIfWcH3KknQ50pY1AkpkdIOddpsJihJYq81f5RcMSgKQj6OIZ%2FrouQLDPAU8LluDeVPpmgqQQGtNfOHVY%2F7InLMkeyTPBRAogpyEcIOnpXhax%2BFqaXUpV5qJfsl1VKbSaPGQ4NjA6fb9OYI9KdA6BqA72Jw370DOmaYU2GoHJOgPvp9zKM%2B%2FF2MmFMAKpSAXdM0PYIHCe3Lz1ojX12f9%2Bj1w5hL7rUBs%2F9eiaGrvxEhfEUQYBGO41yGz7E0vP2pPLydScTbmUy8XZRK2O6yXLxFl%2BSv3oZ%2FqcRfenRBhJCZ2MIIj%2Bm34VG1hsKEcJV8mROmqSUvfEXmX5%2FIR%2BeMWLWOE6EI%2FvET&code=80862767& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"></head><body>
+    <main>
+      <span class="icon">⚠️</span>
+      <a name="//apple_ref/Section/Caution%3A%20This%20is%20a%20demo%20page" class="dashAnchor"></a><h1 id="CautionThisisademopage">Caution: This is a demo page</h1>
+      <p>You’re about to view a live demo generated using the <a href="https://developer.mozilla.org/en-US/play">MDN Playground</a>. This demo may include custom code created by another user and is intended for testing and exploration only. If you’re uncertain about its contents or would prefer not to proceed, you can open the example in the MDN Playground. Otherwise, feel free to continue and explore the example provided.</p>
+      <details>
+        <summary>view code</summary>
+
+        <h2>html</h2>
+        <pre><code>&lt;div style="width: 420px; height: 220px;"&gt;
+  &lt;svg
+    style="width:200px; height:200px; display: inline;"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"&gt;
+    &lt;defs&gt;
+      &lt;filter id="backgroundMultiply"&gt;
+        &lt;!-- This will not work. --&gt;
+        &lt;feBlend in="BackgroundImage" in2="SourceGraphic" mode="multiply" /&gt;
+      &lt;/filter&gt;
+    &lt;/defs&gt;
+    &lt;image
+      href="mdn_logo_only_color.png"
+      x="10%"
+      y="10%"
+      width="80%"
+      height="80%" /&gt;
+    &lt;circle
+      cx="50%"
+      cy="40%"
+      r="40%"
+      fill="#c00"
+      style="filter:url(#backgroundMultiply);" /&gt;
+  &lt;/svg&gt;
+
+  &lt;svg
+    style="width:200px; height:200px; display: inline;"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"&gt;
+    &lt;defs&gt;
+      &lt;filter id="imageMultiply"&gt;
+        &lt;!-- This is a workaround. --&gt;
+        &lt;feImage
+          href="mdn_logo_only_color.png"
+          x="10%"
+          y="10%"
+          width="80%"
+          height="80%" /&gt;
+        &lt;feBlend in2="SourceGraphic" mode="multiply" /&gt;
+      &lt;/filter&gt;
+    &lt;/defs&gt;
+    &lt;circle
+      cx="50%"
+      cy="40%"
+      r="40%"
+      fill="#c00"
+      style="filter:url(#imageMultiply);" /&gt;
+  &lt;/svg&gt;
+&lt;/div&gt;</code></pre>
+
+        <h2>css</h2>
+        <pre><code></code></pre>
+
+        <h2>js</h2>
+        <pre><code></code></pre>
+      </details>
+      <a href="https://developer.mozilla.org/en-US/play?state=1VRRa9swEP4rqkphgzlysxYW1xusL6UPe8q2vgSCIym2FlkykhzHjP33nRTH0ZLA9jAGOwySPt93utN90ndMrcUZxm9w5WoJs5yJLbKul%2Fz9AneCuSpDd9O02T2giouychmahuUCf1gohHK7Lf2ITkjTNOYMKyZsI4s%2BQ0JJoTjE2FN3tVQWqJVzTUZI13WT7u1Em5IAMSV%2Bi9gz2wF7c9H%2FdjabkfB7yA8yZHxthzms1kI6bpBgwF8VdFMa3Sr2qZVONLIfWcH3KknQ50pY1AkpkdIOddpsJihJYq81f5RcMSgKQj6OIZ%2FrouQLDPAU8LluDeVPpmgqQQGtNfOHVY%2F7InLMkeyTPBRAogpyEcIOnpXhax%2BFqaXUpV5qJfsl1VKbSaPGQ4NjA6fb9OYI9KdA6BqA72Jw370DOmaYU2GoHJOgPvp9zKM%2B%2FF2MmFMAKpSAXdM0PYIHCe3Lz1ojX12f9%2Bj1w5hL7rUBs%2F9eiaGrvxEhfEUQYBGO41yGz7E0vP2pPLydScTbmUy8XZRK2O6yXLxFl%2BSv3oZ%2FqcRfenRBhJCZ2MIIj%2Bm34VG1hsKEcJV8mROmqSUvfEXmX5%2FIR%2BeMWLWOE6EI%2FvET&amp;code=80862767&amp;" class="leave">Open in Playground</a>
+      <a href="https://aea142062e3d1da237251e76179829936e847174.mdnplay.dev/en-US/docs/Web/SVG/Attribute/in/runner.html?state=1VRRa9swEP4rqkphgzlysxYW1xusL6UPe8q2vgSCIym2FlkykhzHjP33nRTH0ZLA9jAGOwySPt93utN90ndMrcUZxm9w5WoJs5yJLbKul%2Fz9AneCuSpDd9O02T2giouychmahuUCf1gohHK7Lf2ITkjTNOYMKyZsI4s%2BQ0JJoTjE2FN3tVQWqJVzTUZI13WT7u1Em5IAMSV%2Bi9gz2wF7c9H%2FdjabkfB7yA8yZHxthzms1kI6bpBgwF8VdFMa3Sr2qZVONLIfWcH3KknQ50pY1AkpkdIOddpsJihJYq81f5RcMSgKQj6OIZ%2FrouQLDPAU8LluDeVPpmgqQQGtNfOHVY%2F7InLMkeyTPBRAogpyEcIOnpXhax%2BFqaXUpV5qJfsl1VKbSaPGQ4NjA6fb9OYI9KdA6BqA72Jw370DOmaYU2GoHJOgPvp9zKM%2B%2FF2MmFMAKpSAXdM0PYIHCe3Lz1ojX12f9%2Bj1w5hL7rUBs%2F9eiaGrvxEhfEUQYBGO41yGz7E0vP2pPLydScTbmUy8XZRK2O6yXLxFl%2BSv3oZ%2FqcRfenRBhJCZ2MIIj%2Bm34VG1hsKEcJV8mROmqSUvfEXmX5%2FIR%2BeMWLWOE6EI%2FvET&amp;code=86c9740e-dfb7-40aa-8968-62fc4ba9e4e9" class="continue">Continue</a>
+    </main>
+  
+</body></html>

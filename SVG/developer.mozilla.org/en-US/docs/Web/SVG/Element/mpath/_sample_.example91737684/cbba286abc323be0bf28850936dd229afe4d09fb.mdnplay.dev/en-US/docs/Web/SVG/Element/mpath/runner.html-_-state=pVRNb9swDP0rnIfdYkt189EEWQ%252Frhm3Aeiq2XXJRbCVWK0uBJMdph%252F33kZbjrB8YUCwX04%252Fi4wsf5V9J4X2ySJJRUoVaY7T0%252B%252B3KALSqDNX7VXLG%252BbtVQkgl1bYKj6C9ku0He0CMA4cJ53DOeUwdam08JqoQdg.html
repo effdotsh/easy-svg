@@ -1,0 +1,26 @@
+<html><!-- Online page at https://cbba286abc323be0bf28850936dd229afe4d09fb.mdnplay.dev/en-US/docs/Web/SVG/Element/mpath/runner.html?state=pVRNb9swDP0rnIfdYkt189EEWQ%2Frhm3Aeiq2XXJRbCVWK0uBJMdph%2F33kZbjrB8YUCwX04%2Fi4wsf5V9J4X2ySJJRUoVaY7T0%2B%2B3KALSqDNX7VXLG%2BbtVQkgl1bYKj6C9ku0He0CMA4cJ53DOeUwdam08JqoQdgvG2rbN2vPMui3LOeeMupzOLQ5ambsXT5%2FN53PWpVfJJRUsnSwCBVhLYiINwP3fL0f14%2FnFERrk5ydso7RGxFgjj5APzt5JBNe6eQKmR9Z8lQBDMZ2cN2kKH51oIVQSbBNQKj433Wttg7IGdiJUoAwQ5QiEtmYbeeOvVZgOlZMSfC20hkK5QksPInQsPggXRlCrstQShClBmjKDNI3zIPZIp0oUR6%2FDHAi4Rr9G%2BYTDFVCEwfj0QPw%2FhzHL%2BLSfB4qJ0qE4xD3BREHGdG3AETjLpmOM%2B26R%2BKXqWNJVR6JXVY9f13tw8ot0EhSOHoJTwmyRr61UUaFJaMyaLN3LEsQanX5qcTaY%2BjUQRyk3uAtl9FcYaHaOVhCsU9IE0dX13ktYC09rM1AQNkgo8DwKK6HC2geLxVrfw23jAynZy7h7yK7MS3vRbUGaT0bpWZ5N4NspAj5KL2YYPTzZgnuptW2f7QFq%2BOcaXMZcvBTd3392D4RRdfzvvVA8HjF5HY%2BVDZk19eSa3EkRrmxj6OYq041UBbLNWRwhaRJNsENnJKu7NnidNph821%2BHfkcwzR41i6NidArDJX2X8Imfw9v%2Bs%2BhdgQGTJv1%2Bw0pbePZTrtnNj8%2Fsk5Y1%2BsK6fiz5%2FQc%3D&code=91737684& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <svg width="100%" height="100%" viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <rect x="1" y="1" width="498" height="298" fill="none" stroke="blue" stroke-width="2"></rect>
+
+  <!-- Draw the outline of the motion path in blue, along
+          with three small circles at the start, middle and end. -->
+  <path id="path1" d="M100,250 C 100,50 400,50 400,250" fill="none" stroke="blue" stroke-width="7.06"></path>
+  <circle cx="100" cy="250" r="17.64" fill="blue"></circle>
+  <circle cx="250" cy="100" r="17.64" fill="blue"></circle>
+  <circle cx="400" cy="250" r="17.64" fill="blue"></circle>
+
+  <!-- Here is a triangle which will be moved about the motion path.
+       It is defined with an upright orientation with the base of
+       the triangle centered horizontally just above the origin. -->
+  <path d="M-25,-12.5 L25,-12.5 L 0,-87.5 z" fill="yellow" stroke="red" stroke-width="7.06">
+    <!-- Define the motion path animation -->
+    <animateMotion dur="6s" repeatCount="indefinite" rotate="auto">
+      <mpath href="#path1"></mpath>
+    </animateMotion>
+  </path>
+</svg>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script></body></html>

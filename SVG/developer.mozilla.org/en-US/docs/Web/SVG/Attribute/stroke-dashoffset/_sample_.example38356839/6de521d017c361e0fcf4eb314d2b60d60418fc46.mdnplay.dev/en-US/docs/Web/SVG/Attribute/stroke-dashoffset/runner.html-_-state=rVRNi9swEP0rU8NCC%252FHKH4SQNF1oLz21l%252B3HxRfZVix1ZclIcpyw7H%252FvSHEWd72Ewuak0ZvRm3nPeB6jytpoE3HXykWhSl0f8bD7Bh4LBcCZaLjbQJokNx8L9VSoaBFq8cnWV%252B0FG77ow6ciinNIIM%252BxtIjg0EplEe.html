@@ -1,0 +1,38 @@
+<html><!-- Online page at https://6de521d017c361e0fcf4eb314d2b60d60418fc46.mdnplay.dev/en-US/docs/Web/SVG/Attribute/stroke-dashoffset/runner.html?state=rVRNi9swEP0rU8NCC%2FHKH4SQNF1oLz21l%2B3HxRfZVix1ZclIcpyw7H%2FvSHEWd72Ewuak0ZvRm3nPeB6jytpoE3HXykWhSl0f8bD7Bh4LBcCZaLjbQJokNx8L9VSoaBFq8cnWV%2B0FG77ow6ciinNIIM%2BxtIjg0EplEeTOdRtChmG4HfJbbRqSJUlC8GUR3fkG23dxDN811NRyoMbQI8TxKSOFYnBIkcUzHn2QeuoMgzxA2QhZZ%2FQDw0spafWAAEGGGbve7Sxzl%2BjzOX3%2BGv0JiD1rGNnXQfqirz9%2FcIbF1DhsDg4vE5mVbrveUSd0eCIsdL2UrIbyCDn0lhnolXDWJ6cz%2BwCeBz%2FdwvTL8%2B1ZwpjMpsmXYqboXNEsezJxNOatci1%2Fg9zVJbmra8uNr6H3%2FHnTiV4YuKg4MFVb6LtQqgKXpS0DgzgzQjVAbUA7w%2FZC9xbYgbadZP9t1%2FqSXetr2%2FXaz%2BDH32kp9eD1GLTCD2yB44qRfs34Cl84%2FqhzT3faAKPo1lnpWXlHHYca%2B35LFkvguIowWAEP5xqBf7aEacr32XKJ6yoBAsvk5sM47dYvpruw4%2F74pYinNRUGhKn45z2pdWXJb1aS%2B19fyWfnjCh7x8jMABI9%2FQU%3D&code=38356839& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <svg viewBox="-3 0 33 10" xmlns="http://www.w3.org/2000/svg">
+  <!-- No dash array -->
+  <line x1="0" y1="1" x2="30" y2="1" stroke="black"></line>
+
+  <!-- No dash offset -->
+  <line x1="0" y1="3" x2="30" y2="3" stroke="black" stroke-dasharray="3 1"></line>
+
+  <!--
+  The start of the dash array computation
+  is pulled by 3 user units
+  -->
+  <line x1="0" y1="5" x2="30" y2="5" stroke="black" stroke-dasharray="3 1" stroke-dashoffset="3"></line>
+
+  <!--
+  The start of the dash array computation
+  is pushed by 3 user units
+  -->
+  <line x1="0" y1="7" x2="30" y2="7" stroke="black" stroke-dasharray="3 1" stroke-dashoffset="-3"></line>
+
+  <!--
+  The start of the dash array computation
+  is pulled by 1 user units which ends up
+  in the same rendering as the previous example
+  -->
+  <line x1="0" y1="9" x2="30" y2="9" stroke="black" stroke-dasharray="3 1" stroke-dashoffset="1"></line>
+
+  <!--
+  the following red lines highlight the
+  offset of the dash array for each line
+  -->
+  <path d="M0,5 h-3 M0,7 h3 M0,9 h-1" stroke="rgb(255 0 0 / 50%)"></path>
+</svg>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script></body></html>

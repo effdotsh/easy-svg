@@ -1,0 +1,33 @@
+<html><!-- Online page at https://551981aae7daa1882b2306680010ee52424b20fc.mdnplay.dev/en-US/docs/Web/SVG/Attribute/patternContentUnits/runner.html?state=tVRNb9QwEP0rQ1AlkJp1slzQdqnUcuCCQGK15ZKL43gTV1k72JPNlqr%2FnZl8iRWtihA9%2BXky4zfznuP7SIUQraIK9%2FV5ZnNX3NESDiXcZxag0qascAVpkpxdZPYhs9F5n0sla846GN1du%2BOHLEoggWWScGoWwXFf20DRCrFZCdF13aJ7t3C%2BFJSTCCrNoktmWL%2BKY16voJGI2ltAU2vASiIoZ1FbXp0vjJWoA0hbwEHWLUOvuVK5fdOiLkCW0tiAVKtBtd6flkIbtIfQSKUXXPbF4UjD%2BcH81OB2Pe4bMOGPg7mKv%2BeutXRmSeA410hfagRd6z3RcmYcD%2FONYzEGMAVp0qRZNGw7U2BFkWVyNoUGxU9j4xEfBzm21iBLy%2FNseJyvdhv0KCcRKuMVDaDYlJS9UHcT8hMQQ29iPJl2L%2BjF83r9pSGyDu7lXFn%2BF1dcfqsVXo%2FN0K%2FxuDGLdDKmR34CTxsDn%2FUOIfxoSWpqEavfLnSvUJiH89QBzPbP7k9zvefNPFG%2F25m65ivl6zevm%2FTt2MhM%2FY1zT7hP1H6K%2Fd%2FolxP9mp%2BJy%2F7JueU3itbgFQGhbbzdiMKpIL7rXGxuPokrRG9yuhjiEV9E9PAL&code=72885769& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <!--
+  A pattern tile that content coordinates and values are
+  computed against the current coordinate user space.
+  Note that the size of the tile is computed against
+  the bounding box of the target element
+  -->
+  <pattern id="p1" width="20%" height="20%" patternContentUnits="userSpaceOnUse">
+    <circle cx="10" cy="10" r="10"></circle>
+  </pattern>
+
+  <!--
+  A pattern tile that content coordinates and values are
+  computed against the bounding box of the target element.
+  Note that the size of the tile is also computed against
+  the bounding box of the target element
+  -->
+  <pattern id="p2" width="20%" height="20%" patternContentUnits="objectBoundingBox">
+    <circle cx=".1" cy=".1" r=".1"></circle>
+  </pattern>
+
+  <!-- Left square with user space tiles -->
+  <rect x="10" y="10" width="80" height="80" fill="url(#p1)"></rect>
+
+  <!-- Right square with bounding box tiles -->
+  <rect x="110" y="10" width="80" height="80" fill="url(#p2)"></rect>
+</svg>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script></body></html>

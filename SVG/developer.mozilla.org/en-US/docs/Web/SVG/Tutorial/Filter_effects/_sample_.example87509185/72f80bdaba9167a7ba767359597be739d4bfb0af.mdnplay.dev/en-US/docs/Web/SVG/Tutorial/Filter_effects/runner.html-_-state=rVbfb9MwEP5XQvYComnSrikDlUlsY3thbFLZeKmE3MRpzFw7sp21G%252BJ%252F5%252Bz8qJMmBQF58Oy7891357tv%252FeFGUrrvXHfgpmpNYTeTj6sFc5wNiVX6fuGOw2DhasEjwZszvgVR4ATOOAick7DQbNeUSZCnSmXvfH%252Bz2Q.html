@@ -1,0 +1,55 @@
+<html><!-- Online page at https://72f80bdaba9167a7ba767359597be739d4bfb0af.mdnplay.dev/en-US/docs/Web/SVG/Tutorial/Filter_effects/runner.html?state=rVbfb9MwEP5XQvYComnSrikDlUlsY3thbFLZeKmE3MRpzFw7sp21G%2BJ%2F5%2Bz8qJMmBQF58Oy7891357tv%2FeFGUrrvXHfgpmpNYTeTj6sFc5wNiVX6fuGOw2DhasEjwZszvgVR4ATOOAick7DQbNeUSZCnSmXvfH%2Bz2Qw3x0MuVj5YBb52WHjAQhLOwHI0HC3cUy2bxTiRZgf7F57nXBKqsHBiHFEkkAJ7x%2FMqg8Qoi4PjkBhcXT8VN4oQ%2BiuM7hhRGlQusZhnKMI37E7inZVJZHd8ah7r7ANLmGKySpWGPw5K%2BDVsniQSqzOaix1cDRhfoVxKgphREZ38nOciwh9olqKF60gVX%2BBHYjIF5QREAsuc6jhLuANn3%2FZ3YwIVnkp9vC0vxk9tDztYpZ8GaErULSJMtSDPMxzlUP1POl3CVpXKsaPuhDIXCdR3HiGKQR02dKWrc86kQkxDGr7ptPi4zTjDxmIc2Aa0ROFFnHIB6qOl%2BWybOl%2Ft7SZX1uuYjG45ZGnSMe%2FuhYF%2BV%2FPo3igoDs%2FFc5u9VXF%2Fvx52rc75OuOSKNwqUg3Elo%2Fbr79T8gxDt5v8CDucWrMf%2BgAUca4EylIS7cPowGdBQIKodI1V8%2BbDqDkkINGuRg3J8Z5k0r5Vp1T1X1dvrrFYYXusXve167W2bL63EX3mMS5qsTcF%2FaYtSKWZ34wCZ8MxBYP5JYWZg4ZeFt3BFK%2Bho2WFd7YquQni5IK%2BPKq461Xdr7MMqbQKC8YUTBnMxa58Ugn%2BoOfs6OJt0a1NjVdR18hSGaIMg8F06kTQ%2FIPA0as3BSY3awpD4ERGoa20eBo8WzXowrUHwESZBoNQRzk2UWD1JiYKrOkJBDFyWIx00gyyql1fms%2FQY5nukqLoAQQJZ8qT5FnLJmElSNCaUD3O91jEiCGbnhXeFmMfjsuZ15vT%2Bf3VzNe6%2BlFX5XvqvzP9b8s86v%2FjcOPrn%2Fm7h6D3Gl0Lu6n5ECkfoOPDRNxDwX9Jvj20a7KvGa%2FFtF0E2%2BbVPjptOq7r2UGiHfR5gDhtyrTJ0qZJmyD7qbFBdH9Ecb8lN5vW4Afg9%2FKHoBQRbHzMvLu5H%2FNI%2Bl%2Fx0odx8b%2FkkCVB1C9o6xtOEhwp6bs%2FfwE%3D&code=87509185& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <svg width="250" viewBox="0 0 200 85" xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <defs>
+    <!-- Filter declaration -->
+    <filter id="MyFilter" filterUnits="userSpaceOnUse" x="0" y="0" width="200" height="120">
+      <!-- offsetBlur -->
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"></feGaussianBlur>
+      <feOffset in="blur" dx="4" dy="4" result="offsetBlur"></feOffset>
+
+      <!-- litPaint -->
+      <feSpecularLighting in="blur" surfaceScale="5" specularConstant=".75" specularExponent="20" lighting-color="#bbbbbb" result="specOut">
+        <fePointLight x="-5000" y="-10000" z="20000"></fePointLight>
+      </feSpecularLighting>
+      <feComposite in="specOut" in2="SourceAlpha" operator="in" result="specOut"></feComposite>
+      <feComposite in="SourceGraphic" in2="specOut" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litPaint"></feComposite>
+
+      <!-- merge offsetBlur + litPaint -->
+      <feMerge>
+        <feMergeNode in="offsetBlur"></feMergeNode>
+        <feMergeNode in="litPaint"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Graphic elements -->
+  <g filter="url(#MyFilter)">
+    <path fill="none" stroke="#D90000" stroke-width="10" d="M50,66 c-50,0 -50,-60 0,-60 h100 c50,0 50,60 0,60z"></path>
+    <path fill="#D90000" d="M60,56 c-30,0 -30,-40 0,-40 h80 c30,0 30,40 0,40z"></path>
+    <g fill="#FFFFFF" stroke="black" font-size="45" font-family="Verdana">
+      <text x="52" y="52">SVG</text>
+    </g>
+  </g>
+</svg>
+
+<fegaussianblur in="SourceAlpha" stddeviation="4" result="blur">
+
+<feoffset in="blur" dx="4" dy="4" result="offsetBlur">
+
+<fespecularlighting in="offsetBlur" surfacescale="5" specularconstant=".75" specularexponent="20" lighting-color="#bbbbbb" result="specOut">
+  <fepointlight x="-5000" y="-10000" z="20000">
+</fepointlight></fespecularlighting>
+
+<fecomposite in="specOut" in2="SourceAlpha" operator="in" result="specOut">
+
+<fecomposite in="SourceGraphic" in2="specOut" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litPaint">
+
+<femerge>
+  <femergenode in="offsetBlur">
+  <femergenode in="litPaint">
+</femergenode></femergenode></femerge>
+
+    
+  
+
+</fecomposite></fecomposite></feoffset></fegaussianblur><script type='text/javascript' src='../../../../../../js_1.js'></script></body></html>

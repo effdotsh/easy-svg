@@ -1,0 +1,24 @@
+<html><!-- Online page at https://39e2000600c5cfb6fbd8605009aee912ab3ecb4f.mdnplay.dev/en-US/docs/Web/SVG/Attribute/clip-rule/runner.html?state=lVLLTsMwEPyVxb2AlNRuqwoaFSQQEheQEBVwyaVNNo2R60S20xQQ%2F846L7gg1EuynvXM7Kz8yRJrWcRYwHK3U1Qt7X4ba4Bapi6%2FjNlEiJh5YC%2BxvikOBAkQQDAsus5hp7QlPHeujDiv63pcz8aF2fKpEIJ7wVYBjZWF9qLjScyuPLY8CUO4xUxqBOvWBsq1yyEM22aKmW0qqptGSuSHuQgETCfBgka4CGZzmPrP%2BYKAj5iB9Je8FtW81eGd0OB4j5mLAPeoizQd7BIly0dv00jgrnTvq0ann6GyCLnBjLqjzsFzQlMp9IxW75dvr9geDSauJfgwRKiMOh0NPmdE7Nc%2Bp91CjnKbOzr5TUMmlaJ6oyrsHIY4T%2F5eBLrQH2iKP%2FJ4PqZHBeoEjwz0Y%2FRPokMPd9EM9rtb%2BldDf3qXb937tCahgqMOn1c8LRLLX3HDVy93%2FNo5IzeVQz7MztnXNw%3D%3D&code=10825291& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <svg width="100" viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <!-- Define star path -->
+  <defs>
+    <path d="M50,0 21,90 98,35 2,35 79,90z" id="star"></path>
+  </defs>
+
+  <!-- Left: evenodd -->
+  <clipPath id="emptyStar">
+    <use href="#star" clip-rule="evenodd"></use>
+  </clipPath>
+  <rect clip-path="url(#emptyStar)" width="50" height="90" fill="blue"></rect>
+
+  <!-- Right: nonzero -->
+  <clipPath id="filledStar">
+    <use href="#star" clip-rule="nonzero"></use>
+  </clipPath>
+  <rect clip-path="url(#filledStar)" width="50" height="90" x="50" fill="red"></rect>
+</svg>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script></body></html>

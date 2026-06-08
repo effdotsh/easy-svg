@@ -1,0 +1,3 @@
+
+@font-face { font-family: FiraSans; src: url("../mdn.github.io/shared-assets/fonts/FiraSans-Italic.woff2") format("woff2"), url("../mdn.github.io/shared-assets/fonts/FiraSans-Bold.woff2") format("woff2"); }
+text { font-family: FiraSans, sans-serif; font-size: 24px; font-weight: bold; font-style: italic; }

@@ -1,0 +1,3 @@
+
+.resizer { display: flex; margin: 1rem; padding: 0px; resize: both; overflow: hidden; border: 5px dotted red; height: 400px; }
+.resizer > .resized { flex-grow: 1; margin: 0px; padding: 0px; border: 0px; }

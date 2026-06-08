@@ -1,0 +1,3 @@
+
+html, body, svg { height: 100%; }
+a { fill: blue; text-decoration: underline; cursor: pointer; }

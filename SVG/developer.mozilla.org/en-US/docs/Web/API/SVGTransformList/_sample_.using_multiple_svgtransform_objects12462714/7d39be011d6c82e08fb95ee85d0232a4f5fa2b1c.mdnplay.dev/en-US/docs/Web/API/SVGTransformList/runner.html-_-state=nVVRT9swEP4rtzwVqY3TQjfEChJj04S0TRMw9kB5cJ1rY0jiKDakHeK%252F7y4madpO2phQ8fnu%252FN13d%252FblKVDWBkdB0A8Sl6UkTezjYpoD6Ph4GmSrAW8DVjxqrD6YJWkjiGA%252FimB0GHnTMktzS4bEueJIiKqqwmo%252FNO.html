@@ -1,0 +1,73 @@
+<html><!-- Online page at https://7d39be011d6c82e08fb95ee85d0232a4f5fa2b1c.mdnplay.dev/en-US/docs/Web/API/SVGTransformList/runner.html?state=nVVRT9swEP4rtzwVqY3TQjfEChJj04S0TRMw9kB5cJ1rY0jiKDakHeK%2F7y4madpO2phQ8fnu%2FN13d%2FblKVDWBkdB0A8Sl6UkTezjYpoD6Ph4GmSrAW8DVjxqrD6YJWkjiGA%2FimB0GHnTMktzS4bEueJIiKqqwmo%2FNOVCjKIoEmsILK02OXkOw%2BE0OGHdJEaragng01JmRYpgE1PpfAG0gDPgSpnbuSkzICTAFDPMnQWXSAcPlh0vrz9fNU4eyszuUDlbRxBtiIlVpS4cuFWBxEIWRaqVdMRJoMqkt74QI%2B83N2cfT69Ob%2FwWYP6QK3ZeM%2FqKPXx0e%2FDUuAAIUdMsjXENV05CKoWWSSOoEqXDLufeXou9BlImt46xLhjqGChQ6GS5QBcWsiTYbybG9xuBu5hfNJ028zpiy4NLlkgLM8QcFCV%2FjzHsBnVzf3wjaJt0OJMWr2VKsTein9V5gQSLRJDFded8P4BkQKmStWUnNBtSPnzc5B7%2BqWCdxNsjoUV31Wx646g%2F7rp5%2FNK4V4F7f0a%2BqKXeMOrT3y6wVTJ9BW7tzrCXLPSi8LBPv73tmvIVXdU9bCtW31dq4YqNmMf8ANihG6q5%2F%2FXz2bLVnZXWGqWJYAyVdkn3lnQK669B6OOcO8x6ba03GrDr58v2F6e6BmufZy%2Fc3vq3KvxzPPEVmRQmXS2aqzrXaUoP2BCbBfrhQiV1pbnndz1Lpbrf1A4qHbuEbONGXxhNU4RnURT1R6Mx8Doc0rrv13e0NP%2BHXnXQLnSgATJ5%2FZAIaXssTAMQPpeSmuG9eYDSVGwOrzyBZtuw7KgS1IvEbepe0l9hmprq%2F9L%2FF9YOl64mfECRa6qjMUtzk7vBXGY6Zd01lrHMZaO3%2BheTGL5lhee5KGnctGP1jONSfB4UiSxwc8Rr55vPsenAhL8etNIH6u7lQ2VLRYLAfPDjUsRGWfETZ%2BL0%2B7nYvuUieP4N&code=12462714& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../css_1.css" type="text/css"></head><body>
+    <main>
+      <span class="icon">⚠️</span>
+      <a name="//apple_ref/Section/Caution%3A%20This%20is%20a%20demo%20page" class="dashAnchor"></a><h1 id="CautionThisisademopage">Caution: This is a demo page</h1>
+      <p>You’re about to view a live demo generated using the <a href="https://developer.mozilla.org/en-US/play">MDN Playground</a>. This demo may include custom code created by another user and is intended for testing and exploration only. If you’re uncertain about its contents or would prefer not to proceed, you can open the example in the MDN Playground. Otherwise, feel free to continue and explore the example provided.</p>
+      <details>
+        <summary>view code</summary>
+
+        <h2>html</h2>
+        <pre><code>&lt;svg
+  id="my-svg"
+  viewBox="0 0 300 280"
+  xmlns="http://www.w3.org/2000/svg"
+  version="1.1"&gt;
+  &lt;desc&gt;
+    Example showing how to transform svg elements that using SVGTransform
+    objects
+  &lt;/desc&gt;
+  &lt;script type="application/ecmascript"&gt;
+    &lt;![CDATA[
+      function transformMe(evt) {
+        // svg root element to access the createSVGTransform() function
+        const svgRoot = evt.target.parentNode;
+        // SVGTransformList of the element that has been clicked on
+        const tfmList = evt.target.transform.baseVal;
+
+        // Create a separate transform object for each transform
+        const translate = svgRoot.createSVGTransform();
+        translate.setTranslate(50,5);
+        const rotate = svgRoot.createSVGTransform();
+        rotate.setRotate(10,0,0);
+        const scale = svgRoot.createSVGTransform();
+        scale.setScale(0.8,0.8);
+
+        // apply the transformations by appending the SVGTransform objects to the SVGTransformList associated with the element
+        tfmList.appendItem(translate);
+        tfmList.appendItem(rotate);
+        tfmList.appendItem(scale);
+      }
+    ]]&gt;
+  &lt;/script&gt;
+
+  &lt;polygon
+    fill="orange"
+    stroke="black"
+    stroke-width="5"
+    points="100,225 100,115 130,115 70,15 70,15 10,115 40,115 40,225"
+    onclick="transformMe(evt)" /&gt;
+  &lt;rect
+    x="200"
+    y="100"
+    width="100"
+    height="100"
+    fill="yellow"
+    stroke="black"
+    stroke-width="5"
+    onclick="transformMe(evt)" /&gt;
+  &lt;text x="40" y="250" font-family="Verdana" font-size="16" fill="green"&gt;
+    Click on a shape to transform it
+  &lt;/text&gt;
+&lt;/svg&gt;</code></pre>
+
+        <h2>css</h2>
+        <pre><code></code></pre>
+
+        <h2>js</h2>
+        <pre><code></code></pre>
+      </details>
+      <a href="https://developer.mozilla.org/en-US/play?state=nVVRT9swEP4rtzwVqY3TQjfEChJj04S0TRMw9kB5cJ1rY0jiKDakHeK%2F7y4madpO2phQ8fnu%2FN13d%2FblKVDWBkdB0A8Sl6UkTezjYpoD6Ph4GmSrAW8DVjxqrD6YJWkjiGA%2FimB0GHnTMktzS4bEueJIiKqqwmo%2FNOVCjKIoEmsILK02OXkOw%2BE0OGHdJEaragng01JmRYpgE1PpfAG0gDPgSpnbuSkzICTAFDPMnQWXSAcPlh0vrz9fNU4eyszuUDlbRxBtiIlVpS4cuFWBxEIWRaqVdMRJoMqkt74QI%2B83N2cfT69Ob%2FwWYP6QK3ZeM%2FqKPXx0e%2FDUuAAIUdMsjXENV05CKoWWSSOoEqXDLufeXou9BlImt46xLhjqGChQ6GS5QBcWsiTYbybG9xuBu5hfNJ028zpiy4NLlkgLM8QcFCV%2FjzHsBnVzf3wjaJt0OJMWr2VKsTein9V5gQSLRJDFded8P4BkQKmStWUnNBtSPnzc5B7%2BqWCdxNsjoUV31Wx646g%2F7rp5%2FNK4V4F7f0a%2BqKXeMOrT3y6wVTJ9BW7tzrCXLPSi8LBPv73tmvIVXdU9bCtW31dq4YqNmMf8ANihG6q5%2F%2FXz2bLVnZXWGqWJYAyVdkn3lnQK669B6OOcO8x6ba03GrDr58v2F6e6BmufZy%2Fc3vq3KvxzPPEVmRQmXS2aqzrXaUoP2BCbBfrhQiV1pbnndz1Lpbrf1A4qHbuEbONGXxhNU4RnURT1R6Mx8Doc0rrv13e0NP%2BHXnXQLnSgATJ5%2FZAIaXssTAMQPpeSmuG9eYDSVGwOrzyBZtuw7KgS1IvEbepe0l9hmprq%2F9L%2FF9YOl64mfECRa6qjMUtzk7vBXGY6Zd01lrHMZaO3%2BheTGL5lhee5KGnctGP1jONSfB4UiSxwc8Rr55vPsenAhL8etNIH6u7lQ2VLRYLAfPDjUsRGWfETZ%2BL0%2B7nYvuUieP4N&amp;code=12462714&amp;" class="leave">Open in Playground</a>
+      <a href="https://7d39be011d6c82e08fb95ee85d0232a4f5fa2b1c.mdnplay.dev/en-US/docs/Web/API/SVGTransformList/runner.html?state=nVVRT9swEP4rtzwVqY3TQjfEChJj04S0TRMw9kB5cJ1rY0jiKDakHeK%2F7y4madpO2phQ8fnu%2FN13d%2FblKVDWBkdB0A8Sl6UkTezjYpoD6Ph4GmSrAW8DVjxqrD6YJWkjiGA%2FimB0GHnTMktzS4bEueJIiKqqwmo%2FNOVCjKIoEmsILK02OXkOw%2BE0OGHdJEaragng01JmRYpgE1PpfAG0gDPgSpnbuSkzICTAFDPMnQWXSAcPlh0vrz9fNU4eyszuUDlbRxBtiIlVpS4cuFWBxEIWRaqVdMRJoMqkt74QI%2B83N2cfT69Ob%2FwWYP6QK3ZeM%2FqKPXx0e%2FDUuAAIUdMsjXENV05CKoWWSSOoEqXDLufeXou9BlImt46xLhjqGChQ6GS5QBcWsiTYbybG9xuBu5hfNJ028zpiy4NLlkgLM8QcFCV%2FjzHsBnVzf3wjaJt0OJMWr2VKsTein9V5gQSLRJDFded8P4BkQKmStWUnNBtSPnzc5B7%2BqWCdxNsjoUV31Wx646g%2F7rp5%2FNK4V4F7f0a%2BqKXeMOrT3y6wVTJ9BW7tzrCXLPSi8LBPv73tmvIVXdU9bCtW31dq4YqNmMf8ANihG6q5%2F%2FXz2bLVnZXWGqWJYAyVdkn3lnQK669B6OOcO8x6ba03GrDr58v2F6e6BmufZy%2Fc3vq3KvxzPPEVmRQmXS2aqzrXaUoP2BCbBfrhQiV1pbnndz1Lpbrf1A4qHbuEbONGXxhNU4RnURT1R6Mx8Doc0rrv13e0NP%2BHXnXQLnSgATJ5%2FZAIaXssTAMQPpeSmuG9eYDSVGwOrzyBZtuw7KgS1IvEbepe0l9hmprq%2F9L%2FF9YOl64mfECRa6qjMUtzk7vBXGY6Zd01lrHMZaO3%2BheTGL5lhee5KGnctGP1jONSfB4UiSxwc8Rr55vPsenAhL8etNIH6u7lQ2VLRYLAfPDjUsRGWfETZ%2BL0%2B7nYvuUieP4N&amp;code=6a837475-f09a-4826-ba91-8aed599533c4" class="continue">Continue</a>
+    </main>
+  
+</body></html>

@@ -1,0 +1,6 @@
+
+body { padding: 0px; margin: 0px; }
+svg:not(:root) { display: block; }
+.playable-code { background-color: rgb(244, 247, 248); border-style: none none none solid; border-color: currentcolor currentcolor currentcolor rgb(85, 138, 187); border-image: none; border-width: medium medium medium 6px; color: rgb(77, 78, 83); height: 100px; width: 90%; padding: 10px 10px 0px; }
+.playable-canvas { border: 1px solid rgb(77, 78, 83); border-radius: 2px; }
+.playable-buttons { text-align: right; width: 90%; padding: 5px 10px 5px 26px; }

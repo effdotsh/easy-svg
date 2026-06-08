@@ -1,0 +1,25 @@
+<html><!-- Online page at https://54fad2fc0fba41bc86f5a9ed98928e0e7ffe0810.mdnplay.dev/en-US/docs/Web/API/SVGMaskElement/y/runner.html?state=hVRtb5tADP4rHtvURCMBOmVaG1qpnbqp0roXde2kiQ89wIVbycHujqSoyn%2Bf7yDAumpTgs42tu%2FxY5sHJ1HKOXRyvSrcSMRl2tCh1hk8RAIgR57l%2BhAC33%2B5jMQ2Eo5rfSkkTPn62DiFxn3NcXNa3h9FzizwwTzBvn0iBzY81Tm9oSyktTl3qs1AOVZM3QFPyWwkcjOpjLtRrwTXivRaobysWIKfxZXCPpjCn81mcLZG2eiciwxqkaIEBpuca4SK32NBKIoCYiSkiscFwmw2hEtMdH9j053%2Fgg23lI0UewGpHuX6H5i4YMndIzBcPAWnYjrfKQCGlIvAd18v4GTfd%2BlvfoG7%2BNt0YE1f6XizMO8PSAms0sb%2FiJwhb1eChdWV0N3PBF8xqqt3ZVpLHtcaP7EVUkwzzrNmRY2mPf7yrb%2F0x6%2FSWpJ9ocY2iRUy%2Fa6shWGTEzm3XAwsWgCe6XpPaViVRZOVAqqSCzsINF9uYGZsdJJt6Espmcj%2BbIxty4brHKgtys4VsKoqOKYubBAip6pFklMMo2YzqUHlrELIy8L0SZcUh5BwmYy7FXaGxEzPwiBImp0kd4K5y4yvLCbPjTztaw09Wh6SQq%2FdprCS2K5BUWY04KFHhmO7dj%2FNnialULrFfgRpmdQrFHqeoT4r0IinzXk62e3QdGlqv6WqNCf2Uq6qgjUfy2wybde7zWa6fW16SClN4LyZd6a5be1ycI2ZwkeunWnkSsjnGu%2BpxUITJHK9%2BUbM7fVp94D4f%2FHQ37udR5G4eTL21RDcXdQF90i28zZS4i%2BaQn1iR5fKfS9pVCdDzdP2%2BzUmYWl5VTIhYj0Us6tLjyhV3neMvZMv597l9YcLKrKj1ms8Z%2Fsb&code=37211448& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <div>
+  <svg viewBox="-10 -10 120 120" width="100" height="100">
+    <mask id="mask" x="0" maskUnits="userSpaceOnUse">
+      <!-- Everything under a white pixel will be visible -->
+      <rect x="0" y="0" width="100" height="100" fill="white"></rect>
+
+      <!-- Everything under a black pixel will be invisible -->
+      <path d="M10,35 A20,20,0,0,1,50,35 A20,20,0,0,1,90,35 Q90,65,50,95 Q10,65,10,35 Z" fill="black"></path>
+      <animate attributeName="y" values="0;80;0" dur="5s" repeatCount="indefinite"></animate>
+    </mask>
+
+    <polygon points="-10,110 110,110 110,-10" fill="orange"></polygon>
+
+    <!-- with this mask applied, we "punch" a heart shape hole into the circle -->
+    <circle cx="50" cy="50" r="50" mask="url(#mask)"></circle>
+  </svg>
+</div>
+<pre id="log">The 'y.animVal' is -12.
+The 'y.baseVal' is -12.</pre>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script><script type='text/javascript' src='../../../../../../js_2.js'></script></body></html>

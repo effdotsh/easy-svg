@@ -1,0 +1,7 @@
+
+html, body, svg { height: 100%; }
+@keyframes openYourHeart { 
+  0% { r: 0px; }
+  100% { r: 60px; }
+}
+#myClip circle { animation: 15s infinite openYourHeart; }
