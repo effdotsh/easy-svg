@@ -1,0 +1,54 @@
+<html><!-- Online page at https://a05da8d6bf216f3f7c25f63fe6acac741e0bc6ea.mdnplay.dev/en-US/docs/Web/SVG/Attribute/stroke-linejoin/runner.html?state=vVVdb5swFP0rd0x7A8yHsnVZWmmdpj3tqWr3wgsYg904NrKd0Kjqf58NISFR07FJi3iwuT7n3nuOLfvZw1p7c4%2BaFfczUchyawe9qeE5EwCUsJqaOcRR9OFLJl4y4fkd1lIWDrVhpL2VT9eZF0EE8RXESebB04oLbWPUmGaOUNu2YZuGUtUoiaIIWWLm3bj8i3dB4Mb7piEKOKkMNLmhcxf7XlUEG5AVGEog81bMEGWTb3K%2BJg4QBH0Ox3ATgNLW%2FBn7M8gTP4HItx8kfpBCnvopdB3a%2FzScZV5P0EbJJbGsgud4OUQrxrmNCSnIMTDgTJBHycT1oR1kmxhL%2BUaEXTgvQ8m1KCfI%2BHQZGUM7pzL6HVFu%2B89rKciG8Ala4vQyYoZ%2BTsXcSmPkasr5CjBnzVhRywyFKue8sM2AkaODyCoQ0oBeN41UhpThGw6kfhxfwoEjEWds%2BMOm5grr%2F%2BDA5ws5sGv%2FVLvTVknOZctEDQ0TS3AkDdS6wTtHLMQhG6mZYVIMjjgdlqqA5JjuCo511sCcwH2e3dV25MA%2FXE0jE1y3h%2FArLux9aFlpqLuMwyiZ7VzoWsFMYU4Au5s6tgt4aycOoXq0m%2B4S99Vep6YDNflr6mxfNZxQd4HqflxrAlSRygLejywGl%2FLjAf4WrHuSJuAcbDs97dUJfOHetZvuhXx0T6odtcJ2gogI7u9QKbFGv0iB7h5%2BoK%2FGKFasDUEnJxh5L78B&code=70283527& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <svg viewBox="0 0 18 12" xmlns="http://www.w3.org/2000/svg">
+  <!--
+  Upper left path:
+  Effect of the "miter" value
+  -->
+  <path d="M1,5 a2,2 0,0,0 2,-3 a3,3 0 0 1 2,3.5" stroke="black" fill="none" stroke-linejoin="miter"></path>
+
+  <!--
+  Center path:
+  Effect of the "round" value
+  -->
+  <path d="M7,5 a2,2 0,0,0 2,-3 a3,3 0 0 1 2,3.5" stroke="black" fill="none" stroke-linejoin="round"></path>
+
+  <!--
+  Upper right path:
+  Effect of the "bevel" value
+  -->
+  <path d="M13,5 a2,2 0,0,0 2,-3 a3,3 0 0 1 2,3.5" stroke="black" fill="none" stroke-linejoin="bevel"></path>
+
+  <!--
+  Bottom left path:
+  Effect of the "miter-clip" value
+  with fallback to "miter" if not supported.
+  -->
+  <path d="M3,11 a2,2 0,0,0 2,-3 a3,3 0 0 1 2,3.5" stroke="black" fill="none" stroke-linejoin="miter-clip"></path>
+
+  <!--
+  Bottom right path:
+  Effect of the "arcs" value
+  with fallback to "miter" if not supported.
+  -->
+  <path d="M9,11 a2,2 0,0,0 2,-3 a3,3 0 0 1 2,3.5" stroke="black" fill="none" stroke-linejoin="arcs"></path>
+
+  <!--
+  the following pink lines highlight the
+  position of the path for each stroke
+  -->
+  <g id="highlight">
+    <path d="M1,5 a2,2 0,0,0 2,-3 a3,3 0 0 1 2,3.5" stroke="pink" fill="none" stroke-width="0.025"></path>
+    <circle cx="1" cy="5" r="0.05" fill="pink"></circle>
+    <circle cx="3" cy="2" r="0.05" fill="pink"></circle>
+    <circle cx="5" cy="5.5" r="0.05" fill="pink"></circle>
+  </g>
+  <use href="#highlight" x="6"></use>
+  <use href="#highlight" x="12"></use>
+  <use href="#highlight" x="2" y="6"></use>
+  <use href="#highlight" x="8" y="6"></use>
+</svg>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script></body></html>

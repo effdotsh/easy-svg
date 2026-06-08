@@ -1,0 +1,7 @@
+
+p.target { filter: url("../%23f3/index.html"); }
+p.target:hover { filter: url("../%23f5/index.html"); }
+em.target { filter: url("../%23f1/index.html"); }
+em.target:hover { filter: url("../%23f4/index.html"); }
+pre.target { filter: url("../%23f2/index.html"); }
+pre.target:hover { filter: url("../%23f3/index.html"); }

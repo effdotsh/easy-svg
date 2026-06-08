@@ -1,0 +1,31 @@
+<html><!-- Online page at https://1e54e8a3bf6ab7dac72e2890253e2315c591bd5f.mdnplay.dev/en-US/docs/Web/SVG/Element/feTile/runner.html?state=hVRNb9swDP0rnIdhLZBEzoYAa5b1sg49dZek6yVAodi0rU2WDEn52rD%2FPkqWHbsosACBJYp8fCSf9CfJrE2WSTJJKldLWq3sodwqgKPIXfVlm3xI023iDRWKsnJDy6mWypKhcq5ZMnY8HmfHjzNtSkYuKfNAF7%2FlSQr161Xv%2Bc3NDQvH2%2BTWB6yccBLDEmAj6KQEruDh7jtIXWri5ipwFcKD%2Fi2k5FBzm2n33hJJntMJdyAsaBWcfEhAZRfYVY6FjQlWb6ZTuMNCKAz%2BBktBoboIu0JIhwachl17vNN7lXtGO32KTi1O%2BPUcd%2Bh92mjMZ7Cp0CI03PAayWSpCCkhM8gd%2BuL03jV7N0AKVWT64H19XkuBHTfemkTNS5zBdNpVEsmKnPrshMRtAida0rzgHL%2FdXOdp%2Bo62%2FVTb%2FW1HIDTla2QHHgsKo%2BuQNkPlDJfQaOMGnQpsgtegCoCrRTpZpNe%2Bg1dzWtP%2F2reDBsQJ3w8KrSVIwaU8D8c6ghmNeFCzrxo3np9QVMZa702G94Y3lchi%2BYuu%2FsWLBryon7aMUEcteCKp0WjANpiJ4hyUGKcwgZiYtMT30llf4kVAI%2FYjMc1eRVWwTYQiDr1GJiEmoo%2FghI2JLJ104I3Bg9B7SwtRCycOJI21Z0TeFjOt8kh4BBVkGObrMfwYTC%2F6qLb%2Buv1%2FBqxTImsh2svG4m0LG9%2FVR9um628LCVoo0n%2FXwkggZlgFabXIlcGCxlXn6tlHPmslz8%2BZltrMGhUfHAhjn3tBt9vzeNtJ4NPF1OtgYLPuLJFMLZnl3sirt75T15%2BjUlb%2BjaMvvZ4%2F4ytqTUYLhmr6uGa5zix7wh1b%2F7hn3yTW1F7Wdoolf%2F8B&code=94949453& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>
+    Tiling an MDN logo with the Mozilla mascot's head that is on the logo
+  </title>
+  <defs>
+    <!-- Define the region of the filter to be the bounding box of the
+         MDN logo being filtered. These parameters will create an output
+         that covers the same region as the image. -->
+    <filter id="tile" x="0" y="0" width="100%" height="100%">
+      <!-- Create a tile from the central portion of the image from
+           (50,50) to (150,150). This area is essentially the Mozilla
+           mascot's head. -->
+      <feTile in="SourceGraphic" x="50" y="50" width="100" height="100"></feTile>
+
+      <!-- Without specifying a region, feTile defaults to the region
+           of the filter. Without specifying an "in" parameter, the default
+           is the result of the previous primitive. So this second feTile
+           will tile the entire filter region with the mascot's head. -->
+      <feTile></feTile>
+    </filter>
+  </defs>
+
+  <!-- Use the MDN logo as input to the filter -->
+  <image href="mdn_logo_only_color.png" x="10%" y="10%" width="80%" height="80%" style="filter:url(#tile);"></image>
+</svg>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script></body></html>

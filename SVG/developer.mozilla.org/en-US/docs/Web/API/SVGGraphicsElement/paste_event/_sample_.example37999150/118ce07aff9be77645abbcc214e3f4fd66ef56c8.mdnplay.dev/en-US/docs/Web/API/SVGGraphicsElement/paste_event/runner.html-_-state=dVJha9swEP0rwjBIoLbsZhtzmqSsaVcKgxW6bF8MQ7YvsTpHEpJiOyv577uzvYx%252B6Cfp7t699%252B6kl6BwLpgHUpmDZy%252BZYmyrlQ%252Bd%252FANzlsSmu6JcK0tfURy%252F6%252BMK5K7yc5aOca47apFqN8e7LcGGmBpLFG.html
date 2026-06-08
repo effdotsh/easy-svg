@@ -1,0 +1,47 @@
+<html><!-- Online page at https://118ce07aff9be77645abbcc214e3f4fd66ef56c8.mdnplay.dev/en-US/docs/Web/API/SVGGraphicsElement/paste_event/runner.html?state=dVJha9swEP0rwjBIoLbsZhtzmqSsaVcKgxW6bF8MQ7YvsTpHEpJiOyv577uzvYx%2B6Cfp7t699%2B6kl6BwLpgHUpmDZy%2BZYmyrlQ%2Bd%2FANzlsSmu6JcK0tfURy%2F6%2BMK5K7yc5aOca47apFqN8e7LcGGmBpLFGKv6ZjTtSxZXoviN9ZOmQougsrvazSwuO72NWvAOqnVMguSKM4CBqrQJbJiYvP9S%2FgpC65XmVq4ZkfUjYT2RndYjFnMkvcxm2HT2S%2FmP8ZjYjCMmdnlmEE55TBReW%2FmnLdtG7WzSNsdv4zjmJNEsCLgYqstdqtv%2BTMUnpHcB7R2xDNMyOQ%2FsZSCsxDp9P3IMGz3bcUkTVPe0SaQoRH1ARC21ubIfCUd89B5LPDBDn%2FlZ8gR4pUzWgSTJd6ghj3gi3odGuE8hCObF7lUJVBTcnb6SAgmPY5hYVAjOO2cNrLqX%2ByZPkypiwPxEijagb8bZG6OD%2BXkTdFpjxZleddg9avEigKL%2BB6UBRdsAo2fsuVq%2BIqMYRh5YVEgIoo1%2Fk3sZMu%2BUNTS5FrY8lZ4MeAHMxQjK3VwUwupRum%2B7vXGGLBr4WAyvfovYyyQq1vYikPtx9KJDpzZ2QKH5qDCzRPH2R3%2FCTn%2F%2FPjAn37c31thKlm4cQe8n%2BZXz8aD018%3D&code=37999150& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"></head><body>
+    <main>
+      <span class="icon">⚠️</span>
+      <a name="//apple_ref/Section/Caution%3A%20This%20is%20a%20demo%20page" class="dashAnchor"></a><h1 id="CautionThisisademopage">Caution: This is a demo page</h1>
+      <p>You’re about to view a live demo generated using the <a href="https://developer.mozilla.org/en-US/play">MDN Playground</a>. This demo may include custom code created by another user and is intended for testing and exploration only. If you’re uncertain about its contents or would prefer not to proceed, you can open the example in the MDN Playground. Otherwise, feel free to continue and explore the example provided.</p>
+      <details>
+        <summary>view code</summary>
+
+        <h2>html</h2>
+        <pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;svg
+  viewBox="0 0 140 30"
+  width="600"
+  height="320"
+  xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;foreignObject x="5" y="-10" width="90" height="20"&gt;
+    &lt;input xmlns="http://www.w3.org/1999/xhtml" value="Copy this text" /&gt;
+  &lt;/foreignObject&gt;
+  &lt;text x="5" y="30" id="element-to-paste-text" tabindex="1"&gt;
+    Paste it here
+  &lt;/text&gt;
+&lt;/svg&gt;</code></pre>
+
+        <h2>css</h2>
+        <pre><code>input {
+  font-size: 10px;
+  width: 100%;
+  height: 90%;
+  box-sizing: border-box;
+  border: 1px solid black;
+}</code></pre>
+
+        <h2>js</h2>
+        <pre><code>document
+  .getElementById("element-to-paste-text")
+  .addEventListener("paste", (evt) =&gt; {
+    evt.target.textContent = evt.clipboardData
+      .getData("text/plain")
+      .toUpperCase();
+    evt.preventDefault();
+  });</code></pre>
+      </details>
+      <a href="https://developer.mozilla.org/en-US/play?state=dVJha9swEP0rwjBIoLbsZhtzmqSsaVcKgxW6bF8MQ7YvsTpHEpJiOyv577uzvYx%2B6Cfp7t699%2B6kl6BwLpgHUpmDZy%2BZYmyrlQ%2Bd%2FANzlsSmu6JcK0tfURy%2F6%2BMK5K7yc5aOca47apFqN8e7LcGGmBpLFGKv6ZjTtSxZXoviN9ZOmQougsrvazSwuO72NWvAOqnVMguSKM4CBqrQJbJiYvP9S%2FgpC65XmVq4ZkfUjYT2RndYjFnMkvcxm2HT2S%2FmP8ZjYjCMmdnlmEE55TBReW%2FmnLdtG7WzSNsdv4zjmJNEsCLgYqstdqtv%2BTMUnpHcB7R2xDNMyOQ%2FsZSCsxDp9P3IMGz3bcUkTVPe0SaQoRH1ARC21ubIfCUd89B5LPDBDn%2FlZ8gR4pUzWgSTJd6ghj3gi3odGuE8hCObF7lUJVBTcnb6SAgmPY5hYVAjOO2cNrLqX%2ByZPkypiwPxEijagb8bZG6OD%2BXkTdFpjxZleddg9avEigKL%2BB6UBRdsAo2fsuVq%2BIqMYRh5YVEgIoo1%2Fk3sZMu%2BUNTS5FrY8lZ4MeAHMxQjK3VwUwupRum%2B7vXGGLBr4WAyvfovYyyQq1vYikPtx9KJDpzZ2QKH5qDCzRPH2R3%2FCTn%2F%2FPjAn37c31thKlm4cQe8n%2BZXz8aD018%3D&amp;code=37999150&amp;" class="leave">Open in Playground</a>
+      <a href="https://118ce07aff9be77645abbcc214e3f4fd66ef56c8.mdnplay.dev/en-US/docs/Web/API/SVGGraphicsElement/paste_event/runner.html?state=dVJha9swEP0rwjBIoLbsZhtzmqSsaVcKgxW6bF8MQ7YvsTpHEpJiOyv577uzvYx%2B6Cfp7t699%2B6kl6BwLpgHUpmDZy%2BZYmyrlQ%2Bd%2FANzlsSmu6JcK0tfURy%2F6%2BMK5K7yc5aOca47apFqN8e7LcGGmBpLFGKv6ZjTtSxZXoviN9ZOmQougsrvazSwuO72NWvAOqnVMguSKM4CBqrQJbJiYvP9S%2FgpC65XmVq4ZkfUjYT2RndYjFnMkvcxm2HT2S%2FmP8ZjYjCMmdnlmEE55TBReW%2FmnLdtG7WzSNsdv4zjmJNEsCLgYqstdqtv%2BTMUnpHcB7R2xDNMyOQ%2FsZSCsxDp9P3IMGz3bcUkTVPe0SaQoRH1ARC21ubIfCUd89B5LPDBDn%2FlZ8gR4pUzWgSTJd6ghj3gi3odGuE8hCObF7lUJVBTcnb6SAgmPY5hYVAjOO2cNrLqX%2ByZPkypiwPxEijagb8bZG6OD%2BXkTdFpjxZleddg9avEigKL%2BB6UBRdsAo2fsuVq%2BIqMYRh5YVEgIoo1%2Fk3sZMu%2BUNTS5FrY8lZ4MeAHMxQjK3VwUwupRum%2B7vXGGLBr4WAyvfovYyyQq1vYikPtx9KJDpzZ2QKH5qDCzRPH2R3%2FCTn%2F%2FPjAn37c31thKlm4cQe8n%2BZXz8aD018%3D&amp;code=83f70e6a-5177-48d6-a892-a32802fb6787" class="continue">Continue</a>
+    </main>
+  
+</body></html>

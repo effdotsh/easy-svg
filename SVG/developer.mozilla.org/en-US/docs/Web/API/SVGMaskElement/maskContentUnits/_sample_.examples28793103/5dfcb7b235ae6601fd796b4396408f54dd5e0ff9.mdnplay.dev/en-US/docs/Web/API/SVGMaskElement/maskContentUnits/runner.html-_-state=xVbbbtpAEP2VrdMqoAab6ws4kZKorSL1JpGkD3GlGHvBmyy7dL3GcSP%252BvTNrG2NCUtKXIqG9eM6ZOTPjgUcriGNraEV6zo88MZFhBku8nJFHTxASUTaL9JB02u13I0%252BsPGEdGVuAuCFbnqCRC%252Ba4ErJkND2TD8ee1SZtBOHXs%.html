@@ -1,0 +1,36 @@
+<html><!-- Online page at https://5dfcb7b235ae6601fd796b4396408f54dd5e0ff9.mdnplay.dev/en-US/docs/Web/API/SVGMaskElement/maskContentUnits/runner.html?state=xVbbbtpAEP2VrdMqoAab6ws4kZKorSL1JpGkD3GlGHvBmyy7dL3GcSP%2BvTNrG2NCUtKXIqG9eM6ZOTPjgUcriGNraEV6zo88MZFhBku8nJFHTxASUTaL9JB02u13I0%2BsPGEdGVuAuCFbnqCRC%2Ba4ErJkND2TD8ee1SZtBOHXs%2FKHKQt1BI86g%2FVVTl%2B%2Fe5hzEcNVpPVi6Dhpmtppz5Zq5nTb7baDvqyT3NSd%2B%2FE9YSFY467jWQTXcyk0FfpKMI1ESUzVeOEH9Ju4iukaDHBFA02mjHOwmnA%2FuAcCEzysWbGuo4YMwLGKOD87FVvAVMBpyZdGTIMzEiAhqiNBVu4UbHqDDbTrYNxw2Kmru1uXnNxB%2FGcyESETM0j7f5FmD0ppZofS7Jo2gPuCzX2AFGdCfK0VmySafvXntFC5qa7sBfwsfZ7QnXpH25WtQGGCgXRqRIouqK%2FPAY8imQjplIlcyXN1eNNqkbGcU8BOqaIiwB0kVkuCghTzOftNQ6IjaipEWq2SydiZEqrOC7nvDzYz3681xQZFd4tiMHg9R6%2FgMNh%2FJelvk%2BwhZiOZlxF2kYo16eWZ9FWeOUhiynREoKRVRUmCzbCRVHhqrIE9UbxxYN76JjqFAsHlgcn1uu2TWm3%2FDu5W4IxyLtPXwXsVfKYoFbvlcx%2FU5xmNa9Kf9Pde8ru1EPpVCBzLUMuBi8MTdq6TT253Ack3ZeUSh6rrwMWJGfF3%2BJsQSAGhYhCX2YKSY3IDfsW9kClIOyJPJyve7ZhKP0eYhJzNvCXHJJRBMoe33Z5R%2FYFT3J5lF2FjPfCaoxIBsb0IMLE3jYtpIgLNpCAhixfczz7LWaOZ%2F5DlXBM%2Fptc4T4Cx1HWDHu3tCWQXphh7icYxtie6MM3REKGt6YMuLAB9i42g5aKlsEjk8Dnvh%2BBZqpDEWazpnAzJ28e1hJXnidud%2FO%2F3cFAEuMPBWuUqZ1f0F8xffWpmOCT3o4KZ3agy3Mz%2FF2ymfGR6KFYBNJFDRetq7ED9YucHnTin3y%2Bc8fWnLxBQUUdnOzjHWv0B&code=28793103& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <div>
+  <svg viewBox="0 0 100 100" width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+    <mask id="mask1" maskContentUnits="userSpaceOnUse">
+      <rect fill="black" x="0" y="0" width="100%" height="100%"></rect>
+      <circle fill="white" cx="50" cy="50" r="35"></circle>
+    </mask>
+
+    <mask id="mask2" maskContentUnits="objectBoundingBox">
+      <rect fill="black" x="0" y="0" width="100%" height="100%"></rect>
+      <circle fill="white" cx=".5" cy=".5" r=".35"></circle>
+      <animate attributeName="maskContentUnits" values="objectBoundingBox;userSpaceOnUse" dur="1s" repeatCount="indefinite"></animate>
+    </mask>
+
+    <!-- Some reference rect to materialized the mask -->
+    <rect id="r1" x="0" y="0" width="45" height="45"></rect>
+    <rect id="r2" x="0" y="55" width="45" height="45"></rect>
+    <rect id="r3" x="55" y="55" width="45" height="45"></rect>
+    <rect id="r4" x="55" y="0" width="45" height="45"></rect>
+
+    <!-- The first 3 rect are masked with useSpaceOnUse units -->
+    <use mask="url(#mask1)" href="#r1" fill="blue"></use>
+    <use mask="url(#mask1)" href="#r2" fill="yellow"></use>
+    <use mask="url(#mask1)" href="#r3" fill="green"></use>
+
+    <!-- The last rect is masked with objectBoundingBox units -->
+    <use mask="url(#mask2)" href="#r4" fill="lightblue"></use>
+  </svg>
+</div>
+<pre id="log">The top-right 'maskContentUnits.baseVal' coord system : objectBoundingBox
+The top-right 'maskContentUnits.animVal' coord system : objectBoundingBox</pre>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script><script type='text/javascript' src='../../../../../../js_2.js'></script></body></html>

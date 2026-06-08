@@ -1,0 +1,51 @@
+<html><!-- Online page at https://67c7a589464ae1b8ae36f3e4134e3e75ca1e7b79.mdnplay.dev/en-US/docs/Web/SVG/Attribute/rotate/runner.html?state=zVVdb9MwFP0rl%2FACUjK7WYvQVJA2kPbCpIkJkFBf3OQ2MUvtynaaIcR%2F37356FrWaR8IsYcq18fOPeeeozq%2Fosz76CiK4qgMy4qqqV8XMwPQ6DyU72bRWMpZxECJuigDIaO0R9YamxN7RZAECeO3EjZbV8vKeNooQ1gdCdE0zUFzeGBdIVIppWCO6D0fnL5IEvjoVAOhRLB1qLSh56JdLm3Q1sBKhRK0gcLhT0iS7j0GuQDIiedsJOPRSMIxKYjpB8l4AlQBg3vx9nwnFsAHZy%2BR%2BlQ8I%2FPs7iSDG%2BmAL3RV0dpYgwOkWQjJPmtVn7O%2BCASp3cz5GXNQztkGmlJnJXlcVWBsAGeDCrgz28DgMKc27YzJJE4m8Imk0xyTmAeR8L03crASF2zgn%2B4po5eqXfYcdLzDermQ14443ngic7hCFT7Y2nDc2uTcUwfkrVYoJ76hpU7LlqN0uKCdl%2FssaI%2BJHcZuVMGvDh4VEJwyfmHdkq3kuqLzr0ZSxiBf30xae7yfju04dYjmtue936qyprjl1Y1D2zkU3OmBSTw6i79NQ9XBbrE%2FOJL9oWzFwmVxXzzpk%2BM5qWq8M525yi4b5XL%2FqJzm1PI5x5Q4XKPz%2BP%2FiOnxyXOe1W1V7AivVmlC6K8mvrBuX3aFbPKW7N0f%2B7%2Fg78lq1PZ9rYulI%2FtOgpvwppCd9f3%2F032HvMioEmuTLhcht5sU3nIuLr6fiOASn53VA0ekT0e9r&code=94263522& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <svg width="400" height="120" viewBox="0 0 480 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Draw the outline of the motion path in grey -->
+  <path d="M10,110 A120,120 -45 0,1 110 10 A120,120 -45 0,1 10,110" stroke="lightgrey" stroke-width="2" fill="none" id="theMotionPath"></path>
+
+  <!-- Red arrow which will not rotate -->
+  <path fill="red" d="M-5,-5 L10,0 -5,5 0,0 Z">
+    <!-- Define the motion path animation -->
+    <animateMotion dur="6s" repeatCount="indefinite" rotate="0">
+      <mpath href="#theMotionPath"></mpath>
+    </animateMotion>
+  </path>
+
+  <g transform="translate(100, 0)">
+    <use href="#theMotionPath"></use>
+    <!-- Green arrow which will rotate along the motion path -->
+    <path fill="green" d="M-5,-5 L10,0 -5,5 0,0 Z">
+      <!-- Define the motion path animation -->
+      <animateMotion dur="6s" repeatCount="indefinite" rotate="auto">
+        <mpath href="#theMotionPath"></mpath>
+      </animateMotion>
+    </path>
+  </g>
+
+  <g transform="translate(200, 0)">
+    <use href="#theMotionPath"></use>
+    <!-- Blue arrow which will rotate backwards along the motion path -->
+    <path fill="blue" d="M-5,-5 L10,0 -5,5 0,0 Z">
+      <!-- Define the motion path animation -->
+      <animateMotion dur="6s" repeatCount="indefinite" rotate="auto-reverse">
+        <mpath href="#theMotionPath"></mpath>
+      </animateMotion>
+    </path>
+  </g>
+
+  <g transform="translate(300, 0)">
+    <use href="#theMotionPath"></use>
+    <!-- Purple arrow which will have a static rotation of 210 degrees -->
+    <path fill="purple" d="M-5,-5 L10,0 -5,5 0,0 Z">
+      <!-- Define the motion path animation -->
+      <animateMotion dur="6s" repeatCount="indefinite" rotate="210">
+        <mpath href="#theMotionPath"></mpath>
+      </animateMotion>
+    </path>
+  </g>
+</svg>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script></body></html>

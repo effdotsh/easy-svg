@@ -1,0 +1,40 @@
+<html><!-- Online page at https://b6f3c8d7e0283b41cf95b88d9b338a507ddb1f75.mdnplay.dev/en-US/docs/Web/SVG/Attribute/d/runner.html?state=rVXbjtMwEP2VIQgJpKROUqJuSlmJrQS8rIRUAS95SRM3MZvale22Kav9IL6DH2PsXLbX5SL6ULszZ2bOnJmk906mlDN2Sr2s3ITPRb7DQ20KuE84QElZUeoxBL7%2F4k3CHxLuuBaLIRNEGcyG0e2NqN8mjg8%2BhL5v0IljXPWy4godpdarMSHb7XawHQ6ELAjCfGISPOLGdcX43Vl0EMcxse7EuTYBk2eeB9P1nGVw8%2FPHd0YlZGu5obBluoR0rkS11hQyIWTOeKqpAs9rIlepLs0FYMGqCstxwWlDA0BpKe4oGiXNO1uOP2%2BxJzf2G0P7mcLQ2CCM3MCHyMfvA%2F8MRtYf20gHCNb%2FPXdJq1Szzf%2Flfko%2Bw0G5OKnI9a58eO2b4wCgDKBxXZ2w%2F4hbUZnNAF3Slv2GSk1rSHmO1DlyqWAlGNeP7Atghs%2B08X6yznaebd73TCqN%2BYw2mVguLyfDAFwHCnWAGQNDcGduVug6xNvQ2sLO1otjaReS7tqebKqMyazCRuouMNt1gdLkH0R7ChyUjvrSQV86jLrSwd%2BVtoG2dHCxtJFpRlGUHNRSCNyYC0K9NKNZWEFxSYApYMtVxTKmXx2J2M29b6gz9H31CNPUKNpDhEeIc80e%2Brw8VWUqZWr6DC9JMbokRbv4x1qeDCY%2BsxOjf92J0R%2FshBnMwZNwsrD7GYOnMp6gox59ZjFO0PHTuSekaM61olBKukD%2F86OHEhqO3YM%2FMa%2Fqa%2Fvy%2F2b%2BLfBUMsMLodz7PCO5yBT5Sudk9uUDeae1ZHN8%2FZKcOA%2B%2FAA%3D%3D&code=9036966& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <!-- Cubic Bézier curve with absolute coordinates -->
+  <path fill="none" stroke="red" d="M 10,90
+           C 30,90 25,10 50,10
+           S 70,90 90,90"></path>
+
+  <!-- Cubic Bézier curve with relative coordinates -->
+  <path fill="none" stroke="red" d="M 110,90
+           c 20,0 15,-80 40,-80
+           s 20,80 40,80"></path>
+
+  <!-- Highlight the curve vertex and control points -->
+  <g id="ControlPoints">
+    <!-- First cubic command control points -->
+    <line x1="10" y1="90" x2="30" y2="90" stroke="lightgrey"></line>
+    <circle cx="30" cy="90" r="1.5"></circle>
+
+    <line x1="50" y1="10" x2="25" y2="10" stroke="lightgrey"></line>
+    <circle cx="25" cy="10" r="1.5"></circle>
+
+    <!-- Second smooth command control points (the first one is implicit) -->
+    <line x1="50" y1="10" x2="75" y2="10" stroke="lightgrey" stroke-dasharray="2"></line>
+    <circle cx="75" cy="10" r="1.5" fill="lightgrey"></circle>
+
+    <line x1="90" y1="90" x2="70" y2="90" stroke="lightgrey"></line>
+    <circle cx="70" cy="90" r="1.5"></circle>
+
+    <!-- curve vertex points -->
+    <circle cx="10" cy="90" r="1.5"></circle>
+    <circle cx="50" cy="10" r="1.5"></circle>
+    <circle cx="90" cy="90" r="1.5"></circle>
+  </g>
+  <use href="#ControlPoints" x="100"></use>
+</svg>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script></body></html>

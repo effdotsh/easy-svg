@@ -1,0 +1,5 @@
+
+html, body, svg { height: 100%; }
+body { display: flex; }
+path { fill: yellow; stroke: black; stroke-width: 8px; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+rect:hover, rect:active { outline: red solid 1px; }

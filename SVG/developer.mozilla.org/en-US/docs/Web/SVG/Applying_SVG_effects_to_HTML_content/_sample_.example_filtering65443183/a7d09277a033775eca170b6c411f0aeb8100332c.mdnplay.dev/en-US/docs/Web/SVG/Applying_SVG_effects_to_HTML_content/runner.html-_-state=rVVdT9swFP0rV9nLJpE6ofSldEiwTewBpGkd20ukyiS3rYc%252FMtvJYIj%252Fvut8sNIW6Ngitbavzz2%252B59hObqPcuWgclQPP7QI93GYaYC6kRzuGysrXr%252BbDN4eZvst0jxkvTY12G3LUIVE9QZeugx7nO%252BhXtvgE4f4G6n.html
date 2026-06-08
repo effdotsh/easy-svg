@@ -1,0 +1,49 @@
+<html><!-- Online page at https://a7d09277a033775eca170b6c411f0aeb8100332c.mdnplay.dev/en-US/docs/Web/SVG/Applying_SVG_effects_to_HTML_content/runner.html?state=rVVdT9swFP0rV9nLJpE6ofSldEiwTewBpGkd20ukyiS3rYc%2FMtvJYIj%2Fvut8sNIW6Ngitbavzz2%2B59hObqPcuWgclQPP7QI93GYaYC6kRzuGysrXr%2BbDN4eZvst0jxkvTY12G3LUIVE9QZeugx7nO%2BhXtvgE4f4G6nHGXku0Fy29kqR8UkIuuXNvs6hNziJw%2FkYiBS55frWwptLFGKRQeJhFR4HzzFhUIEpXKSiMNBac8MAV%2Bj3IjXaYe%2FSVBV6IUjiRC70AlIJmHRaUASgqp0wRuDyqkgiEzkUhikp7qDxIfklLAOlt6BEUX2gOXIofFR%2FAhQfUQhE%2FKBE6NQ25GmR6wkqqcEJWbKg6CkSKABYbyEuVhLQJJa3zhzjA0TadfyOypemUThiqEGhqfU41ta5ewBLFYumpsKTbrUl7BEAUFJynXTTE8ZRXzgmuTyRpdL54j7XgXhhNyCEdBNYSsJYh2MZoiZ3X2l9d610Qec69FddtDKDmssLgYTIY0gNrDSQ9sH%2F%2BO25bkxLun6UPH0rXtZE1PlTf4j83BqRJAvTrTxHcX8E8uBYLTcjSyGZv4jbRjd3n05M%2FGcYWaNt960NXaDXKdtVQKcRpI5Kag%2FAXJMeN3D6DLodDW%2BOxLJc8HG5b4TYz1uUerMqdlphXktuz4FB3YxpNlZ3zHKc5b6SNVtR2GWSU81wHW9PN2Q%2FXpdHYzq7ULLtl4sYrmvy5FB7vC2pK%2BmTIwqYeCE7EoySYDTehT743g1802O%2F6rFfDNuU858Vo11MfNiPZdiwfPAmkO6E63I5cLzhoj18J%2Bpp8D19Rap3NqcNQxxdTVpjcsW94yaZfT9lxWcobsm9GgxnO5%2FRqdTNvZh%2B%2FnJ%2FN6F3raWdZdPcb&code=65443183& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../css_2.css" type="text/css"></head><body>
+    <p class="target" style="background: lime;">
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+</p>
+<pre class="target">lorem</pre>
+<p>
+  Lorem ipsum dolor sit amet, consectetur adipisicing
+  <em class="target">elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua.</em>
+  Ut enim ad minim veniam.
+</p>
+
+<svg height="0">
+  <filter id="f1">
+    <feGaussianBlur stdDeviation="3"></feGaussianBlur>
+  </filter>
+</svg>
+
+<svg height="0">
+  <filter id="f2">
+    <feColorMatrix values="0.3333 0.3333 0.3333 0 0
+              0.3333 0.3333 0.3333 0 0
+              0.3333 0.3333 0.3333 0 0
+              0      0      0      1 0"></feColorMatrix>
+  </filter>
+</svg>
+
+<svg height="0">
+  <filter id="f3">
+    <feConvolveMatrix filterres="100 100" style="color-interpolation-filters:sRGB" order="3" kernelMatrix="0 -1 0   -1 4 -1   0 -1 0" preserveAlpha="true"></feConvolveMatrix>
+  </filter>
+  <filter id="f4">
+    <feSpecularLighting surfaceScale="5" specularConstant="1" specularExponent="10" lighting-color="white">
+      <fePointLight x="-5000" y="-10000" z="20000"></fePointLight>
+    </feSpecularLighting>
+  </filter>
+  <filter id="f5">
+    <feColorMatrix values="1 0 0 0 0
+                           0 1 0 0 0
+                           0 0 1 0 0
+                           0 1 0 0 0" style="color-interpolation-filters:sRGB"></feColorMatrix>
+  </filter>
+</svg>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../js_1.js'></script></body></html>

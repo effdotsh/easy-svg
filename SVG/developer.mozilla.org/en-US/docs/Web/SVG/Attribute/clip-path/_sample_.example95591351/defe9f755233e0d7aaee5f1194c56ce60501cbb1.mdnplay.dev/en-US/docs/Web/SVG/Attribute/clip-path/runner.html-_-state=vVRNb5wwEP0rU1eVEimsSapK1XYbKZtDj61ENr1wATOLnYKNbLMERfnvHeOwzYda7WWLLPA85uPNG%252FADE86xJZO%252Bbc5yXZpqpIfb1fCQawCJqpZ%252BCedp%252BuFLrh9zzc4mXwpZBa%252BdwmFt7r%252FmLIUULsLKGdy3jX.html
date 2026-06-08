@@ -1,0 +1,27 @@
+<html><!-- Online page at https://defe9f755233e0d7aaee5f1194c56ce60501cbb1.mdnplay.dev/en-US/docs/Web/SVG/Attribute/clip-path/runner.html?state=vVRNb5wwEP0rU1eVEimsSapK1XYbKZtDj61ENr1wATOLnYKNbLMERfnvHeOwzYda7WWLLPA85uPNG%2FADE86xJZO%2Bbc5yXZpqpIfb1fCQawCJqpZ%2BCedp%2BuFLrh9zzc4mXwpZBa%2BdwmFt7r%2FmLIUULsLKGdy3jXaESe%2B7JefDMCyGjwtja36RpimnwJxdhvwr0ajuR%2BElqIr82%2FGabEowwxutfEhkyjsUfm16XSldU8Gn%2BJBBWdEgiMBh8SnEjvPOzhsei%2FE5LZkT8C5J4MZ0SYNbavKq65oRChC986aFCrdKYzVx6agqdIFnksRclvhEBqHwec6iMT43BlV5ScDnGYhyPkect%2BYXElJbRD2joWQSytGL3jYn76Mwp0%2BtvOBu44Rm8tdZBmXhlAAniw7BaAK3qmmSklSbstNVo2nR23EBN1I5oOUlgitahMKBLHah370SswL78EmJQdGteDkqcOjBG3gzr7%2FpdkTh4odxcvqn%2B1fqrY2n7qbhHzTWI9GLrv8geMiEw3%2F4XyfcO7RZVwj8rjcODxvvkQTc9x7lW4Xz5XI6qe7C0UZPZwVtOOpkk%2FHKCMd%2FYsmz22%2F8ynuryt4j36fm7PE3&code=95591351& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+  <clipPath id="myClip" clipPathUnits="objectBoundingBox">
+    <circle cx=".5" cy=".5" r=".5"></circle>
+  </clipPath>
+
+  <!-- Top-left: Apply a custom defined clipping path -->
+  <rect x="1" y="1" width="8" height="8" stroke="green" clip-path="url(#myClip)"></rect>
+
+  <!-- Top-right: Apply a CSS basic shape on a fill-box
+       geometry. This is the same as having a custom clipping
+       path with a clipPathUnits set to objectBoundingBox -->
+  <rect x="11" y="1" width="8" height="8" stroke="green" clip-path="circle() fill-box"></rect>
+
+  <!-- Bottom-left -->
+  <rect x="1" y="11" width="8" height="8" stroke="green" clip-path="circle() stroke-box"></rect>
+
+  <!-- Bottom-right: Apply a CSS basic shape on a view-box
+       geometry. This is the same as having a custom clipping
+       path with a clipPathUnits set to userSpaceOnUse -->
+  <rect x="11" y="11" width="8" height="8" stroke="green" clip-path="circle() view-box"></rect>
+</svg>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script></body></html>

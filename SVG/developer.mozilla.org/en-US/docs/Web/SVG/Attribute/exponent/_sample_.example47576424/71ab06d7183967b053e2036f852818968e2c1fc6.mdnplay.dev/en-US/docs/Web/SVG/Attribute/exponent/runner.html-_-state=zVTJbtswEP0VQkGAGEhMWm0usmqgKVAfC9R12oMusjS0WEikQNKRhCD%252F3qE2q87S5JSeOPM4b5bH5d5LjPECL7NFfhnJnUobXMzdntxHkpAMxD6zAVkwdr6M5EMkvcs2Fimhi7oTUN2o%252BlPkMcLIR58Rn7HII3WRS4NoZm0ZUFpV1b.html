@@ -1,0 +1,70 @@
+<html><!-- Online page at https://71ab06d7183967b053e2036f852818968e2c1fc6.mdnplay.dev/en-US/docs/Web/SVG/Attribute/exponent/runner.html?state=zVTJbtswEP0VQkGAGEhMWm0usmqgKVAfC9R12oMusjS0WEikQNKRhCD%2F3qE2q87S5JSeOPM4b5bH5d5LjPECL7NFfhnJnUobXMzdntxHkpAMxD6zAVkwdr6M5EMkvcs2Fimhi7oTUN2o%2BlPkMcLIR58Rn7HII3WRS4NoZm0ZUFpV1bz6MFd6T3GfUaRG3spVCFPgprXQzoWEWK91nAqQtgMJESkm2g%2BgN8ADspXCulIHA3pTxgl8k1sDx7h64bo7%2Bs2JX%2Fvot12PEX4XsRqA0FhVEsW5AdttEYdcJSpXGoEzznEqB9NnOfPrRyzGHO8l1uIJjmNNOCH9W7VOVdrL2jpc5BZ0p2OiilJJjPuhY2k4aFei7odq%2BrUSqc1ceTx2dLtbMPpDYQ5fTpMd5%2BDw9SCT78Q2Jbjji4sixlRQd4R%2BNnpKWL%2BVcPNKQkifaxd3Wn1W%2F9bKfy%2Btrt%2Bq1ZOEl7SaEl6lVetqSPpnWk8fVTN1BoEmT2wUaYJh4hyRg84vzoanPRs2jW1y13hXPSBt1OOrPFuOU%2FxnrfmzJbGtrXQRdGYeW%2Fh14fusrMfGQ%2Fc1rtpv9rf7l3E1OkGDgrzabmiqEkN%2Fwo5ubtf0s7Va7A4W6HCQ1Hv4Aw%3D%3D&code=47576424& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"></head><body>
+    <main>
+      <span class="icon">⚠️</span>
+      <a name="//apple_ref/Section/Caution%3A%20This%20is%20a%20demo%20page" class="dashAnchor"></a><h1 id="CautionThisisademopage">Caution: This is a demo page</h1>
+      <p>You’re about to view a live demo generated using the <a href="https://developer.mozilla.org/en-US/play">MDN Playground</a>. This demo may include custom code created by another user and is intended for testing and exploration only. If you’re uncertain about its contents or would prefer not to proceed, you can open the example in the MDN Playground. Otherwise, feel free to continue and explore the example provided.</p>
+      <details>
+        <summary>view code</summary>
+
+        <h2>html</h2>
+        <pre><code>&lt;svg viewBox="0 0 420 200" xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;defs&gt;
+    &lt;linearGradient
+      id="gradient"
+      gradientUnits="userSpaceOnUse"
+      x1="0"
+      y1="0"
+      x2="200"
+      y2="0"&gt;
+      &lt;stop offset="0" stop-color="#ff0000" /&gt;
+      &lt;stop offset="0.5" stop-color="#00ff00" /&gt;
+      &lt;stop offset="1" stop-color="#0000ff" /&gt;
+    &lt;/linearGradient&gt;
+  &lt;/defs&gt;
+
+  &lt;filter id="componentTransfer1" x="0" y="0" width="100%" height="100%"&gt;
+    &lt;feComponentTransfer&gt;
+      &lt;feFuncR type="gamma" exponent="1" /&gt;
+      &lt;feFuncG type="gamma" exponent="1" /&gt;
+      &lt;feFuncB type="gamma" exponent="1" /&gt;
+    &lt;/feComponentTransfer&gt;
+  &lt;/filter&gt;
+  &lt;filter id="componentTransfer2" x="0" y="0" width="100%" height="100%"&gt;
+    &lt;feComponentTransfer&gt;
+      &lt;feFuncR type="gamma" exponent="5" /&gt;
+      &lt;feFuncG type="gamma" exponent="5" /&gt;
+      &lt;feFuncB type="gamma" exponent="5" /&gt;
+    &lt;/feComponentTransfer&gt;
+  &lt;/filter&gt;
+
+  &lt;rect
+    x="0"
+    y="0"
+    width="200"
+    height="200"
+    fill="url(#gradient)"
+    style="filter: url(#componentTransfer1);" /&gt;
+  &lt;rect
+    x="0"
+    y="0"
+    width="200"
+    height="200"
+    fill="url(#gradient)"
+    style="filter: url(#componentTransfer2); transform: translateX(220px);" /&gt;
+&lt;/svg&gt;</code></pre>
+
+        <h2>css</h2>
+        <pre><code>html,
+body,
+svg {
+  height: 100%;
+}</code></pre>
+
+        <h2>js</h2>
+        <pre><code></code></pre>
+      </details>
+      <a href="https://developer.mozilla.org/en-US/play?state=zVTJbtswEP0VQkGAGEhMWm0usmqgKVAfC9R12oMusjS0WEikQNKRhCD%2F3qE2q87S5JSeOPM4b5bH5d5LjPECL7NFfhnJnUobXMzdntxHkpAMxD6zAVkwdr6M5EMkvcs2Fimhi7oTUN2o%2BlPkMcLIR58Rn7HII3WRS4NoZm0ZUFpV1bz6MFd6T3GfUaRG3spVCFPgprXQzoWEWK91nAqQtgMJESkm2g%2BgN8ADspXCulIHA3pTxgl8k1sDx7h64bo7%2Bs2JX%2Fvot12PEX4XsRqA0FhVEsW5AdttEYdcJSpXGoEzznEqB9NnOfPrRyzGHO8l1uIJjmNNOCH9W7VOVdrL2jpc5BZ0p2OiilJJjPuhY2k4aFei7odq%2BrUSqc1ceTx2dLtbMPpDYQ5fTpMd5%2BDw9SCT78Q2Jbjji4sixlRQd4R%2BNnpKWL%2BVcPNKQkifaxd3Wn1W%2F9bKfy%2Btrt%2Bq1ZOEl7SaEl6lVetqSPpnWk8fVTN1BoEmT2wUaYJh4hyRg84vzoanPRs2jW1y13hXPSBt1OOrPFuOU%2FxnrfmzJbGtrXQRdGYeW%2Fh14fusrMfGQ%2Fc1rtpv9rf7l3E1OkGDgrzabmiqEkN%2Fwo5ubtf0s7Va7A4W6HCQ1Hv4Aw%3D%3D&amp;code=47576424&amp;" class="leave">Open in Playground</a>
+      <a href="https://71ab06d7183967b053e2036f852818968e2c1fc6.mdnplay.dev/en-US/docs/Web/SVG/Attribute/exponent/runner.html?state=zVTJbtswEP0VQkGAGEhMWm0usmqgKVAfC9R12oMusjS0WEikQNKRhCD%2F3qE2q87S5JSeOPM4b5bH5d5LjPECL7NFfhnJnUobXMzdntxHkpAMxD6zAVkwdr6M5EMkvcs2Fimhi7oTUN2o%2BlPkMcLIR58Rn7HII3WRS4NoZm0ZUFpV1bz6MFd6T3GfUaRG3spVCFPgprXQzoWEWK91nAqQtgMJESkm2g%2BgN8ADspXCulIHA3pTxgl8k1sDx7h64bo7%2Bs2JX%2Fvot12PEX4XsRqA0FhVEsW5AdttEYdcJSpXGoEzznEqB9NnOfPrRyzGHO8l1uIJjmNNOCH9W7VOVdrL2jpc5BZ0p2OiilJJjPuhY2k4aFei7odq%2BrUSqc1ceTx2dLtbMPpDYQ5fTpMd5%2BDw9SCT78Q2Jbjji4sixlRQd4R%2BNnpKWL%2BVcPNKQkifaxd3Wn1W%2F9bKfy%2Btrt%2Bq1ZOEl7SaEl6lVetqSPpnWk8fVTN1BoEmT2wUaYJh4hyRg84vzoanPRs2jW1y13hXPSBt1OOrPFuOU%2FxnrfmzJbGtrXQRdGYeW%2Fh14fusrMfGQ%2Fc1rtpv9rf7l3E1OkGDgrzabmiqEkN%2Fwo5ubtf0s7Va7A4W6HCQ1Hv4Aw%3D%3D&amp;code=b351c051-b299-41e1-af24-bd59cb5a7713" class="continue">Continue</a>
+    </main>
+  
+</body></html>

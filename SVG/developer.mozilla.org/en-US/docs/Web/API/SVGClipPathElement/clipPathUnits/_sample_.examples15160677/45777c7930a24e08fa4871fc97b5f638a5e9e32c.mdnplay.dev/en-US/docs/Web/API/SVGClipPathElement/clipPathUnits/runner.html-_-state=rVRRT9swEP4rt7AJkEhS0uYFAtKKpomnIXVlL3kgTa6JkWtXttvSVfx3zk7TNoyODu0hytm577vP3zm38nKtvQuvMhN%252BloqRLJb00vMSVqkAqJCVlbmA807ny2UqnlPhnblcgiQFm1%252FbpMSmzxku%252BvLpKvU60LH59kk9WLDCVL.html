@@ -1,0 +1,33 @@
+<html><!-- Online page at https://45777c7930a24e08fa4871fc97b5f638a5e9e32c.mdnplay.dev/en-US/docs/Web/API/SVGClipPathElement/clipPathUnits/runner.html?state=rVRRT9swEP4rt7AJkEhS0uYFAtKKpomnIXVlL3kgTa6JkWtXttvSVfx3zk7TNoyODu0hytm577vP3zm38nKtvQuvMhN%2BloqRLJb00vMSVqkAqJCVlbmA807ny2UqnlPhnblcgiQFm1%2FbpMSmzxku%2BvLpKvU60LH59kk9WLDCVLQbuVXN1ywdmvA5Z9O7zFTACvpkV%2BeU2%2BwOBTOa9mca1WCa5fhDDDVu0BbPVM4Rcls9tmXyZRMpCroxBWFTLGx4aWNv%2FeiN%2BnL0iLnpy5komCjprPskBHEjwUVWQvCuhk%2B%2BDwM5QVA4RoUit1FuwEiYZAYVyzj7jYVdWzBMrV7fbxhdrpOvrHeuD%2FRert9NF3rxbhN6LVE7FNErijj%2Bd47umsNhP0rSe01ywGF2DP1ZIYyZ0ga6tZuZQmfflJxcMHKwfalgZnu9Yyt9dvm%2BtdveQcVPjtwFPbW1qVe0eeQsHzPOrWQsds9yIEG0JRjxGX6AobtlWCLncvG2GzwjM2qDdduJP6734WZELSW9rZJSIYrNYZKQBgVFSVhPjmRK3XB95rKknykJaePajZhHO5NyKUhs86ucwxUUMp9NUJigRPONow37y9viZDM0TmlItWHRu7CohjVA0vJXiNNaAygMDD6ZGykMJRDswXq8GSdkGP2wZAyCYRPUUGUaMjhuTZZjmGfUcpBj%2BLzaHDZo5QSjTON9xmn%2B%2FqcC0Z4CD5fOf61yakCIwh8OQvJCh79wFH69uw0H999v1si1L2GLKfSeXwA%3D&code=15160677& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <div>
+  <svg viewBox="0 0 100 100" width="200" height="200">
+    <clipPath id="clip1" clipPathUnits="userSpaceOnUse">
+      <circle cx="50" cy="50" r="35"></circle>
+    </clipPath>
+
+    <clipPath id="clip2" clipPathUnits="objectBoundingBox">
+      <circle cx=".5" cy=".5" r=".35"></circle>
+    </clipPath>
+
+    <!-- Some reference rect to materialized to clip path -->
+    <rect id="r1" x="0" y="0" width="45" height="45"></rect>
+    <rect id="r2" x="0" y="55" width="45" height="45"></rect>
+    <rect id="r3" x="55" y="55" width="45" height="45"></rect>
+    <rect id="r4" x="55" y="0" width="45" height="45"></rect>
+
+    <!-- The first 3 rect are clipped with userSpaceOnUse units -->
+    <use clip-path="url(#clip1)" href="#r1" fill="red"></use>
+    <use clip-path="url(#clip1)" href="#r2" fill="blue"></use>
+    <use clip-path="url(#clip1)" href="#r3" fill="yellow"></use>
+
+    <!-- The last rect is clipped with objectBoundingBox units -->
+    <use clip-path="url(#clip2)" href="#r4" fill="green"></use>
+  </svg>
+</div>
+<pre id="log">The clipPath used three times has a 'clipPathUnits' value of 1
+The clipPath used three times has a 'clipPathUnits' value of 2</pre>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script><script type='text/javascript' src='../../../../../../js_2.js'></script></body></html>

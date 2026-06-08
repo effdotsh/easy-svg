@@ -1,0 +1,6 @@
+
+@namespace svg url("../www.w3.org/2000/svg");
+html, body, svg { height: 100%; }
+svg|a:link, svg|a:visited { cursor: pointer; }
+svg|a text, text svg|a { fill: blue; text-decoration: underline; }
+svg|a:hover, svg|a:active { outline: blue dotted 1px; }

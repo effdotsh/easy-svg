@@ -1,0 +1,38 @@
+<html><!-- Online page at https://523ee0e5cd136ec852e95a4002625fc185be8a7d.mdnplay.dev/en-US/docs/Web/SVG/Attribute/slope/runner.html?state=1VVRb9MwEP4rViYkkGidZhtsU1aJItgLCIlu46UvaWInHq4d2e6Sgvjv3NlJ2rIVGG%2Fkxb7v7jufPzvn71FubXQRRS%2Bjyq0kzFJ7Xy4UIY0oXHW5iM7y1SJCoGKirBwgJz1yL1gz0y1AMYnJWRyTkzgOrnYllQVH5Vx9QWnTNOPmeKxNSZM4jimuEVIwY4VWEDkZTxbRFLHUCSfZ9F2brWrJLNGccPZWr2qtmHLXJlOWM0N0zUzmgGxTGhieXDCb%2Bxkh16x1xDojVGmJrXQDE%2BIqRhjnLHc%2BM5pWQi6SOYhcrh3r4JDjsZW5kA6HtcpxfSKFYhkW5KsZ%2BzLoUAdUxG1XURpCr0xWCMgYQEJEAQJ83Axw1DvKDrlRwqGca8vMvM5y9kndWLaNayeoYC8%2BfhtEduw2AfvVXkQSIqY9kFqna9g8t8wFF0FklGupDQBHnMPZIUwPcSYPOMjgfIeT0n0NejiIuqfIBx842ZYcYnox9PIOTnGm16qAg4WLuLNbrP%2FZzl5%2FsfvLDZLtoMMND%2FB2k49cgsHp3e%2FhKnwmblMzYIf9oRJ4rzpV6EPC1VMJs78kpPRwweDzIv5R9uS%2Flz0enz5V%2BOQQ5bD0p%2F8mPTaIri2kBvREkSWkU8D0P5HRXzH9Uq7RbrtD3nRjr%2BTr8zOwBgWPvRnKScuwLNfKjXi2EhLJt8wUmcp69b3Tim%2Fscq9%2FeLjpsy61LAZPKHNt5POjbcd6MRxb6rDptn26UPA5zsLme273byNxjkpOoIkD8zdZkoNZkiFLspMlpSWMKb41MMIDd9c9dNbkMKFMjW7mtNC5pV%2FYks5vr%2Bib%2Fgmg%2FnRp9OMn&code=36235772& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <svg width="8cm" height="4cm" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <title>Examples of feComponentTransfer operations</title>
+  <desc>
+    Text strings showing the effects of the slope attribute of the
+    feComponentTransfer filter function linear options.
+  </desc>
+  <defs>
+    <linearGradient id="MyGradient" gradientUnits="userSpaceOnUse" x1="100" y1="0" x2="600" y2="0">
+      <stop offset="0" stop-color="#ff0000"></stop>
+      <stop offset="1" stop-color="#0000ff"></stop>
+    </linearGradient>
+    <filter id="Linear1" filterUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%">
+      <feComponentTransfer>
+        <feFuncR type="linear" slope="1"></feFuncR>
+        <feFuncG type="linear" slope="1"></feFuncG>
+        <feFuncB type="linear" slope="1"></feFuncB>
+      </feComponentTransfer>
+    </filter>
+    <filter id="Linear2" filterUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%">
+      <feComponentTransfer>
+        <feFuncR type="linear" slope="0.5"></feFuncR>
+        <feFuncG type="linear" slope="2.5"></feFuncG>
+        <feFuncB type="linear" slope="5"></feFuncB>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <rect fill="none" stroke="blue" x="1" y="1" width="798" height="398"></rect>
+  <g font-family="Verdana" font-size="100" font-weight="bold" fill="url(#MyGradient)">
+    <text x="100" y="190" filter="url(#Linear1)">Slope1</text>
+    <text x="100" y="290" filter="url(#Linear2)">Slope2</text>
+  </g>
+</svg>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script></body></html>

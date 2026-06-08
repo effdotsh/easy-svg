@@ -1,0 +1,5 @@
+
+#rect1 { fill: url("../%23Gradient1/index.html"); }
+.stop1 { stop-color: red; }
+.stop2 { stop-color: black; stop-opacity: 0; }
+.stop3 { stop-color: blue; }

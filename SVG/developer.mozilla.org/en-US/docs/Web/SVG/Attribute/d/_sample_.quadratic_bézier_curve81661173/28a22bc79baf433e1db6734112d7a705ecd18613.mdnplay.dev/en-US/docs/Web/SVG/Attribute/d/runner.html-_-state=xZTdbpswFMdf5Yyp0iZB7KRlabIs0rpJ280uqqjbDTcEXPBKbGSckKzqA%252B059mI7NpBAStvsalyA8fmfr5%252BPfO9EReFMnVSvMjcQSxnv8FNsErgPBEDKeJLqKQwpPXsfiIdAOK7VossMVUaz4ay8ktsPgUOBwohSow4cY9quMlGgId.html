@@ -1,0 +1,38 @@
+<html><!-- Online page at https://28a22bc79baf433e1db6734112d7a705ecd18613.mdnplay.dev/en-US/docs/Web/SVG/Attribute/d/runner.html?state=xZTdbpswFMdf5Yyp0iZB7KRlabIs0rpJ280uqqjbDTcEXPBKbGSckKzqA%2B059mI7NpBAStvsalyA8fmfr5%2BPfO9EReFMnVSvMjcQSxnv8FNsErgPBEDKeJLqKQwpPXsfiIdAOK7VossMVUaz4ay8ktsPgUOBwohSow4cY9quMlGgIdU6nxJSluWgPB9IlRCUUWICHHTTbcbFXa96OJlMiDUHztw4zF55Hlyvw1iFmkdw9ef3L84URGu1YVBynQJf5RmPuAbFcqa55lKA51XOeahTswC45VmGGYUUrKoEoNBK3jHcVCxu9mL8%2FYZtuT6tNurnGka%2BO%2FLh4pFFwzl1ad8rcIBgGfsuviLhzFAGnbK6gw1Tmm0hFDFEUmBBGeSSC13sW0jmVbpZLrMdgmFN9kqH9dpqO%2FU5jebQYrJ8Yw6NAsGDO3t7kHTA2IJttoirKMMqzWmPfLREu2alTM6B32qvbvBTu6VuG0cRh7SJaKo9ivhIffGcutYnwM3ZLVZS6nQ%2FL59lKepB6mXYomjJge%2B7Yx%2FGXYoncWxEXhwWaahUaHm17f2kj3r196zHXda1tx2gRLHd0yHGL8IlyUvgbvITsVlUcGmHD2%2BD%2F8bt8qkZPZ2bvcxOB7cuGKSK3aLqde%2FYgQn6jrb9n%2FExxP%2FNo5VlODo4VUXOzJ07t7f4T3Pt47dQES4IE97NgsQyKsgPtiSL71%2FIR60VX641IzFxHv4C&code=81661173& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <!-- Quadratic Bézier curve with implicit repetition -->
+  <path fill="none" stroke="red" d="M 10,50
+           Q 25,25 40,50
+           t 30,0 30,0 30,0 30,0 30,0"></path>
+
+  <!-- Highlight the curve vertex and control points -->
+  <g>
+    <polyline points="10,50 25,25 40,50" stroke="rgb(0 0 0 / 20%)" fill="none"></polyline>
+    <circle cx="25" cy="25" r="1.5"></circle>
+
+    <!-- Curve vertex points -->
+    <circle cx="10" cy="50" r="1.5"></circle>
+    <circle cx="40" cy="50" r="1.5"></circle>
+
+    <g id="SmoothQuadraticDown">
+      <polyline points="40,50 55,75 70,50" stroke="rgb(0 0 0 / 20%)" stroke-dasharray="2" fill="none"></polyline>
+      <circle cx="55" cy="75" r="1.5" fill="lightgrey"></circle>
+      <circle cx="70" cy="50" r="1.5"></circle>
+    </g>
+
+    <g id="SmoothQuadraticUp">
+      <polyline points="70,50 85,25 100,50" stroke="rgb(0 0 0 / 20%)" stroke-dasharray="2" fill="none"></polyline>
+      <circle cx="85" cy="25" r="1.5" fill="lightgrey"></circle>
+      <circle cx="100" cy="50" r="1.5"></circle>
+    </g>
+
+    <use href="#SmoothQuadraticDown" x="60"></use>
+    <use href="#SmoothQuadraticUp" x="60"></use>
+    <use href="#SmoothQuadraticDown" x="120"></use>
+  </g>
+</svg>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script></body></html>

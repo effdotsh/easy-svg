@@ -1,0 +1,15 @@
+
+main { font-family: system-ui, sans-serif; display: grid; margin: 2rem auto; max-width: min(40rem, 100%); grid-template-areas: "warn heading heading" ". p p" ". code code" ". leave continue"; grid-template-columns: auto 1fr auto; gap: 1rem; }
+.icon { grid-row-start: warn; grid-column-start: warn; grid-row-end: warn; grid-column-end: warn; font-size: 4rem; padding: 2rem; }
+h1 { grid-row-start: heading; grid-column-start: heading; grid-row-end: heading; grid-column-end: heading; margin: auto 0px; }
+p { grid-row-start: p; grid-column-start: p; grid-row-end: p; grid-column-end: p; margin: 0px; }
+details { grid-row-start: code; grid-column-start: code; grid-row-end: code; grid-column-end: code; }
+summary { cursor: pointer; }
+pre { border: 1px solid lightgrey; padding: 0.5rem; overflow: scroll; }
+a.leave, a.continue { appearance: button; border-radius: 0.375rem; border-width: 0px; box-sizing: border-box; color: white; cursor: pointer; padding: 0.375rem 1.25rem; display: inline-flex; align-items: center; text-decoration: none; min-width: 12rem; max-width: fit-content; justify-content: center; }
+.leave { grid-row-start: leave; grid-column-start: leave; grid-row-end: leave; grid-column-end: leave; margin: 0px 1rem 0px auto; background-color: grey; }
+.continue { grid-row-start: continue; grid-column-start: continue; grid-row-end: continue; grid-column-end: continue; background-color: blue; }
+@media screen and (max-width: 640px) {
+  main { grid-template-areas: "warn warn" "heading heading" "p p" "code code" ". leave" ". continue"; grid-template-columns: minmax(0px, 1fr); }
+  .leave { margin: 0px; }
+}

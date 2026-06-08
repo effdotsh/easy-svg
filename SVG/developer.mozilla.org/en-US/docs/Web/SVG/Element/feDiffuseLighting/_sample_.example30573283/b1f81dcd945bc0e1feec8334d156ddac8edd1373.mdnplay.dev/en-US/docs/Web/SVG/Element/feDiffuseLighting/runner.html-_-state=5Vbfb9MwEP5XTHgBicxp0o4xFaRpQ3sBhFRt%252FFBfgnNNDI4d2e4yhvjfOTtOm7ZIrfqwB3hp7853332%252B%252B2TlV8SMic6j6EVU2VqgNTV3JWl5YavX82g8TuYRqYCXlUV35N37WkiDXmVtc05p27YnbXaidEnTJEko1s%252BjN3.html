@@ -1,0 +1,47 @@
+<html><!-- Online page at https://b1f81dcd945bc0e1feec8334d156ddac8edd1373.mdnplay.dev/en-US/docs/Web/SVG/Element/feDiffuseLighting/runner.html?state=5Vbfb9MwEP5XTHgBicxp0o4xFaRpQ3sBhFRt%2FFBfgnNNDI4d2e4yhvjfOTtOm7ZIrfqwB3hp7853332%2B%2B2TlV8SMic6j6EVU2VqgNTV3JWl5YavX82g8TuYRqYCXlUV35N37WkiDXmVtc05p27YnbXaidEnTJEko1s%2BjN3NJyPRJHJMPighXTrghedMIDgWJ4%2B7cwr0l7ifOJauURtCaF4UA1wWdU9fuJxppipCI9M4hTakr6RAY10wAYats5tLPnOXQJs5YcCHQLjWARJdi5YqdrSDQM2qpGXiWZAEfFZfWdyMgoAZpDyY9ernBeog1ZI6sLGjCC0z0DN7DKMzNncIVXyyWBnwdlyXhEhNnnuS1zpuKM3dHMEthewQMiJAeMyU8tbbiFla4HnlwN8930vP1A3xwxJMwJ19Bd8iECXq0S1U3yrgmocPfiK7P0jXZPqga0Ln1bHPNbVWDHdb8GDmSA99BJAM%2F2%2FLHnR8ugPT9pPutDxXTrWq%2FZDoEDCy1ePa039bzQ8V0xY3Nj5VTerYlpyHaHkGljyOojfvlD7xe%2Bscj9a8F3vcut1zJ%2F0hX3c6O1FV6sK5mjQpDD%2FFDNZW92tLUCmmPoLLHEdSKTh8jHe3TwTqI5z8ZBtzTlW2kCF5z1%2BxSSbiQpYAgwnVG4x5Dc2E%2F92PZPfoS1rh78nVDEf%2B0pDvJHCnprJf01H0d4D9%2BbnwPnx1GMzQoyPhmRgvFDP0E3%2Bjs9pq%2B7V7K3ZnS6Pcf&code=30573283& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <svg width="440" height="140" xmlns="http://www.w3.org/2000/svg">
+  <!-- No light is applied -->
+  <text text-anchor="middle" x="60" y="22">No Light</text>
+  <circle cx="60" cy="80" r="50" fill="green"></circle>
+
+  <!-- the light source is a fePointLight element -->
+  <text text-anchor="middle" x="170" y="22">fePointLight</text>
+  <filter id="lightMe1">
+    <feDiffuseLighting in="SourceGraphic" result="light" lighting-color="white">
+      <fePointLight x="150" y="60" z="20"></fePointLight>
+    </feDiffuseLighting>
+
+    <feComposite in="SourceGraphic" in2="light" operator="arithmetic" k1="1" k2="0" k3="0" k4="0"></feComposite>
+  </filter>
+
+  <circle cx="170" cy="80" r="50" fill="green" filter="url(#lightMe1)"></circle>
+
+  <!-- the light source is a feDistantLight element -->
+  <text text-anchor="middle" x="280" y="22">feDistantLight</text>
+  <filter id="lightMe2">
+    <feDiffuseLighting in="SourceGraphic" result="light" lighting-color="white">
+      <feDistantLight azimuth="240" elevation="20"></feDistantLight>
+    </feDiffuseLighting>
+
+    <feComposite in="SourceGraphic" in2="light" operator="arithmetic" k1="1" k2="0" k3="0" k4="0"></feComposite>
+  </filter>
+
+  <circle cx="280" cy="80" r="50" fill="green" filter="url(#lightMe2)"></circle>
+
+  <!-- the light source is a feSpotLight source -->
+  <text text-anchor="middle" x="390" y="22">feSpotLight</text>
+  <filter id="lightMe3">
+    <feDiffuseLighting in="SourceGraphic" result="light" lighting-color="white">
+      <feSpotLight x="360" y="5" z="30" limitingConeAngle="20" pointsAtX="390" pointsAtY="80" pointsAtZ="0"></feSpotLight>
+    </feDiffuseLighting>
+
+    <feComposite in="SourceGraphic" in2="light" operator="arithmetic" k1="1" k2="0" k3="0" k4="0"></feComposite>
+  </filter>
+
+  <circle cx="390" cy="80" r="50" fill="green" filter="url(#lightMe3)"></circle>
+</svg>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script></body></html>

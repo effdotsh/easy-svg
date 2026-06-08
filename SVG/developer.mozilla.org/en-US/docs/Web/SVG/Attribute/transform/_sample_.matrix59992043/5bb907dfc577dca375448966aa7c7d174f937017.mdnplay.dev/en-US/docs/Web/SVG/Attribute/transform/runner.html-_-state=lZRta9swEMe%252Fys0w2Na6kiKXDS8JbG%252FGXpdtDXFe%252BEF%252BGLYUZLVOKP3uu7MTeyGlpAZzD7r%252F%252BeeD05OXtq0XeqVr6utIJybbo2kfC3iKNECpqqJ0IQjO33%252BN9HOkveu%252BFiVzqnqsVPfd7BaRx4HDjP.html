@@ -1,0 +1,35 @@
+<html><!-- Online page at https://5bb907dfc577dca375448966aa7c7d174f937017.mdnplay.dev/en-US/docs/Web/SVG/Attribute/transform/runner.html?state=lZRta9swEMe%2Fys0w2Na6kiKXDS8JbG%2FGXpdtDXFe%2BEF%2BGLYUZLVOKP3uu7MTeyGlpAZzD7r%2F%2BeeD05OXtq0XeqVr6utIJybbo2kfC3iKNECpqqJ0IQjO33%2BN9HOkveu%2BFiVzqnqsVPfd7BaRx4HDjPdv5MGuqXWL2dK5bchY13U3nbwxtmB4zhlKI29JX5hblTqgBoJ0%2B6PTVZkrMZAUDBgYzSjKq7pGv7BKaQwZ9uk7vfN9sj81uFJBburadJUuQO3iZlsr6BTEFt%2Fttt5Tnqqa2NlqF5JuHUMKagP4rCX4AiTf9PkEMsg3sFjCWgBICA55%2BmMx1HNAH4OBpCurtARnY93mxjb9h%2Bg3Y10gRtxC%2B5CW4VDrzBZqlTtIjdXKhmDq7H4hONkVWqrRqruHBcTwqT%2BFKwTt3RW6Ck8khijxQQzOFbJj%2BvaoXmGQTOpsUud4MomOTkDqL3witDT%2FU8Tg7YjBOaIILmcMzhmFOEAmxjnTvDJJeTnmOEk5YsrLKcdJyokyOKV8ZZpvwAzOMcXscs7gBc7Pvdz3p80kB8b1HKL9SfT%2Fog6Zk20dUoeVtSo7ZsbtwPSwhB8kctHaEVHAPx5We06XxbK%2FeP7STYW2tSk6TGn%2F1x3LTNqyPyphd79%2FsG8OOyUPTrGxP%2FOe%2FwE%3D&code=59992043& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <rect x="10" y="10" width="30" height="20" fill="green"></rect>
+
+  <!--
+  In the following example we are applying the matrix:
+  [a c e]    [3 -1 30]
+  [b d f] => [1  3 40]
+  [0 0 1]    [0  0  1]
+
+  which transform the rectangle as such:
+
+  top left corner: oldX=10 oldY=10
+  newX = a * oldX + c * oldY + e = 3 * 10 - 1 * 10 + 30 = 50
+  newY = b * oldX + d * oldY + f = 1 * 10 + 3 * 10 + 40 = 80
+
+  top right corner: oldX=40 oldY=10
+  newX = a * oldX + c * oldY + e = 3 * 40 - 1 * 10 + 30 = 140
+  newY = b * oldX + d * oldY + f = 1 * 40 + 3 * 10 + 40 = 110
+
+  bottom left corner: oldX=10 oldY=30
+  newX = a * oldX + c * oldY + e = 3 * 10 - 1 * 30 + 30 = 30
+  newY = b * oldX + d * oldY + f = 1 * 10 + 3 * 30 + 40 = 140
+
+  bottom right corner: oldX=40 oldY=30
+  newX = a * oldX + c * oldY + e = 3 * 40 - 1 * 30 + 30 = 120
+  newY = b * oldX + d * oldY + f = 1 * 40 + 3 * 30 + 40 = 170
+  -->
+  <rect x="10" y="10" width="30" height="20" fill="red" transform="matrix(3 1 -1 3 30 40)"></rect>
+</svg>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script></body></html>

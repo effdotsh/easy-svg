@@ -1,0 +1,25 @@
+<html><!-- Online page at https://2b77accd3ed642b0d2ff4f03d6be04843898c054.mdnplay.dev/en-US/docs/Web/API/SVGMaskElement/height/runner.html?state=hVRhT9swEP0rt2wTrZYmDaOToAEJJjYhjWkTg0lTPuAkJjG4dmY7bSPU%2F76zk6aBoU1tGt%2F57vnuvXMfvUxr78grzYL7iUhl3uBLLwt4TARASVlRmiOIptO380RsEuH5LhZT4pwtT2xQbMOXjK7O5Po48SbRFOwT7bsn8WDFclPiDqKg1WJuTYeAGAuiH4Dl6LYrDLNQNtya14IZjbZM72lmzmQtciYKPK7PR4RXkwmcL6lqTImbgDFUAYFVyQyFiq0px0I4h5RisZqlnMJksktXiNwf2nTvf1UOd4iGhjsAzRCx%2FldMykn28KwYJl4qpyKm3BoAlpfLaOq%2Fn8Hp%2FtTHr%2F1E%2Fuxv16FzfcfXh5ndP0Qjckab%2FyvxdrhdC66sroXufCLYgmBffSgxRrG0NvQrWVDMackYgi0Jr6mVKTo4mE%2Fn%2BDvczWuFWzM99ClaUWI%2Bop6WVYYk3TGxY9MVEtoB6KmNK8mbQgqoJBNuJnDU%2FMiO2%2BCNvp0%2BUhFRPBXIybNipgSUR7sRA1JVnNHchxWFxKtqkZWYQ1B0ogzoklQUSsmtXkZiHoWMqWyoWtw5MjtFM1tB1mxXaruwZ%2BG6Vnz02q7Hfa9xiPcIV3HYXqy4UrS9EVwWOOhxiI4TdwPv7ZXNpNCmrf0YcpnVCypMUFBzzqldnjUX%2BWh7ncZz2%2FsddmUYspczXXHSfJHFaNze9BbNqn5jZURImxi0KgedP3ASz3fxKdH0pfjOP4jHHgJD1yi2MFgcxt%2F%2BQA73nh6wByjHm8e%2BjE2QJOL2RYB3zxC6IzuEvrBN0KYr%2BhuH05y6sUYKPikc49GOh3H79zYkZu641ipDskMqJtdXIdKsw580DU%2B%2FXYRXN58vseeO7rCtI%2FQ2fwA%3D&code=68755498& --><head><meta charset="utf-8"><title></title><link rel="stylesheet" href="../../../../../../css_1.css" type="text/css"><link rel="stylesheet" href="../../../../../../css_2.css" type="text/css"></head><body>
+    <div>
+  <svg viewBox="-10 -10 120 120" width="100" height="100">
+    <mask id="mask" x="0" maskUnits="objectBoundingBox">
+      <!-- Everything under a white pixel will be visible -->
+      <rect x="0" y="0" width="100" height="100" fill="white"></rect>
+
+      <!-- Everything under a black pixel will be invisible -->
+      <path d="M10,35 A20,20,0,0,1,50,35 A20,20,0,0,1,90,35 Q90,65,50,95 Q10,65,10,35 Z" fill="black"></path>
+      <animate attributeName="height" values="144;0;144" dur="5s" repeatCount="indefinite"></animate>
+    </mask>
+
+    <polygon points="-10,110 110,110 110,-10" fill="orange"></polygon>
+
+    <!-- with this mask applied, we "punch" a heart shape hole into the circle -->
+    <circle cx="50" cy="50" r="50" mask="url(#mask)"></circle>
+  </svg>
+</div>
+<pre id="log">The 'height.animVal' is 144.
+The 'height.baseVal' is 144.</pre>
+
+    
+  
+
+<script type='text/javascript' src='../../../../../../js_1.js'></script><script type='text/javascript' src='../../../../../../js_2.js'></script></body></html>
