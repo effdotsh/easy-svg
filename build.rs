@@ -27,15 +27,23 @@ struct Document {
 #[derive(Debug, Default)]
 struct AttributeInfo {
     syntax: String,
+    summary: String,
+    element_docs: BTreeMap<String, String>,
     global: bool,
     elements: BTreeSet<String>,
+}
+
+#[derive(Debug, Default)]
+struct AttributeUse {
+    syntax: String,
+    docs: String,
 }
 
 #[derive(Debug, Default)]
 struct ElementInfo {
     name: String,
     summary: String,
-    attributes: BTreeMap<String, String>,
+    attributes: BTreeMap<String, AttributeUse>,
     categories: BTreeSet<String>,
     child_categories: BTreeSet<String>,
     child_elements: BTreeSet<String>,
@@ -46,6 +54,7 @@ struct ElementInfo {
 struct PathCommand {
     command: String,
     parameters: Vec<String>,
+    docs: String,
 }
 
 #[derive(Debug)]
@@ -53,6 +62,7 @@ struct TransformFunction {
     name: String,
     required: Vec<String>,
     optional: Vec<String>,
+    docs: String,
 }
 
 fn main() {
@@ -70,11 +80,29 @@ fn main() {
     for path in element_paths {
         let mut element = parse_element_doc(&path, &attributes);
         for (attribute_name, attribute) in &attributes {
-            if attribute.global || attribute.elements.contains(&element.name) {
+            if element.attributes.contains_key(attribute_name)
+                || attribute.global
+                || attribute.elements.contains(&element.name)
+            {
+                let docs = attribute
+                    .element_docs
+                    .get(&element.name)
+                    .unwrap_or(&attribute.summary)
+                    .clone();
+                let docs = with_mdn_attribute_reference(&docs, attribute_name);
                 element
                     .attributes
                     .entry(attribute_name.clone())
-                    .or_insert_with(|| attribute.syntax.clone());
+                    .and_modify(|usage| {
+                        usage.docs.clone_from(&docs);
+                        if usage.syntax.is_empty() {
+                            usage.syntax.clone_from(&attribute.syntax);
+                        }
+                    })
+                    .or_insert_with(|| AttributeUse {
+                        syntax: attribute.syntax.clone(),
+                        docs,
+                    });
             }
         }
         elements.insert(element.name.clone(), element);
@@ -142,6 +170,10 @@ fn parse_path_commands() -> Vec<PathCommand> {
         let Some(content) = value.get("content").and_then(serde_json::Value::as_str) else {
             continue;
         };
+        let docs = with_mdn_section_reference(
+            &first_paragraph_docs(content),
+            &format!("Attribute/d#{id}"),
+        );
         let fragment = Html::parse_fragment(content);
         for row in fragment.select(&row) {
             let command_heading = row.select(&heading).next().map(text).unwrap_or_default();
@@ -189,6 +221,7 @@ fn parse_path_commands() -> Vec<PathCommand> {
                 commands.entry(command.clone()).or_insert(PathCommand {
                     command,
                     parameters: parameters.clone(),
+                    docs: docs.clone(),
                 });
             }
         }
@@ -212,6 +245,10 @@ fn parse_transform_functions() -> Vec<TransformFunction> {
         let Some(content) = value.get("content").and_then(serde_json::Value::as_str) else {
             continue;
         };
+        let docs = with_mdn_section_reference(
+            &first_paragraph_docs(content),
+            &format!("Attribute/transform#{id}"),
+        );
         let fragment = Html::parse_fragment(content);
         let Some(signature) = fragment.select(&code).next().map(text) else {
             continue;
@@ -260,6 +297,7 @@ fn parse_transform_functions() -> Vec<TransformFunction> {
             name: name.to_owned(),
             required,
             optional,
+            docs,
         });
     }
     functions
@@ -315,6 +353,10 @@ fn all_content(doc: &Document) -> String {
 }
 
 fn parse_attribute_docs(element_names: &BTreeSet<String>) -> BTreeMap<String, AttributeInfo> {
+    let element_ids = element_names
+        .iter()
+        .map(|name| (name.to_ascii_lowercase(), name.clone()))
+        .collect::<BTreeMap<_, _>>();
     let mut attributes = BTreeMap::new();
     for path in html_files(ATTRIBUTE_DIR) {
         let hydration = hydration(&path);
@@ -325,9 +367,29 @@ fn parse_attribute_docs(element_names: &BTreeSet<String>) -> BTreeMap<String, At
         let content = all_content(&hydration.doc);
         let mut info = AttributeInfo {
             syntax: extract_value_syntax(&content),
+            summary: normalize_doc_text(&hydration.doc.summary),
+            element_docs: BTreeMap::new(),
             global: content.contains("with any SVG element"),
             elements: BTreeSet::new(),
         };
+        for body in &hydration.doc.body {
+            let Some(value) = body.get("value") else {
+                continue;
+            };
+            let Some(id) = value.get("id").and_then(serde_json::Value::as_str) else {
+                continue;
+            };
+            let Some(element) = element_ids.get(id) else {
+                continue;
+            };
+            let Some(content) = value.get("content").and_then(serde_json::Value::as_str) else {
+                continue;
+            };
+            let docs = attribute_section_docs(content);
+            if !docs.is_empty() {
+                info.element_docs.insert(element.clone(), docs);
+            }
+        }
         for key in &hydration.doc.browser_compat {
             if key.starts_with("svg.global_attributes.") {
                 info.global = true;
@@ -384,6 +446,111 @@ fn extract_value_syntax(content: &str) -> String {
     values.into_iter().collect::<Vec<_>>().join(" | ")
 }
 
+fn attribute_section_docs(content: &str) -> String {
+    let fragment = Html::parse_fragment(content);
+    let paragraph = selector("p");
+    let row = selector("tr");
+    let th = selector("th");
+    let td = selector("td");
+    let mut lines = Vec::new();
+
+    if let Some(description) = fragment.select(&paragraph).next().map(text) {
+        let description = normalize_doc_text(&description);
+        if !description.is_empty() {
+            lines.push(description);
+        }
+    }
+
+    let mut properties = Vec::new();
+    for row in fragment.select(&row) {
+        let heading = row.select(&th).next().map(text).unwrap_or_default();
+        if !matches!(heading.as_str(), "Value" | "Default value" | "Animatable") {
+            continue;
+        }
+        let Some(value) = row.select(&td).next().map(text) else {
+            continue;
+        };
+        let value = normalize_doc_text(&value);
+        if !value.is_empty() {
+            properties.push(format!("{heading}: {value}"));
+        }
+    }
+
+    if !properties.is_empty() {
+        if !lines.is_empty() {
+            lines.push(String::new());
+        }
+        lines.extend(properties);
+    }
+
+    lines.join("\n")
+}
+
+fn first_paragraph_docs(content: &str) -> String {
+    let fragment = Html::parse_fragment(content);
+    fragment
+        .select(&selector("p"))
+        .next()
+        .map(text)
+        .map(|value| normalize_doc_text(&value))
+        .unwrap_or_default()
+}
+
+fn normalize_doc_text(value: &str) -> String {
+    code_format_angle_terms(value)
+        .replace('[', r"\[")
+        .replace(']', r"\]")
+        .split_whitespace()
+        .collect::<Vec<_>>()
+        .join(" ")
+        .replace(" ,", ",")
+        .replace(" .", ".")
+        .replace("( ", "(")
+        .replace(" )", ")")
+}
+
+fn code_format_angle_terms(value: &str) -> String {
+    let mut output = String::new();
+    let mut chars = value.chars().peekable();
+    while let Some(character) = chars.next() {
+        if character != '<' {
+            output.push(character);
+            continue;
+        }
+
+        let mut term = String::from("<");
+        for next in chars.by_ref() {
+            term.push(next);
+            if next == '>' {
+                break;
+            }
+        }
+
+        if term.ends_with('>') {
+            output.push('`');
+            output.push_str(&term);
+            output.push('`');
+        } else {
+            output.push_str(&term);
+        }
+    }
+    output
+}
+
+fn with_mdn_attribute_reference(docs: &str, attribute: &str) -> String {
+    with_mdn_section_reference(docs, &format!("Attribute/{attribute}"))
+}
+
+fn with_mdn_section_reference(docs: &str, path: &str) -> String {
+    let reference =
+        format!("[MDN reference](https://developer.mozilla.org/en-US/docs/Web/SVG/{path})");
+    if docs.is_empty() {
+        reference
+    } else {
+        format!("{docs}\n\n{reference}")
+    }
+}
+
 fn parse_element_doc(path: &Path, attributes: &BTreeMap<String, AttributeInfo>) -> ElementInfo {
     let hydration = hydration(path);
     let name = path
@@ -393,7 +560,7 @@ fn parse_element_doc(path: &Path, attributes: &BTreeMap<String, AttributeInfo>) 
         .to_owned();
     let mut element = ElementInfo {
         name,
-        summary: hydration.doc.summary.clone(),
+        summary: normalize_doc_text(&hydration.doc.summary),
         ..ElementInfo::default()
     };
 
@@ -409,7 +576,7 @@ fn parse_element_doc(path: &Path, attributes: &BTreeMap<String, AttributeInfo>) 
 fn parse_element_attributes(
     content: &str,
     registry: &BTreeMap<String, AttributeInfo>,
-    output: &mut BTreeMap<String, String>,
+    output: &mut BTreeMap<String, AttributeUse>,
 ) {
     let fragment = Html::parse_fragment(content);
     let dl_selector = selector("dl");
@@ -429,7 +596,13 @@ fn parse_element_attributes(
                 "dd" => {
                     if let Some(name) = current.take() {
                         let description = text(child);
-                        output.insert(name, inline_value_syntax(&description));
+                        output.insert(
+                            name,
+                            AttributeUse {
+                                syntax: inline_value_syntax(&description),
+                                docs: normalize_doc_text(&description),
+                            },
+                        );
                     }
                 }
                 _ => {}
@@ -448,11 +621,17 @@ fn parse_element_attributes(
                 .map(text)
                 .unwrap_or_default();
             if !name.is_empty() {
-                let syntax = registry
+                let usage = registry
                     .get(&name)
-                    .map(|info| info.syntax.clone())
-                    .unwrap_or_else(|| name.clone());
-                output.entry(name).or_insert(syntax);
+                    .map(|info| AttributeUse {
+                        syntax: info.syntax.clone(),
+                        docs: info.summary.clone(),
+                    })
+                    .unwrap_or_else(|| AttributeUse {
+                        syntax: name.clone(),
+                        docs: String::new(),
+                    });
+                output.entry(name).or_insert(usage);
             }
         }
     }
@@ -621,8 +800,10 @@ fn generate_svg_types(
     let path_methods = path_commands.iter().map(|command| {
         let method = format_ident!("{}", command.command);
         let command_name = &command.command;
+        let docs = &command.docs;
         if command.parameters.is_empty() {
             return quote! {
+                #[doc = #docs]
                 pub fn #method(mut self) -> Self {
                     self.commands.push(#command_name.to_owned());
                     self
@@ -647,6 +828,7 @@ fn generate_svg_types(
             }
         });
         quote! {
+            #[doc = #docs]
             pub fn #method(mut self, #( #parameters ),*) -> Self {
                 let arguments = [#( #arguments ),*].join(" ");
                 self.commands.push(
@@ -663,6 +845,7 @@ fn generate_svg_types(
     let transform_methods = transform_functions.iter().map(|function| {
         let method = method_ident(&function.name);
         let function_name = &function.name;
+        let docs = &function.docs;
         let required_parameters = function.required.iter().map(|parameter| {
             let ident = method_ident(parameter);
             quote! { #ident: f64 }
@@ -705,6 +888,7 @@ fn generate_svg_types(
         };
 
         quote! {
+            #[doc = #docs]
             pub fn #method(mut self, #( #required_parameters ),* #optional_parameter) -> Self {
                 let #arguments_mutability arguments: Vec<String> = vec![#( #required_arguments ),*];
                 #optional_arguments
@@ -1306,11 +1490,13 @@ fn generate_element(
 ) -> TokenStream {
     let type_name = type_ident(&element.name);
     let tag_name = &element.name;
-    let doc = &element.summary;
-    let setters = element.attributes.iter().map(|(name, syntax)| {
+    let doc = with_mdn_section_reference(&element.summary, &format!("Element/{}", element.name));
+    let setters = element.attributes.iter().map(|(name, usage)| {
         let method = method_ident(name);
-        let value_type = value_type(name, syntax);
+        let value_type = value_type(name, &usage.syntax);
+        let docs = &usage.docs;
         quote! {
+            #[doc = #docs]
             pub fn #method<T>(mut self, value: T) -> Self
             where
                 T: Into<#value_type>,

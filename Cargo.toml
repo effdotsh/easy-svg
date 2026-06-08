@@ -1,6 +1,6 @@
 [package]
 name = "easy-svg"
-version = "0.3.2"
+version = "0.4.0"
 edition = "2024"
 authors = ["effdotsh"]
 license = "MIT"
@@ -25,15 +25,15 @@ include = [
 serde = { version = "1.0.219", features = ["derive"] }
 
 [lints.rust]
-unused_variables = "deny"
+unused_variables = { level = "deny" }
 #dead_code = "deny"
-unused_imports = "deny"
+unused_imports = { level = "deny" }
 
-[workspace.lints.clippy]
-pedantic = "warn"
-nursery = "warn"
-cargo = "warn"
-cognitive_complexity = "warn"
+[lints.clippy]
+pedantic = { level = "warn" }
+nursery = { level = "warn" }
+cargo = { level = "warn" }
+cognitive_complexity = { level = "warn" }
 new_without_default = { level = "deny", priority = 2 }
 
 [build-dependencies]
