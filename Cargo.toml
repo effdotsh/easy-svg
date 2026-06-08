@@ -8,6 +8,8 @@ description = "Author SVGs in Rust through a statically typed system"
 homepage = "https://github.com/effdotsh/easy-svg"
 readme = "README.md"
 repository = "https://github.com/effdotsh/easy-svg"
+keywords = ["svg", "xml", "graphics", "builder"]
+categories = ["graphics", "rendering"]
 include = [
     "/Cargo.toml",
     "/Cargo.lock",
@@ -26,7 +28,6 @@ serde = { version = "1.0.219", features = ["derive"] }
 
 [lints.rust]
 unused_variables = { level = "deny" }
-#dead_code = "deny"
 unused_imports = { level = "deny" }
 
 [lints.clippy]

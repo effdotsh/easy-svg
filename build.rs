@@ -123,14 +123,6 @@ fn main() {
         format_rust_code(&generated.to_string()),
     )
     .expect("write generated Rust");
-
-    println!(
-        "cargo:warning=generated {} SVG elements, {} documented attributes, {} path commands, and {} transform functions from MDN",
-        elements.len(),
-        attributes.len(),
-        path_commands.len(),
-        transform_functions.len(),
-    );
 }
 
 fn parse_preserve_aspect_ratio() -> Vec<String> {
@@ -218,11 +210,13 @@ fn parse_path_commands() -> Vec<PathCommand> {
                 .unwrap_or_default();
 
             for command in command_names {
-                commands.entry(command.clone()).or_insert(PathCommand {
-                    command,
-                    parameters: parameters.clone(),
-                    docs: docs.clone(),
-                });
+                commands
+                    .entry(command.clone())
+                    .or_insert_with(|| PathCommand {
+                        command,
+                        parameters: parameters.clone(),
+                        docs: docs.clone(),
+                    });
             }
         }
     }
@@ -325,10 +319,10 @@ fn hydration(path: &Path) -> Hydration {
         .find(marker)
         .unwrap_or_else(|| panic!("no MDN hydration data in {}", path.display()))
         + marker.len();
-    let end = html[start..]
-        .find("</script>")
-        .map(|offset| start + offset)
-        .unwrap_or_else(|| panic!("unterminated hydration data in {}", path.display()));
+    let end = html[start..].find("</script>").map_or_else(
+        || panic!("unterminated hydration data in {}", path.display()),
+        |offset| start + offset,
+    );
     serde_json::from_str(&html[start..end])
         .unwrap_or_else(|error| panic!("invalid hydration data in {}: {error}", path.display()))
 }
@@ -402,7 +396,7 @@ fn parse_attribute_docs(element_names: &BTreeSet<String>) -> BTreeMap<String, At
             }
         }
         if info.syntax.is_empty() {
-            info.syntax = name.clone();
+            info.syntax.clone_from(&name);
         }
         attributes.insert(name, info);
     }
@@ -511,7 +505,7 @@ fn normalize_doc_text(value: &str) -> String {
 
 fn code_format_angle_terms(value: &str) -> String {
     let mut output = String::new();
-    let mut chars = value.chars().peekable();
+    let mut chars = value.chars();
     while let Some(character) = chars.next() {
         if character != '<' {
             output.push(character);
@@ -621,16 +615,16 @@ fn parse_element_attributes(
                 .map(text)
                 .unwrap_or_default();
             if !name.is_empty() {
-                let usage = registry
-                    .get(&name)
-                    .map(|info| AttributeUse {
-                        syntax: info.syntax.clone(),
-                        docs: info.summary.clone(),
-                    })
-                    .unwrap_or_else(|| AttributeUse {
+                let usage = registry.get(&name).map_or_else(
+                    || AttributeUse {
                         syntax: name.clone(),
                         docs: String::new(),
-                    });
+                    },
+                    |info| AttributeUse {
+                        syntax: info.syntax.clone(),
+                        docs: info.summary.clone(),
+                    },
+                );
                 output.entry(name).or_insert(usage);
             }
         }
@@ -643,8 +637,7 @@ fn inline_value_syntax(description: &str) -> String {
     };
     after
         .split_once("Default value")
-        .map(|(value, _)| value)
-        .unwrap_or(after)
+        .map_or(after, |(value, _)| value)
         .trim_matches(|character: char| {
             character.is_whitespace() || character == ':' || character == ';'
         })
@@ -654,17 +647,17 @@ fn inline_value_syntax(description: &str) -> String {
 fn parse_usage_context(content: &str, element: &mut ElementInfo) {
     let fragment = Html::parse_fragment(content);
     let row_selector = selector("tr");
-    let th_selector = selector("th");
-    let td_selector = selector("td");
+    let heading_selector = selector("th");
+    let value_selector = selector("td");
     let link_selector = selector("a");
 
     for row in fragment.select(&row_selector) {
         let heading = row
-            .select(&th_selector)
+            .select(&heading_selector)
             .next()
             .map(text)
             .unwrap_or_default();
-        let Some(value) = row.select(&td_selector).next() else {
+        let Some(value) = row.select(&value_selector).next() else {
             continue;
         };
         if heading == "Categories" {
@@ -720,6 +713,19 @@ fn generate(
         let name = type_ident(&element.name);
         quote! { Self::#name(element) => std::fmt::Display::fmt(element, f) }
     });
+    let node_format_arms = elements.values().map(|element| {
+        let name = type_ident(&element.name);
+        let tag_name = &element.name;
+        quote! {
+            Self::#name(element) => crate::render_element_with_options(
+                output,
+                #tag_name,
+                &element.data,
+                options,
+                depth,
+            )
+        }
+    });
     let node_from_impls = elements.values().map(|element| {
         let name = type_ident(&element.name);
         quote! {
@@ -771,6 +777,25 @@ fn generate(
             }
         }
 
+        impl Node {
+            pub(crate) fn supports_pretty_indentation(&self) -> bool {
+                !matches!(self, Self::CharacterData(_) | Self::Raw(_))
+            }
+
+            pub(crate) fn render_with_options(
+                &self,
+                output: &mut String,
+                options: &crate::FormatOptions,
+                depth: usize,
+            ) {
+                match self {
+                    #( #node_format_arms, )*
+                    Self::CharacterData(value) => output.push_str(&crate::escape_text(value)),
+                    Self::Raw(value) => output.push_str(&value.to_string()),
+                }
+            }
+        }
+
         pub mod elements {
             use crate::types::*;
             use crate::{ElementData, Node};
@@ -783,6 +808,7 @@ fn generate(
     }
 }
 
+#[allow(clippy::too_many_lines)]
 fn generate_svg_types(
     preserve_aspect_ratio: &[String],
     path_commands: &[PathCommand],
@@ -1008,6 +1034,7 @@ fn generate_svg_types(
     }
 }
 
+#[allow(clippy::too_many_lines)]
 fn generate_value_helpers() -> TokenStream {
     quote! {
         #[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
@@ -1484,6 +1511,7 @@ fn generate_value_helpers() -> TokenStream {
     }
 }
 
+#[allow(clippy::too_many_lines)]
 fn generate_element(
     element: &ElementInfo,
     elements: &BTreeMap<String, ElementInfo>,
@@ -1572,7 +1600,7 @@ fn generate_element(
         #[doc = #doc]
         #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
         pub struct #type_name {
-            data: ElementData,
+            pub(super) data: ElementData,
         }
 
         impl SvgElement for #type_name {}
@@ -1591,6 +1619,26 @@ fn generate_element(
             pub fn add_child_unchecked(mut self, child: impl Into<Node>) -> Self {
                 self.data.push_child(child);
                 self
+            }
+
+            /// Renders this element using the given formatting options.
+            #[must_use]
+            pub fn to_string_with_options(&self, options: &crate::FormatOptions) -> String {
+                let mut output = String::new();
+                crate::render_element_with_options(
+                    &mut output,
+                    #tag_name,
+                    &self.data,
+                    options,
+                    0,
+                );
+                output
+            }
+
+            /// Renders this element with two-space indentation.
+            #[must_use]
+            pub fn to_string_pretty(&self) -> String {
+                self.to_string_with_options(&crate::FormatOptions::pretty())
             }
 
             #( #setters )*

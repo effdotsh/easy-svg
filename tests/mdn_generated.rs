@@ -22,7 +22,7 @@ fn builds_typed_mdn_elements() {
 
     assert_eq!(
         svg.to_string(),
-        r##"<svg viewBox="0 0 100 100"><g id="shapes" transform="translate(5 10)"><polygon points="0,0 20,0 10,20" fill="gold"/><path d="M 0 0 L 10 10 Z" stroke="black" fill="none"/></g></svg>"##
+        r#"<svg viewBox="0 0 100 100"><g id="shapes" transform="translate(5 10)"><polygon points="0,0 20,0 10,20" fill="gold"/><path d="M 0 0 L 10 10 Z" stroke="black" fill="none"/></g></svg>"#
     );
 }
 

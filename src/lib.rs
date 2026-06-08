@@ -1,5 +1,39 @@
 use serde::{Deserialize, Serialize};
-use std::fmt::{Display, Formatter};
+use std::fmt::{Display, Formatter, Write};
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+/// Controls how an SVG element is rendered to a string.
+pub struct FormatOptions {
+    indent: Option<String>,
+}
+
+impl FormatOptions {
+    /// Renders without insignificant whitespace.
+    #[must_use]
+    pub const fn compact() -> Self {
+        Self { indent: None }
+    }
+
+    /// Renders element children on separate lines with two-space indentation.
+    #[must_use]
+    pub fn pretty() -> Self {
+        Self::pretty_with_indent("  ")
+    }
+
+    /// Renders element children on separate lines with the given indentation.
+    #[must_use]
+    pub fn pretty_with_indent(indent: impl Into<String>) -> Self {
+        Self {
+            indent: Some(indent.into()),
+        }
+    }
+}
+
+impl Default for FormatOptions {
+    fn default() -> Self {
+        Self::compact()
+    }
+}
 
 #[doc(hidden)]
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
@@ -40,6 +74,49 @@ pub fn render_element(name: &str, data: &ElementData, f: &mut Formatter<'_>) -> 
     write!(f, "</{name}>")
 }
 
+#[doc(hidden)]
+pub fn render_element_with_options(
+    output: &mut String,
+    name: &str,
+    data: &ElementData,
+    options: &FormatOptions,
+    depth: usize,
+) {
+    if let Some(indent) = &options.indent {
+        output.push_str(&indent.repeat(depth));
+    }
+    write!(output, "<{name}").expect("writing to String cannot fail");
+    for (attribute, value) in &data.attributes {
+        write!(output, " {attribute}=\"{}\"", escape_attribute(value))
+            .expect("writing to String cannot fail");
+    }
+    if data.children.is_empty() {
+        output.push_str("/>");
+        return;
+    }
+
+    output.push('>');
+    let pretty_children =
+        options.indent.is_some() && data.children.iter().all(Node::supports_pretty_indentation);
+    if pretty_children {
+        output.push('\n');
+        for (index, child) in data.children.iter().enumerate() {
+            child.render_with_options(output, options, depth + 1);
+            if index + 1 != data.children.len() {
+                output.push('\n');
+            }
+        }
+        output.push('\n');
+        output.push_str(&options.indent.as_deref().unwrap_or_default().repeat(depth));
+    } else {
+        let compact = FormatOptions::compact();
+        for child in &data.children {
+            child.render_with_options(output, &compact, 0);
+        }
+    }
+    write!(output, "</{name}>").expect("writing to String cannot fail");
+}
+
 fn escape_attribute(value: &str) -> String {
     value
         .replace('&', "&amp;")
@@ -66,6 +143,7 @@ impl Display for Raw {
     }
 }
 
+#[allow(clippy::nursery, clippy::pedantic)]
 pub mod generated {
     include!(concat!(env!("OUT_DIR"), "/generated.rs"));
 }

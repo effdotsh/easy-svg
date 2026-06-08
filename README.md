@@ -20,6 +20,7 @@ assert_eq!(
 Parents expose typed `.add_child(...)` and `.add_children(...)` methods.
 Open-ended values accept strings; `.attr(...)` and `.add_child_unchecked(...)`
 are escape hatches to build invalid SVGs.
+Use `.to_string_pretty()` for copy-friendly output.
 
 To regenerate after replacing `SVG/`:
 
